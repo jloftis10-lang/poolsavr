@@ -1,0 +1,87 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SatelliteVisual from '../components/SatelliteVisual.astro';
+
+const values = [
+  {
+    title: 'Accuracy over optimism',
+    body: 'When imagery is unclear, we say so. A flagged measurement is more useful than a confident wrong number.',
+  },
+  {
+    title: 'Speed wins jobs',
+    body: 'The contractor who answers first usually gets the work. Everything we build shortens the gap between question and quote.',
+  },
+  {
+    title: 'Your business, your brand',
+    body: 'We are infrastructure, not a marketplace. We never sell your leads or put ourselves between you and your customer.',
+  },
+];
+---
+
+<Layout
+  title="About — PoolSavr"
+  description="Why we built satellite pool measurement for contractors."
+>
+  <section class="bg-navy-900 py-16">
+    <div class="container-page text-center">
+      <span class="eyebrow bg-blue-500/15 text-blue-300">About</span>
+      <h1 class="mx-auto mt-6 max-w-3xl text-4xl text-white sm:text-5xl">
+        We got tired of driving across town with a measuring wheel
+      </h1>
+    </div>
+  </section>
+
+  <section class="bg-white py-20">
+    <div class="container-page">
+      <div class="grid items-center gap-14 lg:grid-cols-2">
+        <div class="space-y-5 text-lg leading-relaxed text-navy-600">
+          <p>
+            Estimating a pool job has always started the same way: get in the
+            truck, drive out, walk the property, measure by hand, drive back, then
+            build the quote. Half a day gone before anyone talks about price.
+          </p>
+          <p>
+            Meanwhile the imagery needed to answer that question already exists.
+            Satellites photograph nearly every residential property in the country
+            at resolution good enough to trace a pool edge within a few inches.
+          </p>
+          <p>
+            PoolSavr closes that gap. Type an address, get the measurements, send
+            the quote. What used to take an afternoon takes about a minute — and
+            the customer gets an answer the same day they asked.
+          </p>
+        </div>
+
+        <SatelliteVisual class="shadow-xl ring-1 ring-navy-900/5" />
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-navy-50 py-20">
+    <div class="container-page">
+      <h2 class="text-center text-3xl sm:text-4xl">What we care about</h2>
+      <div class="mt-12 grid gap-8 md:grid-cols-3">
+        {
+          values.map((value) => (
+            <div class="card">
+              <h3 class="text-lg">{value.title}</h3>
+              <p class="mt-3 leading-relaxed text-navy-500">{value.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-blue-600 py-16">
+    <div class="container-page text-center">
+      <h2 class="text-3xl text-white">See it on a pool you know</h2>
+      <p class="mx-auto mt-3 max-w-lg text-blue-100">
+        Run your own address and compare our numbers to your tape.
+      </p>
+      <a href="/quote" class="btn mt-7 bg-white px-8 text-blue-700 hover:bg-blue-50">
+        Get a free measurement
+      </a>
+    </div>
+  </section>
+</Layout>

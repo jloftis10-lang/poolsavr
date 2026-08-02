@@ -1,0 +1,26 @@
+---
+interface Props {
+  variant?: 'dark' | 'light';
+}
+
+const { variant = 'dark' } = Astro.props;
+---
+
+<form action="/quote" method="get" class="flex flex-col gap-3 sm:flex-row">
+  <label for={`address-${variant}`} class="sr-only">Property address</label>
+  <input
+    id={`address-${variant}`}
+    type="text"
+    name="address"
+    required
+    autocomplete="street-address"
+    placeholder="Enter a property address"
+    class:list={[
+      'input grow',
+      variant === 'dark' && 'border-transparent bg-white/95 shadow-lg',
+    ]}
+  />
+  <button type="submit" class="btn-primary shrink-0">
+    Measure my pool
+  </button>
+</form>

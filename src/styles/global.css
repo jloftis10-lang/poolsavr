@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand palette — matched to the POOLSAVR logotype (navy + blue) with a
+     pool-water aqua accent used sparingly for imagery/gradients. */
+  --color-navy-50: #eef2f8;
+  --color-navy-100: #d7e0ee;
+  --color-navy-200: #aec0dd;
+  --color-navy-300: #7f9bc6;
+  --color-navy-400: #4d6fa0;
+  --color-navy-500: #2c4a78;
+  --color-navy-600: #1a3258;
+  --color-navy-700: #12233f;
+  --color-navy-800: #0c1a2f;
+  --color-navy-900: #0b1e3d;
+  --color-navy-950: #070f20;
+
+  --color-blue-50: #eaf2ff;
+  --color-blue-100: #d0e2ff;
+  --color-blue-200: #a3c6ff;
+  --color-blue-300: #6fa4ff;
+  --color-blue-400: #3d82fa;
+  --color-blue-500: #1c74e9;
+  --color-blue-600: #135ec4;
+  --color-blue-700: #0f4a9a;
+  --color-blue-800: #0e3d7c;
+  --color-blue-900: #0f3465;
+
+  --color-aqua-50: #ecfeff;
+  --color-aqua-100: #cffafe;
+  --color-aqua-200: #a5f3fc;
+  --color-aqua-300: #67e8f9;
+  --color-aqua-400: #22d3ee;
+  --color-aqua-500: #06b6d4;
+  --color-aqua-600: #0891b2;
+
+  --font-display: "Chakra Petch", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-glow: 0 20px 60px -20px rgb(28 116 233 / 0.35);
+  --animate-wave: wave 8s ease-in-out infinite;
+  --animate-scan: scan 2.4s ease-in-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
+}
+
+@keyframes wave {
+  0%, 100% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(-2%) translateY(-2%); }
+}
+
+@keyframes scan {
+  0% { transform: translateY(-100%); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-navy-900 font-sans antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight text-navy-900;
+  }
+}
+
+@utility container-page {
+  @apply mx-auto w-full max-w-7xl px-6 lg:px-8;
+}
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2;
+}
+
+@utility btn-primary {
+  @apply btn bg-blue-500 text-white shadow-glow hover:bg-blue-600 active:bg-blue-700;
+}
+
+@utility btn-secondary {
+  @apply btn bg-navy-900 text-white hover:bg-navy-800;
+}
+
+@utility btn-outline {
+  @apply btn border-2 border-navy-200 text-navy-900 hover:border-blue-400 hover:text-blue-600;
+}
+
+@utility btn-ghost {
+  @apply btn text-navy-700 hover:text-blue-600;
+}
+
+@utility eyebrow {
+  @apply inline-flex items-center gap-2 rounded-full bg-blue-50 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-blue-600;
+}
+
+@utility card {
+  @apply rounded-2xl border border-navy-100 bg-white p-6 shadow-sm transition-shadow hover:shadow-lg;
+}
+
+@utility input {
+  @apply w-full rounded-xl border border-navy-200 bg-white px-4 py-3 text-navy-900 placeholder:text-navy-300 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-100;
+}

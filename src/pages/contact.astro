@@ -1,0 +1,130 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Contact — PoolSavr"
+  description="Book a demo or ask us anything about satellite pool measurement."
+>
+  <section class="bg-navy-900 py-16">
+    <div class="container-page text-center">
+      <span class="eyebrow bg-blue-500/15 text-blue-300">Contact</span>
+      <h1 class="mt-6 text-4xl text-white sm:text-5xl">Let's talk</h1>
+      <p class="mx-auto mt-4 max-w-xl text-lg text-navy-200">
+        Questions about accuracy, pricing, or fitting PoolSavr into how you
+        already work? We'll give you a straight answer.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-navy-50 py-20">
+    <div class="container-page">
+      <div class="mx-auto grid max-w-5xl gap-10 lg:grid-cols-[1.4fr_1fr]">
+        <div class="rounded-3xl bg-white p-8 shadow-lg sm:p-10">
+          <h2 class="text-2xl">Send us a message</h2>
+
+          <form data-lead-form class="mt-8 space-y-5" novalidate>
+            <input type="hidden" name="formType" value="contact" />
+            <div class="hidden" aria-hidden="true">
+              <label>
+                Don't fill this out
+                <input name="botField" tabindex="-1" autocomplete="off" />
+              </label>
+            </div>
+
+            <div class="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label for="name" class="mb-2 block text-sm font-semibold text-navy-800">
+                  Full name
+                </label>
+                <input id="name" name="name" type="text" required class="input" />
+              </div>
+              <div>
+                <label for="company" class="mb-2 block text-sm font-semibold text-navy-800">
+                  Company
+                </label>
+                <input id="company" name="company" type="text" class="input" />
+              </div>
+            </div>
+
+            <div class="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label for="email" class="mb-2 block text-sm font-semibold text-navy-800">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  autocomplete="email"
+                  class="input"
+                />
+              </div>
+              <div>
+                <label for="phone" class="mb-2 block text-sm font-semibold text-navy-800">
+                  Phone
+                </label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" class="input" />
+              </div>
+            </div>
+
+            <div>
+              <label for="topic" class="mb-2 block text-sm font-semibold text-navy-800">
+                What's this about?
+              </label>
+              <select id="topic" name="topic" class="input">
+                <option>Book a demo</option>
+                <option>Pricing & plans</option>
+                <option>Measurement accuracy</option>
+                <option>Integrations</option>
+                <option>Something else</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="message" class="mb-2 block text-sm font-semibold text-navy-800">
+                Message
+              </label>
+              <textarea id="message" name="message" rows="5" required class="input"></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary w-full" data-submit-button>
+              Send message
+            </button>
+
+            <p
+              data-form-error
+              class="hidden rounded-xl bg-red-50 px-4 py-3 text-center text-sm font-medium text-red-700"
+            >
+            </p>
+          </form>
+        </div>
+
+        <div class="space-y-6">
+          <div class="card">
+            <h3 class="text-lg">Prefer to just see it?</h3>
+            <p class="mt-2 text-sm leading-relaxed text-navy-500">
+              Run a free measurement on any address — no call required.
+            </p>
+            <a href="/quote" class="btn-primary mt-5 w-full">Get a free quote</a>
+          </div>
+
+          <div class="card">
+            <h3 class="text-lg">Email</h3>
+            <a
+              href="mailto:hello@poolsavr.com"
+              class="mt-2 block text-sm font-medium text-blue-600 hover:text-blue-700"
+            >
+              hello@poolsavr.com
+            </a>
+            <h3 class="mt-6 text-lg">Support hours</h3>
+            <p class="mt-2 text-sm text-navy-500">
+              Monday – Friday, 8am – 6pm ET
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

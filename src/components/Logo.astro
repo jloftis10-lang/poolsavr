@@ -1,0 +1,22 @@
+---
+interface Props {
+  class?: string;
+  /** Use the light variant on dark backgrounds. */
+  variant?: 'default' | 'light';
+}
+
+const { class: className = '', variant = 'default' } = Astro.props;
+
+const poolColor = variant === 'light' ? 'text-white' : 'text-navy-900';
+const savrColor = variant === 'light' ? 'text-blue-400' : 'text-blue-500';
+---
+
+<span
+  class:list={[
+    'font-display font-semibold tracking-tight leading-none select-none',
+    className,
+  ]}
+  aria-label="PoolSavr"
+>
+  <span class={poolColor}>POOL</span><span class={savrColor}>SAVR</span>
+</span>

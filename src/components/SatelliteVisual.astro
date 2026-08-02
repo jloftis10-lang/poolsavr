@@ -1,0 +1,164 @@
+---
+interface Props {
+  class?: string;
+  /** Show the animated scanning line. */
+  scanning?: boolean;
+}
+
+const { class: className = '', scanning = false } = Astro.props;
+---
+
+<div class:list={['relative overflow-hidden rounded-2xl bg-navy-900', className]}>
+  <svg viewBox="0 0 800 560" class="h-full w-full" role="img" aria-label="Satellite view of a backyard pool with measurement overlay">
+    <defs>
+      <linearGradient id="lawn" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#2f4a35" />
+        <stop offset="100%" stop-color="#1e3324" />
+      </linearGradient>
+      <linearGradient id="water" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#22d3ee" />
+        <stop offset="55%" stop-color="#06b6d4" />
+        <stop offset="100%" stop-color="#0e7490" />
+      </linearGradient>
+      <linearGradient id="deck" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#d6d3cd" />
+        <stop offset="100%" stop-color="#b3aea6" />
+      </linearGradient>
+      <linearGradient id="roof" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#5a5450" />
+        <stop offset="100%" stop-color="#3c3734" />
+      </linearGradient>
+      <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+        <path d="M40 0H0V40" fill="none" stroke="#3d82fa" stroke-width="0.5" opacity="0.18" />
+      </pattern>
+      <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="6" />
+      </filter>
+    </defs>
+
+    <!-- ground -->
+    <rect width="800" height="560" fill="url(#lawn)" />
+
+    <!-- subtle terrain mottling -->
+    <g opacity="0.35" filter="url(#soft)">
+      <ellipse cx="140" cy="120" rx="110" ry="70" fill="#3b5a41" />
+      <ellipse cx="680" cy="430" rx="130" ry="80" fill="#28402c" />
+      <ellipse cx="420" cy="520" rx="160" ry="60" fill="#3b5a41" />
+    </g>
+
+    <!-- house -->
+    <g>
+      <rect x="70" y="60" width="250" height="150" rx="4" fill="url(#roof)" />
+      <path d="M70 135h250" stroke="#2a2724" stroke-width="3" />
+      <rect x="70" y="60" width="250" height="150" rx="4" fill="none" stroke="#26221f" stroke-width="2" />
+    </g>
+
+    <!-- trees -->
+    <g>
+      <circle cx="690" cy="110" r="46" fill="#274a2c" />
+      <circle cx="690" cy="110" r="30" fill="#356b3a" opacity="0.75" />
+      <circle cx="105" cy="410" r="38" fill="#274a2c" />
+      <circle cx="105" cy="410" r="24" fill="#356b3a" opacity="0.75" />
+    </g>
+
+    <!-- pool deck -->
+    <rect x="300" y="230" width="360" height="250" rx="16" fill="url(#deck)" />
+
+    <!-- pool water (kidney-ish rectangle with rounded ends) -->
+    <path
+      d="M348 278h264c14 0 24 10 24 24v126c0 14-10 24-24 24H348c-14 0-24-10-24-24V302c0-14 10-24 24-24z"
+      fill="url(#water)"
+    />
+    <path
+      d="M348 278h264c14 0 24 10 24 24v126c0 14-10 24-24 24H348c-14 0-24-10-24-24V302c0-14 10-24 24-24z"
+      fill="none"
+      stroke="#e0f7ff"
+      stroke-width="3"
+      opacity="0.85"
+    />
+
+    <!-- water shimmer -->
+    <g opacity="0.28" stroke="#ffffff" stroke-width="3" stroke-linecap="round" fill="none">
+      <path d="M360 330c20-8 40 8 60 0s40-8 60 0" />
+      <path d="M400 370c20-8 40 8 60 0s40-8 60 0" />
+      <path d="M370 410c20-8 40 8 60 0s40-8 60 0" />
+    </g>
+
+    <!-- measurement grid over pool -->
+    <rect x="324" y="278" width="312" height="174" fill="url(#grid)" />
+
+    <!-- measurement outline -->
+    <rect
+      x="324"
+      y="278"
+      width="312"
+      height="174"
+      fill="none"
+      stroke="#3d82fa"
+      stroke-width="2.5"
+      stroke-dasharray="8 6"
+    />
+
+    <!-- vertex handles -->
+    <g fill="#ffffff" stroke="#1c74e9" stroke-width="3">
+      <rect x="317" y="271" width="14" height="14" rx="3" />
+      <rect x="629" y="271" width="14" height="14" rx="3" />
+      <rect x="317" y="445" width="14" height="14" rx="3" />
+      <rect x="629" y="445" width="14" height="14" rx="3" />
+    </g>
+
+    <!-- dimension: width -->
+    <g stroke="#3d82fa" stroke-width="2">
+      <path d="M324 250h312" />
+      <path d="M324 244v12M636 244v12" />
+    </g>
+    <g transform="translate(480 236)">
+      <rect x="-34" y="-16" width="68" height="24" rx="6" fill="#0b1e3d" />
+      <text x="0" y="1" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="13" font-weight="600">
+        32 ft
+      </text>
+    </g>
+
+    <!-- dimension: height -->
+    <g stroke="#3d82fa" stroke-width="2">
+      <path d="M676 278v174" />
+      <path d="M670 278h12M670 452h12" />
+    </g>
+    <g transform="translate(676 365)">
+      <rect x="-30" y="-13" width="60" height="24" rx="6" fill="#0b1e3d" />
+      <text x="0" y="4" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="13" font-weight="600">
+        18 ft
+      </text>
+    </g>
+
+    <!-- area callout -->
+    <g transform="translate(324 490)">
+      <rect width="196" height="42" rx="10" fill="#0b1e3d" opacity="0.95" />
+      <text x="14" y="18" fill="#7f9bc6" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1.5">
+        SURFACE AREA
+      </text>
+      <text x="14" y="34" fill="#ffffff" font-family="Inter, sans-serif" font-size="15" font-weight="700">
+        576 sq ft
+      </text>
+    </g>
+
+    <!-- perimeter callout -->
+    <g transform="translate(534 490)">
+      <rect width="126" height="42" rx="10" fill="#0b1e3d" opacity="0.95" />
+      <text x="14" y="18" fill="#7f9bc6" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1.5">
+        PERIMETER
+      </text>
+      <text x="14" y="34" fill="#ffffff" font-family="Inter, sans-serif" font-size="15" font-weight="700">
+        100 ft
+      </text>
+    </g>
+  </svg>
+
+  {
+    scanning && (
+      <div class="pointer-events-none absolute inset-0 overflow-hidden">
+        <div class="animate-scan h-24 w-full bg-gradient-to-b from-transparent via-blue-400/30 to-transparent" />
+      </div>
+    )
+  }
+</div>
