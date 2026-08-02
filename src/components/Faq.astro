@@ -1,28 +1,28 @@
 ---
 const faqs = [
   {
-    q: 'How accurate are satellite measurements?',
-    a: 'PoolSavr measurements typically land within 1–3% of a hand measurement. We use current high-resolution imagery and cross-check the pool outline against parcel boundaries. Every report includes the annotated image so you can eyeball the outline before you send the quote.',
+    q: 'How do I work out my pool volume?',
+    a: 'Multiply surface area by average depth to get cubic feet, then multiply by 7.48 for US gallons. For a rectangular pool that is length × width × average depth × 7.48. The calculator does this for rectangular, round, oval, and freeform pools.',
   },
   {
-    q: 'What if the imagery is out of date or the pool is covered?',
-    a: 'We flag low-confidence properties instead of guessing. If a pool is under a cover, heavily shaded, or the imagery is stale, the report tells you so and you can request a manual review.',
+    q: 'What is my pool’s average depth?',
+    a: 'Add the shallow-end depth to the deep-end depth and divide by two. A pool that is 3 feet at the steps and 8 feet at the drain averages 5.5 feet. If your pool has a long flat shallow shelf before it drops off, the true average sits a little shallower than that.',
   },
   {
-    q: 'Do I need special software or hardware?',
-    a: 'No. PoolSavr runs entirely in your browser on desktop, tablet, or phone. There is nothing to install and no drone or measuring equipment to buy.',
+    q: 'How accurate is the calculator?',
+    a: 'For rectangular, round, and oval pools the geometry is exact, so the answer is only as good as your measurements. Freeform and kidney shapes use the standard 0.85 area factor and usually land within about 5%. Steps, benches, and tanning ledges are not subtracted, so a pool with a big ledge will read slightly high.',
   },
   {
-    q: 'Can I use my own pricing?',
-    a: 'Yes. You load your price book once — per square foot, per linear foot, flat rates, seasonal modifiers — and every measurement is priced with your numbers automatically.',
+    q: 'Can you measure my pool from satellite imagery?',
+    a: 'Not yet. That is the tool we are building, and it is not live. For now the calculator needs dimensions you measure yourself. Join the waitlist and we will email you when the satellite version is ready.',
   },
   {
-    q: 'Will my customers know you measured from satellite?',
-    a: 'Only if you want them to. Quotes carry your logo, colors, and terms. Many pros include the annotated satellite image because it builds trust in the number.',
+    q: 'Does it cost anything?',
+    a: 'No. The calculator is free, needs no account, and works on a phone.',
   },
   {
-    q: 'Which areas do you cover?',
-    a: 'Anywhere with modern high-resolution aerial coverage, which includes the vast majority of residential addresses in the continental US. If we cannot measure an address, you are not charged for it.',
+    q: 'Should I measure the water or the deck?',
+    a: 'Measure the water at the waterline. Including the coping or deck can add several hundred gallons to the result on a mid-size pool, which is enough to throw off chemical dosing.',
   },
 ];
 ---
@@ -31,7 +31,7 @@ const faqs = [
   <div class="container-page">
     <div class="mx-auto max-w-2xl text-center">
       <span class="eyebrow">FAQ</span>
-      <h2 class="mt-6 text-3xl sm:text-4xl">Questions pool pros ask first</h2>
+      <h2 class="mt-6 text-3xl sm:text-4xl">Common questions</h2>
     </div>
 
     <div class="mx-auto mt-12 max-w-3xl space-y-4">

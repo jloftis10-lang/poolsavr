@@ -5,6 +5,7 @@ import Layout from '../layouts/Layout.astro';
 <Layout
   title="Thanks — your PoolSavr quote is on the way"
   description="We received your request and are preparing your pool measurement report."
+  noindex
 >
   <section class="bg-navy-50 py-24">
     <div class="container-page">
@@ -25,15 +26,35 @@ import Layout from '../layouts/Layout.astro';
           </svg>
         </div>
 
-        <h1 class="mt-6 text-3xl">Request received</h1>
-        <p class="mt-4 leading-relaxed text-navy-500">
-          We're measuring the pool now. Your report and quote will land in your
-          inbox — usually within one business hour.
+        <h1 class="mt-6 text-3xl">You're on the list</h1>
+        <p class="mt-4 leading-relaxed text-navy-600">
+          We'll email you the moment address measurement goes live. In the
+          meantime, the calculator below is the one pool owners use most.
         </p>
 
+        <div class="mt-8 text-left">
+          <a
+            href="/calculators/pool-volume"
+            class="block rounded-2xl border border-navy-100 p-5 transition-shadow hover:shadow-md"
+          >
+            <p class="font-display font-semibold text-navy-900">
+              Pool volume calculator
+            </p>
+            <p class="mt-1 text-sm text-navy-500">
+              Gallons, surface area, and perimeter from your dimensions.
+            </p>
+          </a>
+          <p class="mt-4 text-sm text-navy-500">
+            More calculators — chlorine dosage, shock, and heater sizing — are on
+            the way. You'll hear about those too.
+          </p>
+        </div>
+
         <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <a href="/" class="btn-primary">Back to home</a>
-          <a href="/contact" class="btn-outline">Contact us</a>
+          <a href="/calculators/pool-volume" class="btn-primary">
+            Open the calculator
+          </a>
+          <a href="/" class="btn-outline">Back to home</a>
         </div>
       </div>
     </div>

@@ -1,30 +1,30 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand palette — matched to the POOLSAVR logotype (navy + blue) with a
-     pool-water aqua accent used sparingly for imagery/gradients. */
-  --color-navy-50: #eef2f8;
-  --color-navy-100: #d7e0ee;
-  --color-navy-200: #aec0dd;
-  --color-navy-300: #7f9bc6;
-  --color-navy-400: #4d6fa0;
-  --color-navy-500: #2c4a78;
-  --color-navy-600: #1a3258;
-  --color-navy-700: #12233f;
-  --color-navy-800: #0c1a2f;
-  --color-navy-900: #0b1e3d;
-  --color-navy-950: #070f20;
+  /* Brand palette sampled directly from the POOLSAVR logotype:
+     navy #012151 and blue #0988fc. Scales are built around those two. */
+  --color-navy-50: #f0f5fc;
+  --color-navy-100: #dfe9f7;
+  --color-navy-200: #c2d6ef;
+  --color-navy-300: #93b8e2;
+  --color-navy-400: #5c93cf;
+  --color-navy-500: #2c6fb8;
+  --color-navy-600: #0a55a8;
+  --color-navy-700: #05408c;
+  --color-navy-800: #032f6d;
+  --color-navy-900: #012151;
+  --color-navy-950: #000d20;
 
-  --color-blue-50: #eaf2ff;
-  --color-blue-100: #d0e2ff;
-  --color-blue-200: #a3c6ff;
-  --color-blue-300: #6fa4ff;
-  --color-blue-400: #3d82fa;
-  --color-blue-500: #1c74e9;
-  --color-blue-600: #135ec4;
-  --color-blue-700: #0f4a9a;
-  --color-blue-800: #0e3d7c;
-  --color-blue-900: #0f3465;
+  --color-blue-50: #eaf4ff;
+  --color-blue-100: #d3e9ff;
+  --color-blue-200: #a8d5fe;
+  --color-blue-300: #74bcfe;
+  --color-blue-400: #3ba0fd;
+  --color-blue-500: #0988fc;
+  --color-blue-600: #0670d6;
+  --color-blue-700: #0559ab;
+  --color-blue-800: #04478a;
+  --color-blue-900: #043a70;
 
   --color-aqua-50: #ecfeff;
   --color-aqua-100: #cffafe;

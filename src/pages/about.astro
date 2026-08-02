@@ -1,87 +1,123 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import SatelliteVisual from '../components/SatelliteVisual.astro';
-
-const values = [
-  {
-    title: 'Accuracy over optimism',
-    body: 'When imagery is unclear, we say so. A flagged measurement is more useful than a confident wrong number.',
-  },
-  {
-    title: 'Speed wins jobs',
-    body: 'The contractor who answers first usually gets the work. Everything we build shortens the gap between question and quote.',
-  },
-  {
-    title: 'Your business, your brand',
-    body: 'We are infrastructure, not a marketplace. We never sell your leads or put ourselves between you and your customer.',
-  },
-];
+import Cta from '../components/Cta.astro';
 ---
 
 <Layout
-  title="About — PoolSavr"
-  description="Why we built satellite pool measurement for contractors."
+  title="About PoolSavr: Who We Are and How the Math Works"
+  description="Who is behind PoolSavr, how our pool volume calculations work, and what we're building next."
 >
-  <section class="bg-navy-900 py-16">
-    <div class="container-page text-center">
-      <span class="eyebrow bg-blue-500/15 text-blue-300">About</span>
-      <h1 class="mx-auto mt-6 max-w-3xl text-4xl text-white sm:text-5xl">
-        We got tired of driving across town with a measuring wheel
-      </h1>
+  <section class="border-b border-navy-100 bg-white py-12">
+    <div class="container-page">
+      <nav aria-label="Breadcrumb" class="mb-5">
+        <ol class="flex gap-2 text-sm text-navy-400">
+          <li><a href="/" class="hover:text-blue-600">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="text-navy-700">About</li>
+        </ol>
+      </nav>
+      <h1 class="max-w-3xl text-3xl sm:text-4xl">About PoolSavr</h1>
+      <p class="mt-4 max-w-3xl text-lg leading-relaxed text-navy-600">
+        PoolSavr publishes free pool calculators and is building a tool that
+        measures pools from satellite imagery. This page explains how the math
+        works and what state the product is actually in.
+      </p>
     </div>
   </section>
 
-  <section class="bg-white py-20">
+  <section class="bg-white py-14">
     <div class="container-page">
-      <div class="grid items-center gap-14 lg:grid-cols-2">
-        <div class="space-y-5 text-lg leading-relaxed text-navy-600">
-          <p>
-            Estimating a pool job has always started the same way: get in the
-            truck, drive out, walk the property, measure by hand, drive back, then
-            build the quote. Half a day gone before anyone talks about price.
+      <div class="mx-auto max-w-3xl space-y-10">
+        <div>
+          <h2 class="text-2xl">Where we are right now</h2>
+          <p class="mt-4 leading-relaxed text-navy-600">
+            The volume calculator works today and is free. Enter your pool's
+            dimensions and it returns gallons, surface area, and perimeter.
           </p>
-          <p>
-            Meanwhile the imagery needed to answer that question already exists.
-            Satellites photograph nearly every residential property in the country
-            at resolution good enough to trace a pool edge within a few inches.
-          </p>
-          <p>
-            PoolSavr closes that gap. Type an address, get the measurements, send
-            the quote. What used to take an afternoon takes about a minute — and
-            the customer gets an answer the same day they asked.
+          <p class="mt-4 leading-relaxed text-navy-600">
+            The satellite measurement tool is not live yet. When it is, you will
+            be able to skip the tape measure and get the same numbers from your
+            address alone. We are not going to pretend it exists before it does.
           </p>
         </div>
 
-        <SatelliteVisual class="shadow-xl ring-1 ring-navy-900/5" />
+        <div>
+          <h2 class="text-2xl">How the calculations work</h2>
+          <p class="mt-4 leading-relaxed text-navy-600">
+            There is no proprietary trick here, and we would rather show the
+            arithmetic than ask you to trust a black box. Volume is surface area
+            multiplied by average depth, converted to gallons at 7.48052 gallons
+            per cubic foot.
+          </p>
+          <ul class="mt-5 space-y-3 leading-relaxed text-navy-600">
+            <li>
+              <strong class="text-navy-900">Rectangular pools</strong> use exact
+              geometry: length × width.
+            </li>
+            <li>
+              <strong class="text-navy-900">Round and oval pools</strong> use the
+              circle and ellipse area formulas.
+            </li>
+            <li>
+              <strong class="text-navy-900">Kidney and freeform pools</strong> use
+              an 0.85 factor against the bounding rectangle — the standard
+              industry approximation, accurate to roughly 5%.
+            </li>
+            <li>
+              <strong class="text-navy-900">Perimeter</strong> for oval shapes
+              uses Ramanujan's ellipse approximation, which is accurate to well
+              under 1% at pool proportions.
+            </li>
+          </ul>
+          <p class="mt-5 leading-relaxed text-navy-600">
+            Steps, benches, and tanning ledges are not subtracted. For chemical
+            dosing that difference is negligible. For a paid drain-and-refill on a
+            pool with a large ledge, it is worth accounting for by hand.
+          </p>
+          <a href="/calculators/pool-volume" class="btn-outline mt-6">
+            Open the pool volume calculator
+          </a>
+        </div>
+
+        <div>
+          <h2 class="text-2xl">What we will and won't do with your data</h2>
+          <p class="mt-4 leading-relaxed text-navy-600">
+            The calculator runs entirely in your browser. Nothing you type into
+            it is sent anywhere — there is no account, no tracking of your
+            dimensions, and no server involved.
+          </p>
+          <p class="mt-4 leading-relaxed text-navy-600">
+            If you join the waitlist we keep your email and, if you give it, your
+            ZIP code. The ZIP tells us which regions to cover first. We do not
+            sell either one. See the
+            <a href="/privacy" class="text-blue-600 underline underline-offset-4 hover:text-blue-700">
+              privacy policy
+            </a> for the full detail.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-2xl">Getting in touch</h2>
+          <p class="mt-4 leading-relaxed text-navy-600">
+            If a number looks wrong, or your pool shape is not covered, tell us —
+            corrections to the calculator are the most useful mail we get. Reach
+            us on the
+            <a href="/contact" class="text-blue-600 underline underline-offset-4 hover:text-blue-700">
+              contact page
+            </a>.
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="bg-navy-50 py-20">
-    <div class="container-page">
-      <h2 class="text-center text-3xl sm:text-4xl">What we care about</h2>
-      <div class="mt-12 grid gap-8 md:grid-cols-3">
-        {
-          values.map((value) => (
-            <div class="card">
-              <h3 class="text-lg">{value.title}</h3>
-              <p class="mt-3 leading-relaxed text-navy-500">{value.body}</p>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-blue-600 py-16">
+  <section class="bg-blue-600 py-14">
     <div class="container-page text-center">
-      <h2 class="text-3xl text-white">See it on a pool you know</h2>
-      <p class="mx-auto mt-3 max-w-lg text-blue-100">
-        Run your own address and compare our numbers to your tape.
+      <h2 class="text-3xl text-white">Want the satellite version?</h2>
+      <p class="mx-auto mt-3 max-w-xl text-blue-100">
+        Leave your email and we'll tell you when address measurement goes live.
       </p>
-      <a href="/quote" class="btn mt-7 bg-white px-8 text-blue-700 hover:bg-blue-50">
-        Get a free measurement
-      </a>
+      <Cta placement="header" variant="onBlue" class="mt-7" />
     </div>
   </section>
 </Layout>

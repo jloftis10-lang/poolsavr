@@ -4,6 +4,8 @@ const FIELD_LIMITS = {
   phone: 40,
   company: 120,
   address: 300,
+  zip: 12,
+  role: 80,
   service: 80,
   topic: 80,
   notes: 2000,
@@ -38,8 +40,8 @@ export default async function handler(request, response) {
     }
   }
 
-  if (!lead.name || !lead.email) {
-    return response.status(400).json({ error: 'Name and email are required' });
+  if (!lead.email) {
+    return response.status(400).json({ error: 'An email address is required' });
   }
 
   if (!isEmail(lead.email)) {

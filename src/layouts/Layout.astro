@@ -6,14 +6,26 @@ import Footer from '../components/Footer.astro';
 interface Props {
   title?: string;
   description?: string;
+  noindex?: boolean;
 }
 
 const {
-  title = 'PoolSavr — Instant pool measurements & quotes from satellite imagery',
-  description = 'PoolSavr measures any pool from satellite imagery in seconds and turns it into a branded, ready-to-send quote. No site visit, no tape measure, no guesswork.',
+  title = 'PoolSavr: Free Pool Volume and Size Calculators',
+  description = 'Free pool calculators for volume, surface area, and perimeter. Get your gallons in about ten seconds — no signup required.',
+  noindex = false,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'PoolSavr',
+  url: 'https://www.poolsavr.com/',
+  logo: 'https://www.poolsavr.com/favicon.svg',
+  description:
+    'Free pool volume, surface area, and perimeter calculators, plus satellite pool measurement in development.',
+};
 ---
 
 <!doctype html>
@@ -27,6 +39,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
@@ -42,6 +55,14 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(organizationSchema)}
+    />
+
+    <slot name="head" />
   </head>
   <body>
     <a

@@ -3,16 +3,16 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout
-  title="Contact — PoolSavr"
-  description="Book a demo or ask us anything about satellite pool measurement."
+  title="Contact PoolSavr"
+  description="Questions about the pool calculators, a wrong number, or early access? Reach the PoolSavr team here."
 >
   <section class="bg-navy-900 py-16">
     <div class="container-page text-center">
       <span class="eyebrow bg-blue-500/15 text-blue-300">Contact</span>
       <h1 class="mt-6 text-4xl text-white sm:text-5xl">Let's talk</h1>
       <p class="mx-auto mt-4 max-w-xl text-lg text-navy-200">
-        Questions about accuracy, pricing, or fitting PoolSavr into how you
-        already work? We'll give you a straight answer.
+        Found a number that looks wrong, or want early access? We read every
+        message and answer straight.
       </p>
     </div>
   </section>
@@ -74,10 +74,10 @@ import Layout from '../layouts/Layout.astro';
                 What's this about?
               </label>
               <select id="topic" name="topic" class="input">
-                <option>Book a demo</option>
-                <option>Pricing & plans</option>
-                <option>Measurement accuracy</option>
-                <option>Integrations</option>
+                <option>Early access / waitlist</option>
+                <option>A number looks wrong</option>
+                <option>Calculator accuracy</option>
+                <option>Press or partnerships</option>
                 <option>Something else</option>
               </select>
             </div>
@@ -103,11 +103,13 @@ import Layout from '../layouts/Layout.astro';
 
         <div class="space-y-6">
           <div class="card">
-            <h3 class="text-lg">Prefer to just see it?</h3>
+            <h3 class="text-lg">Need a number right now?</h3>
             <p class="mt-2 text-sm leading-relaxed text-navy-500">
-              Run a free measurement on any address — no call required.
+              The volume calculator is free and needs no account.
             </p>
-            <a href="/quote" class="btn-primary mt-5 w-full">Get a free quote</a>
+            <a href="/calculators/pool-volume" class="btn-primary mt-5 w-full">
+              Open the volume calculator
+            </a>
           </div>
 
           <div class="card">

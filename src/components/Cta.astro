@@ -1,0 +1,29 @@
+---
+import { ctaHref, ctaLabel, type CtaPlacement } from '../config';
+
+interface Props {
+  placement?: CtaPlacement;
+  /** Override the label when surrounding copy needs something specific. */
+  label?: string;
+  variant?: 'primary' | 'outline' | 'onDark' | 'onBlue';
+  class?: string;
+}
+
+const {
+  placement = 'header',
+  label = ctaLabel(placement),
+  variant = 'primary',
+  class: className = '',
+} = Astro.props;
+
+const variants = {
+  primary: 'btn-primary',
+  outline: 'btn-outline',
+  onDark: 'btn border-2 border-white/40 text-white hover:bg-white/10',
+  onBlue: 'btn bg-white px-8 text-blue-700 hover:bg-blue-50',
+};
+---
+
+<a href={ctaHref} class:list={[variants[variant], className]}>
+  {label}
+</a>

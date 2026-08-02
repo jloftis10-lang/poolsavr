@@ -1,0 +1,119 @@
+---
+import { APP_LIVE } from '../config';
+---
+
+<div class="mt-8 max-w-lg">
+  <form id="hero-capture" class="space-y-3" novalidate>
+    <input type="hidden" name="formType" value="hero-waitlist" />
+    <div class="hidden" aria-hidden="true">
+      <label>
+        Don't fill this out
+        <input name="botField" tabindex="-1" autocomplete="off" />
+      </label>
+    </div>
+
+    <label for="hero-address" class="sr-only">Property address</label>
+    <input
+      id="hero-address"
+      name="address"
+      type="text"
+      autocomplete="street-address"
+      placeholder="Enter your property address"
+      class="input border-transparent bg-white/95 shadow-lg"
+    />
+
+    {
+      !APP_LIVE && (
+        <>
+          <label for="hero-email" class="sr-only">
+            Email address
+          </label>
+          <input
+            id="hero-email"
+            name="email"
+            type="email"
+            required
+            autocomplete="email"
+            placeholder="Your email"
+            class="input border-transparent bg-white/95 shadow-lg"
+          />
+        </>
+      )
+    }
+
+    <button type="submit" class="btn-primary w-full" data-submit-button>
+      {APP_LIVE ? 'Measure my pool' : 'Get early access'}
+    </button>
+
+    <p
+      id="hero-error"
+      class="hidden rounded-xl bg-red-500/15 px-4 py-3 text-sm font-medium text-red-200"
+    >
+    </p>
+  </form>
+
+  <div
+    id="hero-success"
+    class="hidden rounded-2xl bg-white/10 p-6 ring-1 ring-white/20"
+    role="status"
+  >
+    <p class="font-display text-lg font-semibold text-white">You're on the list.</p>
+    <p class="mt-2 text-sm leading-relaxed text-navy-200">
+      We'll email you the moment address measurement goes live. In the meantime,
+      the volume calculator works today.
+    </p>
+    <a href="/calculators/pool-volume" class="btn-primary mt-4">
+      Open the volume calculator
+    </a>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('hero-capture') as HTMLFormElement | null;
+  const success = document.getElementById('hero-success');
+  const errorBox = document.getElementById('hero-error');
+  const button = form?.querySelector<HTMLButtonElement>('[data-submit-button]');
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    errorBox?.classList.add('hidden');
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    const label = button?.textContent ?? '';
+    if (button) {
+      button.disabled = true;
+      button.textContent = 'Sending…';
+    }
+
+    try {
+      const payload = Object.fromEntries(new FormData(form).entries());
+      const response = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => null);
+        throw new Error(data?.error ?? 'Something went wrong. Please try again.');
+      }
+
+      form.classList.add('hidden');
+      success?.classList.remove('hidden');
+    } catch (error) {
+      if (errorBox) {
+        errorBox.textContent =
+          error instanceof Error ? error.message : 'Something went wrong.';
+        errorBox.classList.remove('hidden');
+      }
+      if (button) {
+        button.disabled = false;
+        button.textContent = label;
+      }
+    }
+  });
+</script>
