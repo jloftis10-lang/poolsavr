@@ -22,6 +22,8 @@ Shipped and verified (commit `71acac6`):
 | `api/lead.js` | validates + honeypot; needs `LEAD_WEBHOOK_URL` |
 | Organization / BreadcrumbList / FAQPage / WebApplication schema | on applicable pages |
 
+Phase 2A machinery is now in place as well — see that section.
+
 Not started: every hub page, 8 calculators, 7 cost pages, 11 care and remodeling
 guides, `/pool-data/`, metro pages.
 
@@ -42,10 +44,12 @@ thirty.
 
 ---
 
-## Phase 2A — Shared machinery
+## Phase 2A — Shared machinery  ✅ done
 
-No new content. Refactor `/calculators/pool-volume/` onto the new machinery and
-confirm it still renders and calculates identically.
+No new content. `/calculators/pool-volume/` was refactored onto it and verified
+against values captured before the refactor — all four shapes, both validation
+paths, the dynamic Diameter label, and the mobile fold. The page went from 553
+lines to 329.
 
 ### 1. The `<Calculator>` island
 
@@ -53,16 +57,19 @@ One component, config-driven, `client:visible` (never `client:load` — spec).
 
 ```
 src/components/calculator/Calculator.astro    shell, results panel, formula row, CTA slot
-src/components/calculator/fields.ts           field type definitions
+src/lib/calculators/types.ts                  field + result contract
+src/lib/calculators/index.ts                  registry, keyed by id
 src/lib/calculators/<name>.ts                 pure compute fn + field config per calculator
 ```
 
-Each calculator supplies: field definitions, a pure `compute(values)` returning
-result rows, and a `formula(values, result)` returning the displayed arithmetic.
-Nothing else. The shell owns layout, validation, formatting, error states, URL
-state, and the results panel.
+A calculator supplies field definitions and one pure `compute(values)` returning
+the headline, the formula string, result rows, and any `chain` values. Nothing
+else. The shell owns layout, validation display, formatting, dynamic labels,
+conditional fields, and query-param prefill.
 
-Requirements carried over from the pool-volume build, which must not regress:
+**Adding a calculator is now one module plus one line in the registry.**
+
+Requirements carried over from the pool-volume build, all verified:
 
 - Tool above the fold; on mobile the form fits in the first viewport.
 - Live recalculation on `input` and `change`.
@@ -72,9 +79,10 @@ Requirements carried over from the pool-volume build, which must not regress:
 
 ### 2. Query-param chaining
 
-`src/lib/calculators/url.ts` — read and write `?gallons=`. The volume calculator
-writes it into outbound links; the chemistry calculators prefill from it. This is
-what turns nine pages into one funnel.
+Built into the shell: a calculator declares `acceptsParams: ['gallons']` and the
+island prefills from the query string on load. Any link marked
+`data-chain="gallons"` gets the live value written into its href. That is what
+turns nine pages into one funnel — wired and ready, unused until Phase 2B.
 
 ### 3. Content Collections
 
@@ -86,7 +94,10 @@ per-collection fields (e.g. `priceLow`/`priceHigh` on costs).
 Typed frontmatter is what stops page forty from silently shipping without a meta
 description.
 
-### 4. Layout templates
+### 4. Layout templates — **still to do**
+
+Deferred to the start of Phase 2B/3, when there is real content to shape them
+against:
 
 - `ArticleLayout.astro` — care/remodeling template order from the spec
 - `CostLayout.astro` — number first, then table, then CTA
@@ -109,20 +120,28 @@ Add:
 
 ### 7. Trust signals
 
-- `src/data/authors.ts` + `<AuthorByline>` + `/authors/[slug]/`
-- Visible "last updated" from frontmatter
-- **Blocked:** needs a real named person with real pool credentials. I will not
-  invent one — fabricated expertise on dosing and cost advice is exactly what the
-  helpful-content system targets. See *Blockers*.
+- `src/data/authors.ts` + `<AuthorByline>` + `/authors/[slug]/` — done, bylined
+  as William Waddell, founder
+- Visible "last updated" dates — done on the calculator, wired to frontmatter for
+  collections
+- `<Sources>` for cited references and `<Disclaimer>` for chemistry/cost pages —
+  done
 
 ### 8. Housekeeping
 
-- Delete `src/components/AddressForm.astro` — orphaned by the removed quote flow,
-  currently imported by nothing.
-- Self-host fonts: two weights, subset, `font-display: swap`.
-- Per-page OG images (generate at build from title + brand).
-- Analytics (Plausible or Fathom) with event tracking per CTA placement, so we
-  learn which slot converts.
+- ~~Delete `src/components/AddressForm.astro`~~ — done, was orphaned by the
+  removed quote flow.
+- Self-host fonts: two weights, subset, `font-display: swap`. **Still to do.**
+- Per-page OG images (generate at build from title + brand). **Still to do.**
+- Analytics with event tracking per CTA placement. **Still to do** — needs an
+  account.
+
+### 9. Known deferral
+
+The `/calculators/` hub does not exist yet, so the breadcrumb on the volume page
+is `Home / Pool Volume Calculator` rather than including the hub level. Add the
+hub crumb back in Phase 2B once the hub is real — linking or pointing schema at a
+404 is worse than a shorter trail.
 
 ---
 
@@ -144,11 +163,11 @@ Eight calculators on the Phase 2A component, plus `/calculators/` as hub.
 Every one prefills gallons from `?gallons=`, links back to volume, and carries
 FAQPage + WebApplication + BreadcrumbList schema. 800–1,200 words each.
 
-**Chemistry needs sourcing, not recall.** Dosing advice is health-adjacent: a
+**Chemistry gets sourced, not recalled.** Dosing advice is health-adjacent: a
 wrong cal-hypo figure can hurt someone or wreck a pool surface. Every constant
-gets a cited source, a stated assumption (e.g. "assumes 0 ppm stabiliser"), and a
-safety note on never mixing products. I would rather ship six well-sourced
-calculators than eight confident-sounding ones.
+gets a cited source in `<Sources>`, a stated assumption (e.g. "assumes 0 ppm
+stabiliser"), and `<Disclaimer kind="chemistry" />`. I would rather ship six
+well-sourced calculators than eight confident-sounding ones.
 
 ---
 
@@ -165,8 +184,8 @@ variation → worked example → how to reduce cost → FAQ → related.
 Costs live in `src/data/costs.ts`, not inline in prose, so the annual refresh is
 one file.
 
-**This phase is gated on real pricing.** These pages compete against contractors
-quoting real jobs; invented ranges lose and mislead. See *Blockers*.
+Each page carries `<Disclaimer kind="cost" />` and a `<Sources>` list. Figures are
+researched national estimates presented as estimates — never as quotes.
 
 ---
 
@@ -220,27 +239,37 @@ fastest.
 
 ---
 
-## Blockers — things I cannot invent
+## Decisions made — previously blocking
 
-These need your input. Each one is a place where making something up would be
-worse than shipping later.
+| Question | Decision |
+| --- | --- |
+| Editorial author | **William Waddell**, founder. Bylined on every editorial page, with an author page at `/authors/william-waddell/`. `src/data/authors.ts` has a `credentials` field — if he holds a CPO or similar, add it there; it carries real weight in this category. Nothing is claimed that is not true. |
+| Cost data | **National estimates, labelled as estimates.** Researched from published industry figures, cited, and wrapped in `<Disclaimer kind="cost" />` telling readers to get three local quotes. |
+| Chemistry figures | **Researched and cited publicly**, with `<Disclaimer kind="chemistry" />` on every dosing page. |
 
-1. **A named author with real pool credentials.** Required on every editorial
-   page. Anonymous advice underperforms badly in this category, and inventing a
-   persona is a fabrication risk. Who is this — you, or someone you can credit?
-2. **Real 2026 cost data.** Regional ranges by finish and pool size. Either
-   supply figures you trust, or name sources I should cite. Gates Phase 3.
-3. **Local metro substance.** Water hardness, permit rules, season length per
-   metro. Gates the metro half of Phase 5.
-4. **Chemistry sources.** Which references you want dosing figures cited to.
-5. **ESP + confirmation email.** `LEAD_WEBHOOK_URL` is the hook; a provider with
-   double opt-in is still unwired.
-6. **Analytics + Search Console access.** Spec wants verification before first
+### On citations and responsibility
+
+Citing a source improves accuracy, earns trust, and helps ranking — it does not
+transfer legal responsibility for what someone pours into their pool. So every
+dosing page pairs its citations with a plain-language disclaimer: these are
+estimates, product labels vary by brand and degrade with age, and **the label on
+the container wins over this calculator**. That is the honest framing and also
+the lower-risk one. If this becomes a real commercial concern, have a lawyer read
+the terms page — that is outside what I can advise on.
+
+Verified reachable from this environment: CDC's Model Aquatic Health Code is
+online and citable (free chlorine minimums, breakpoint chlorination at roughly
+10× combined chlorine, pH 7.0–7.8, FAC ceiling 10 ppm). That is the anchor source
+for the chemistry cluster.
+
+## Still outstanding
+
+1. **ESP + confirmation email.** `LEAD_WEBHOOK_URL` is the hook; a provider with
+   double opt-in is unwired.
+2. **Analytics + Search Console access.** Spec wants verification before first
    indexing.
-
-Phases 2A and 2B can proceed today. 3 and 5 cannot finish without 2 and 3 above.
-
----
+3. **Local metro substance.** Water hardness, permit rules, and season length per
+   metro still need research or local input. Gates the metro half of Phase 5.
 
 ## Definition of done, per page
 

@@ -1,0 +1,40 @@
+---
+/**
+ * Shown on any page giving chemical dosing or cost figures.
+ *
+ * Citing a source improves accuracy and trust — it does not transfer
+ * responsibility for what someone pours into their pool. The wording below is
+ * the honest version: these are estimates, the product label wins.
+ */
+
+interface Props {
+  kind: 'chemistry' | 'cost';
+  class?: string;
+}
+
+const { kind, class: className = '' } = Astro.props;
+
+const COPY = {
+  chemistry: {
+    title: 'Read your product label first',
+    body: 'These doses are estimates based on published industry guidance and assume a correctly measured pool volume. Chemical concentrations vary by brand and degrade with age, so the instructions on your container always take precedence over this calculator. Never mix pool chemicals together, add chemicals to water rather than water to chemicals, and re-test before dosing again.',
+  },
+  cost: {
+    title: 'These are national estimates',
+    body: 'Prices here are national estimates gathered from published industry figures, not quotes. What you actually pay depends on your region, pool size and condition, site access, and how busy contractors are that season — swings of 30% either way are normal. Treat these as a range to sanity-check a bid against, and get at least three local quotes.',
+  },
+} as const;
+
+const copy = COPY[kind];
+---
+
+<aside
+  class:list={[
+    'rounded-2xl border border-amber-200 bg-amber-50 p-5',
+    className,
+  ]}
+  role="note"
+>
+  <p class="font-display font-semibold text-amber-900">{copy.title}</p>
+  <p class="mt-2 text-sm leading-relaxed text-amber-900/80">{copy.body}</p>
+</aside>

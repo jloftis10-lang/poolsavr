@@ -50,16 +50,31 @@ below.
 ## Structure
 
 ```
-api/lead.js                       Vercel function receiving form submissions
-src/config.ts                     APP_LIVE switch + CTA labels per placement
-src/lib/pool-math.js              Pure volume/area/perimeter math (unit-testable)
-src/pages/calculators/pool-volume.astro   The flagship page
-src/components/Cta.astro          The single CTA component
-src/components/HeroCapture.astro  Address + email hero capture, inline success
-src/layouts/Layout.astro          Shell, SEO tags, Organization schema, form handler
-src/styles/global.css             Brand tokens + shared utility classes
-src/assets/poolsavr-logo.png      Source logo (colors sampled from this)
+api/lead.js                          Vercel function receiving form submissions
+src/config.ts                        APP_LIVE switch + CTA labels per placement
+src/content.config.ts                Typed frontmatter for costs/guides/metros
+src/data/authors.ts                  Editorial bylines
+src/lib/pool-math.js                 Pure volume/area/perimeter math
+src/lib/schema.ts                    JSON-LD builders
+src/lib/calculators/                 Per-calculator field config + pure compute
+src/components/calculator/Calculator.astro   Shared calculator island
+src/components/Cta|CtaInline|CtaBlock.astro  CTA placements
+src/components/Sources|Disclaimer.astro      Citations + estimate disclaimers
+src/layouts/Layout.astro             Shell, SEO tags, Organization schema
+src/styles/global.css                Brand tokens + shared utility classes
+src/assets/poolsavr-logo.png         Source logo (colors sampled from this)
 ```
+
+## Adding a calculator
+
+1. Write `src/lib/calculators/<name>.ts` exporting a `CalculatorDef`: field
+   definitions plus one pure `compute(values)`.
+2. Register it in `src/lib/calculators/index.ts`.
+3. Drop `<Calculator id="<name>" />` into a page.
+
+The shell handles layout, validation, formatting, dynamic labels, conditional
+fields, and `?gallons=` prefill. Keep the math in a pure module so it can be
+tested with plain Node — that is how the volume figures were verified.
 
 ## Branding
 
@@ -80,6 +95,7 @@ These need accounts or credentials and could not be done from the repo alone:
   self-hosting, subset, two weights, `font-display: swap`.
 - **Per-page OG images.** OG/Twitter tags are present but there is no per-page
   image yet.
-- **Named author + last-updated dates.** The spec requires a real, credentialed
-  author on editorial pages. Not inventable — needs a real person.
+- **Author credentials.** Pages are bylined to William Waddell, founder. If he
+  holds a CPO or similar certification, add it to `credentials` in
+  `src/data/authors.ts` — it carries real weight in this category.
 - **Legal review.** `privacy.astro` and `terms.astro` are placeholder copy.

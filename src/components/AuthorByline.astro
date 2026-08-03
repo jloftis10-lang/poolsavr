@@ -1,0 +1,53 @@
+---
+import { getAuthor } from '../data/authors';
+
+interface Props {
+  author?: string;
+  publishDate: Date;
+  updatedDate?: Date;
+  class?: string;
+}
+
+const { author: slug, publishDate, updatedDate, class: className = '' } = Astro.props;
+const author = getAuthor(slug);
+
+const format = (date: Date) =>
+  date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
+const showUpdated =
+  updatedDate && updatedDate.getTime() !== publishDate.getTime();
+---
+
+<div
+  class:list={[
+    'flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-navy-500',
+    className,
+  ]}
+>
+  <span>
+    By{' '}
+    <a
+      href={`/authors/${author.slug}`}
+      class="font-semibold text-navy-800 hover:text-blue-600"
+    >
+      {author.name}
+    </a>
+    {author.credentials?.length ? `, ${author.credentials.join(', ')}` : ''}
+  </span>
+  <span aria-hidden="true">·</span>
+  {
+    showUpdated ? (
+      <span>
+        Updated <time datetime={updatedDate.toISOString()}>{format(updatedDate)}</time>
+      </span>
+    ) : (
+      <span>
+        Published <time datetime={publishDate.toISOString()}>{format(publishDate)}</time>
+      </span>
+    )
+  }
+</div>

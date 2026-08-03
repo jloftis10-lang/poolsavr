@@ -1,0 +1,32 @@
+---
+import Cta from './Cta.astro';
+import { ctaSupporting, type CtaPlacement } from '../config';
+
+interface Props {
+  /** Which copy variant to use — cost pages frame on square footage. */
+  placement?: CtaPlacement;
+  heading?: string;
+}
+
+const { placement = 'careGuide', heading } = Astro.props;
+
+const defaultHeadings: Partial<Record<CtaPlacement, string>> = {
+  careGuide: 'Every dose on this page needs your gallons',
+  costPage: 'Every quote starts with square footage',
+  calculatorResult: 'Skip the tape measure',
+};
+
+const title = heading ?? defaultHeadings[placement] ?? 'Get your numbers';
+---
+
+<!-- One inline block per article, after the first major section. More reads as spam. -->
+<aside class="my-10 rounded-2xl border border-blue-200 bg-blue-50 p-6">
+  <h3 class="text-lg text-navy-900">{title}</h3>
+  <p class="mt-2 leading-relaxed text-navy-600">{ctaSupporting(placement)}</p>
+  <div class="mt-5 flex flex-col gap-3 sm:flex-row">
+    <Cta placement={placement} />
+    <a href="/calculators/pool-volume" class="btn-outline">
+      Calculate my volume now
+    </a>
+  </div>
+</aside>

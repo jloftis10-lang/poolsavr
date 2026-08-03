@@ -1,0 +1,84 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { AUTHORS } from '../../data/authors';
+import { breadcrumb, SITE } from '../../lib/schema';
+
+export function getStaticPaths() {
+  return Object.values(AUTHORS).map((author) => ({
+    params: { slug: author.slug },
+    props: { author },
+  }));
+}
+
+const { author } = Astro.props;
+const path = `/authors/${author.slug}/`;
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: author.name,
+  jobTitle: author.role,
+  description: author.bio,
+  url: `${SITE}${path}`,
+  worksFor: { '@type': 'Organization', name: 'PoolSavr', url: `${SITE}/` },
+};
+
+const trail = [{ name: author.name, path }];
+---
+
+<Layout
+  title={`${author.name} — ${author.role} | PoolSavr`}
+  description={`${author.name} is ${author.role.toLowerCase()} and writes the calculators and guides on PoolSavr.`}
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(breadcrumb(trail))}
+    />
+  </Fragment>
+
+  <section class="border-b border-navy-100 bg-white py-12">
+    <div class="container-page">
+      <Breadcrumb trail={trail} class="mb-5" />
+      <h1 class="text-3xl sm:text-4xl">{author.name}</h1>
+      <p class="mt-2 font-display font-semibold text-blue-600">{author.role}</p>
+      {
+        author.credentials?.length ? (
+          <p class="mt-1 text-sm text-navy-500">{author.credentials.join(' · ')}</p>
+        ) : null
+      }
+    </div>
+  </section>
+
+  <section class="bg-white py-12">
+    <div class="container-page">
+      <div class="max-w-3xl">
+        <p class="text-lg leading-relaxed text-navy-600">{author.bio}</p>
+
+        {
+          author.email && (
+            <p class="mt-6 text-navy-600">
+              Corrections and questions:{' '}
+              <a
+                href={`mailto:${author.email}`}
+                class="font-medium text-blue-600 underline underline-offset-4 hover:text-blue-700"
+              >
+                {author.email}
+              </a>
+            </p>
+          )
+        }
+
+        <div class="mt-10 flex flex-col gap-3 sm:flex-row">
+          <a href="/calculators/pool-volume" class="btn-primary">
+            Pool volume calculator
+          </a>
+          <a href="/about" class="btn-outline">How the math works</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

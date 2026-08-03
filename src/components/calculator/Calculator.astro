@@ -1,0 +1,282 @@
+---
+import Cta from '../Cta.astro';
+import { ctaSupporting } from '../../config';
+import { getCalculator } from '../../lib/calculators';
+import { defaultValues, type ChoiceField, type NumberField } from '../../lib/calculators/types';
+
+interface Props {
+  /** Key into the calculator registry. */
+  id: string;
+  class?: string;
+}
+
+const { id, class: className = '' } = Astro.props;
+
+const def = getCalculator(id);
+const values = defaultValues(def);
+
+// Server-render the default-state result so the page is useful without JS
+// and crawlers see real numbers rather than empty placeholders.
+const initial = def.compute(values);
+
+const isNumber = (field: NumberField | ChoiceField): field is NumberField =>
+  field.type === 'number';
+
+/**
+ * Group consecutive half-width number fields into pairs so dimensions sit side
+ * by side. Keeps the form short enough to clear the mobile fold.
+ */
+type Row = (NumberField | ChoiceField)[];
+const rows: Row[] = [];
+for (const field of def.fields) {
+  const half = isNumber(field) && field.width === 'half';
+  const last = rows[rows.length - 1];
+  const lastIsHalfPair =
+    last && last.length === 1 && isNumber(last[0]) && last[0].width === 'half';
+  if (half && lastIsHalfPair) last.push(field);
+  else rows.push([field]);
+}
+---
+
+<div
+  class:list={['grid items-start gap-6 lg:grid-cols-[1.1fr_1fr] lg:gap-8', className]}
+  data-calculator={def.id}
+>
+  <!-- Inputs -->
+  <div class="rounded-3xl bg-white p-5 shadow-lg sm:p-8">
+    <h2 class="text-xl">{def.inputTitle}</h2>
+
+    <form data-calc-form class="mt-4 space-y-4">
+      {
+        rows.map((row) => (
+          <div
+            class:list={[
+              row.length > 1 ? 'grid grid-cols-2 gap-3 sm:gap-4' : '',
+            ]}
+          >
+            {row.map((field) =>
+              isNumber(field) ? (
+                <div
+                  data-field={field.name}
+                  class:list={[field.hiddenWhen?.(values) && 'hidden']}
+                >
+                  <label
+                    for={`f-${field.name}`}
+                    class="mb-1.5 block text-sm font-semibold text-navy-800"
+                  >
+                    <span data-label-for={field.name}>
+                      {field.labelFor ? field.labelFor(values) : field.label}
+                    </span>
+                    {field.unit && ` (${field.unit})`}
+                  </label>
+                  <input
+                    id={`f-${field.name}`}
+                    name={field.name}
+                    type="number"
+                    min={field.min}
+                    max={field.max}
+                    step={field.step}
+                    value={field.default}
+                    class="input"
+                  />
+                  {field.help && (
+                    <p class="mt-1.5 text-xs text-navy-400">{field.help}</p>
+                  )}
+                </div>
+              ) : (
+                <fieldset data-field={field.name}>
+                  <legend class="mb-2 text-sm font-semibold text-navy-800">
+                    {field.legend}
+                  </legend>
+                  {field.display === 'select' ? (
+                    <select name={field.name} class="input">
+                      {field.options.map((option) => (
+                        <option
+                          value={option.value}
+                          selected={option.value === field.default}
+                        >
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    <div
+                      class:list={[
+                        'grid gap-2 sm:gap-3',
+                        field.options.length > 3 ? 'grid-cols-4' : 'grid-cols-3',
+                      ]}
+                    >
+                      {field.options.map((option) => (
+                        <label class="cursor-pointer">
+                          <input
+                            type="radio"
+                            name={field.name}
+                            value={option.value}
+                            checked={option.value === field.default}
+                            class="peer sr-only"
+                          />
+                          <span class="block h-full rounded-xl border-2 border-navy-200 px-2 py-2 text-center text-xs font-medium text-navy-600 transition-colors peer-checked:border-blue-500 peer-checked:bg-blue-50 peer-checked:text-blue-700 peer-focus-visible:ring-2 peer-focus-visible:ring-blue-400 sm:px-3 sm:py-2.5 sm:text-sm">
+                            {option.label}
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                </fieldset>
+              ),
+            )}
+          </div>
+        ))
+      }
+
+      <p
+        data-calc-error
+        class="hidden rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-700"
+      >
+      </p>
+    </form>
+  </div>
+
+  <!-- Results, formula, then the highest-intent CTA on the site -->
+  <div class="rounded-3xl bg-navy-900 p-5 shadow-lg sm:p-8">
+    <h2 class="text-lg text-white">Results</h2>
+
+    <div class="mt-5 rounded-2xl bg-blue-500 p-6 text-center">
+      <p class="text-xs font-bold uppercase tracking-widest text-blue-100">
+        {def.inputTitle === 'Your pool' ? 'Pool volume' : 'Result'}
+      </p>
+      <p data-result-headline class="mt-2 font-display text-4xl font-bold text-white">
+        {initial.headline.value}
+      </p>
+      <p class="text-sm text-blue-100">{initial.headline.unit}</p>
+      <p data-result-sub class="mt-1 text-xs text-blue-200">
+        {initial.headline.sub}
+      </p>
+    </div>
+
+    <div class="mt-5 rounded-xl bg-navy-800/70 p-4 ring-1 ring-white/5">
+      <p class="text-xs font-bold uppercase tracking-widest text-navy-400">
+        Formula applied
+      </p>
+      <p
+        data-result-formula
+        class="mt-2 break-words font-display text-sm font-semibold text-blue-300"
+      >
+        {initial.formula}
+      </p>
+    </div>
+
+    <dl data-result-rows class="mt-5 space-y-3">
+      {
+        initial.rows.map((row) => (
+          <div class="flex items-center justify-between border-b border-navy-800 pb-3">
+            <dt class="text-sm text-navy-300">{row.label}</dt>
+            <dd class="font-display font-semibold text-white">{row.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <div class="mt-6 rounded-2xl bg-navy-800/60 p-5 ring-1 ring-white/5">
+      <p class="text-sm text-navy-100">{ctaSupporting('calculatorResult')}</p>
+      <Cta placement="calculatorResult" class="mt-4 w-full" />
+    </div>
+  </div>
+</div>
+
+<script>
+  import { getCalculator } from '../../lib/calculators';
+  import type { Values } from '../../lib/calculators/types';
+
+  document.querySelectorAll<HTMLElement>('[data-calculator]').forEach((root) => {
+    const def = getCalculator(root.dataset.calculator!);
+    const form = root.querySelector<HTMLFormElement>('[data-calc-form]');
+    const errorBox = root.querySelector<HTMLElement>('[data-calc-error]');
+    if (!form) return;
+
+    const readValues = (): Values => {
+      const data = new FormData(form);
+      const values: Values = {};
+      for (const field of def.fields) {
+        const raw = data.get(field.name);
+        values[field.name] =
+          field.type === 'number' ? Number(raw) : String(raw ?? field.default);
+      }
+      return values;
+    };
+
+    /** Prefill from ?gallons=… so calculators chain into one another. */
+    const applyParams = () => {
+      if (!def.acceptsParams?.length) return;
+      const params = new URLSearchParams(window.location.search);
+      for (const name of def.acceptsParams) {
+        const value = params.get(name);
+        const input = form.elements.namedItem(name);
+        if (value && input instanceof HTMLInputElement && Number(value) > 0) {
+          input.value = value;
+        }
+      }
+    };
+
+    const render = () => {
+      const values = readValues();
+
+      // Fields can appear, disappear, or change label with the chosen mode.
+      for (const field of def.fields) {
+        const wrapper = root.querySelector<HTMLElement>(`[data-field="${field.name}"]`);
+        if (field.type === 'number') {
+          wrapper?.classList.toggle('hidden', Boolean(field.hiddenWhen?.(values)));
+          if (field.labelFor) {
+            const label = root.querySelector(`[data-label-for="${field.name}"]`);
+            if (label) label.textContent = field.labelFor(values);
+          }
+        }
+      }
+
+      const result = def.compute(values);
+
+      if (result.error) {
+        if (errorBox) {
+          errorBox.textContent = result.error;
+          errorBox.classList.remove('hidden');
+        }
+      } else {
+        errorBox?.classList.add('hidden');
+      }
+
+      const set = (selector: string, text: string) => {
+        const element = root.querySelector(selector);
+        if (element) element.textContent = text;
+      };
+
+      set('[data-result-headline]', result.headline.value);
+      set('[data-result-sub]', result.headline.sub ?? '');
+      set('[data-result-formula]', result.formula);
+
+      const rows = root.querySelector('[data-result-rows]');
+      if (rows) {
+        rows.querySelectorAll('dd').forEach((cell, index) => {
+          cell.textContent = result.rows[index]?.value ?? '—';
+        });
+      }
+
+      // Publish chained values so links elsewhere on the page can carry them.
+      if (result.chain) {
+        for (const [key, value] of Object.entries(result.chain)) {
+          root.querySelectorAll<HTMLAnchorElement>(`[data-chain="${key}"]`).forEach(
+            (link) => {
+              const url = new URL(link.href, window.location.origin);
+              url.searchParams.set(key, String(value));
+              link.href = url.pathname + url.search;
+            },
+          );
+        }
+      }
+    };
+
+    applyParams();
+    form.addEventListener('input', render);
+    form.addEventListener('change', render);
+    render();
+  });
+</script>

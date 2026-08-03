@@ -1,0 +1,33 @@
+---
+import Cta from './Cta.astro';
+import { type CtaPlacement } from '../config';
+
+interface Props {
+  placement?: CtaPlacement;
+  heading?: string;
+  body?: string;
+}
+
+const {
+  placement = 'header',
+  heading = 'Want the satellite version?',
+  body = "Leave your email and we'll tell you the moment address measurement goes live.",
+} = Astro.props;
+---
+
+<!-- Full-width block below every guide and cost page. -->
+<section class="bg-blue-600 py-16">
+  <div class="container-page text-center">
+    <h2 class="text-3xl text-white">{heading}</h2>
+    <p class="mx-auto mt-3 max-w-xl text-blue-100">{body}</p>
+    <div class="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
+      <Cta placement={placement} variant="onBlue" />
+      <a
+        href="/calculators/pool-volume"
+        class="btn border-2 border-white/50 px-8 text-white hover:bg-white/10"
+      >
+        Use the free calculator
+      </a>
+    </div>
+  </div>
+</section>

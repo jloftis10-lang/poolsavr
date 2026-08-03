@@ -1,10 +1,27 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Cta from '../../components/Cta.astro';
-import { ctaSupporting } from '../../config';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import Calculator from '../../components/calculator/Calculator.astro';
+import AuthorByline from '../../components/AuthorByline.astro';
+import Sources from '../../components/Sources.astro';
+import { breadcrumb, faqPage, webApplication } from '../../lib/schema';
 
-const SITE = 'https://www.poolsavr.com';
-const PAGE_URL = `${SITE}/calculators/pool-volume/`;
+const PATH = '/calculators/pool-volume/';
+const publishDate = new Date('2026-08-02');
+const updatedDate = new Date('2026-08-03');
+
+// The /calculators/ hub arrives with the rest of the suite in Phase 2B; until
+// then this crumb would link (and point schema) at a 404.
+const trail = [{ name: 'Pool Volume Calculator', path: PATH }];
+
+const sources = [
+  {
+    title: 'Volume of a cylinder, prism and other solids',
+    publisher: 'NIST / U.S. Department of Commerce',
+    url: 'https://www.nist.gov/pml/owm/metric-si/si-units-volume',
+    accessed: 'August 2026',
+  },
+];
 
 const commonSizes = [
   { size: '12 × 24 ft', depth: '3–6 ft', avg: '4.5 ft', gallons: '9,700' },
@@ -62,34 +79,6 @@ const faqs = [
   },
 ];
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map((faq) => ({
-    '@type': 'Question',
-    name: faq.q,
-    acceptedAnswer: { '@type': 'Answer', text: faq.a },
-  })),
-};
-
-const appSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebApplication',
-  name: 'Pool Volume Calculator',
-  applicationCategory: 'UtilitiesApplication',
-  operatingSystem: 'Any',
-  url: PAGE_URL,
-  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-};
-
-const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
-    { '@type': 'ListItem', position: 2, name: 'Pool Volume Calculator', item: PAGE_URL },
-  ],
-};
 ---
 
 <Layout
@@ -97,21 +86,25 @@ const breadcrumbSchema = {
   description="Free pool volume calculator. Enter your dimensions to get gallons instantly — works for rectangle, oval, kidney, and round pools."
 >
   <Fragment slot="head">
-    <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-    <script is:inline type="application/ld+json" set:html={JSON.stringify(appSchema)} />
-    <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(faqPage(faqs))} />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(
+        webApplication({ name: 'Pool Volume Calculator', path: PATH }),
+      )}
+    />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(breadcrumb(trail))}
+    />
   </Fragment>
 
   <!-- H1 + one-sentence answer, then straight into the tool. -->
   <section class="border-b border-navy-100 bg-white pb-6 pt-6 sm:pb-8 sm:pt-8">
     <div class="container-page">
-      <nav aria-label="Breadcrumb" class="mb-5">
-        <ol class="flex gap-2 text-sm text-navy-400">
-          <li><a href="/" class="hover:text-blue-600">Home</a></li>
-          <li aria-hidden="true">/</li>
-          <li class="text-navy-700">Pool Volume Calculator</li>
-        </ol>
-      </nav>
+      <Breadcrumb trail={trail} class="mb-5" />
 
       <h1 class="max-w-3xl text-3xl sm:text-4xl">Pool Volume Calculator</h1>
 
@@ -121,139 +114,19 @@ const breadcrumbSchema = {
         32 foot pool averaging 4.5 feet deep holds about 17,200 gallons. Most
         residential inground pools fall between 10,000 and 30,000 gallons.
       </p>
+
+      <AuthorByline
+        publishDate={publishDate}
+        updatedDate={updatedDate}
+        class="mt-5"
+      />
     </div>
   </section>
 
   <!-- Calculator: above the fold, no scrolling to reach it -->
   <section class="bg-navy-50 py-6 sm:py-10">
     <div class="container-page">
-      <div class="grid items-start gap-6 lg:grid-cols-[1.1fr_1fr] lg:gap-8">
-        <div class="rounded-3xl bg-white p-5 shadow-lg sm:p-8">
-          <h2 class="text-xl">Your pool</h2>
-
-          <form id="calc" class="mt-4 space-y-4">
-            <fieldset>
-              <legend class="mb-2 text-sm font-semibold text-navy-800">
-                Pool shape
-              </legend>
-              <div class="grid grid-cols-4 gap-2 sm:gap-3">
-                {
-                  [
-                    { value: 'rectangle', label: 'Rectangle' },
-                    { value: 'oval', label: 'Oval' },
-                    { value: 'round', label: 'Round' },
-                    { value: 'freeform', label: 'Kidney / freeform' },
-                  ].map((shape, index) => (
-                    <label class="cursor-pointer">
-                      <input
-                        type="radio"
-                        name="shape"
-                        value={shape.value}
-                        checked={index === 0}
-                        class="peer sr-only"
-                      />
-                      <span class="block h-full rounded-xl border-2 border-navy-200 px-2 py-2 text-center text-xs font-medium sm:px-3 sm:py-2.5 sm:text-sm text-navy-600 transition-colors peer-checked:border-blue-500 peer-checked:bg-blue-50 peer-checked:text-blue-700 peer-focus-visible:ring-2 peer-focus-visible:ring-blue-400">
-                        {shape.label}
-                      </span>
-                    </label>
-                  ))
-                }
-              </div>
-            </fieldset>
-
-            <div class="grid grid-cols-2 gap-3 sm:gap-4">
-              <div>
-                <label for="length" class="mb-1.5 block text-sm font-semibold text-navy-800">
-                  <span id="length-label">Length</span> (ft)
-                </label>
-                <input id="length" type="number" min="1" step="0.5" value="32" class="input" />
-              </div>
-              <div id="width-field">
-                <label for="width" class="mb-2 block text-sm font-semibold text-navy-800">
-                  Width (ft)
-                </label>
-                <input id="width" type="number" min="1" step="0.5" value="18" class="input" />
-              </div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-3 sm:gap-4">
-              <div>
-                <label for="shallow" class="mb-2 block text-sm font-semibold text-navy-800">
-                  Shallow end (ft)
-                </label>
-                <input id="shallow" type="number" min="0.5" step="0.5" value="3" class="input" />
-              </div>
-              <div>
-                <label for="deep" class="mb-2 block text-sm font-semibold text-navy-800">
-                  Deep end (ft)
-                </label>
-                <input id="deep" type="number" min="0.5" step="0.5" value="8" class="input" />
-              </div>
-            </div>
-
-            <p class="text-xs text-navy-400">
-              Same depth throughout? Put the same number in both fields.
-            </p>
-
-            <p
-              id="calc-error"
-              class="hidden rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-700"
-            >
-            </p>
-          </form>
-        </div>
-
-        <!-- Results, the formula applied, then the highest-intent CTA -->
-        <div class="rounded-3xl bg-navy-900 p-5 shadow-lg sm:p-8">
-          <h2 class="text-lg text-white">Results</h2>
-
-          <div class="mt-5 rounded-2xl bg-blue-500 p-6 text-center">
-            <p class="text-xs font-bold uppercase tracking-widest text-blue-100">
-              Pool volume
-            </p>
-            <p id="r-gallons" class="mt-2 font-display text-4xl font-bold text-white">
-              —
-            </p>
-            <p class="text-sm text-blue-100">US gallons</p>
-            <p id="r-liters" class="mt-1 text-xs text-blue-200"></p>
-          </div>
-
-          <div class="mt-5 rounded-xl bg-navy-800/70 p-4 ring-1 ring-white/5">
-            <p class="text-xs font-bold uppercase tracking-widest text-navy-400">
-              Formula applied
-            </p>
-            <p
-              id="r-formula"
-              class="mt-2 break-words font-display text-sm font-semibold text-blue-300"
-            >
-              —
-            </p>
-          </div>
-
-          <dl class="mt-5 space-y-3">
-            {
-              [
-                ['Surface area', 'r-area'],
-                ['Perimeter', 'r-perimeter'],
-                ['Average depth', 'r-depth'],
-                ['Water weight', 'r-weight'],
-              ].map(([label, id]) => (
-                <div class="flex items-center justify-between border-b border-navy-800 pb-3">
-                  <dt class="text-sm text-navy-300">{label}</dt>
-                  <dd id={id} class="font-display font-semibold text-white">
-                    —
-                  </dd>
-                </div>
-              ))
-            }
-          </dl>
-
-          <div class="mt-6 rounded-2xl bg-navy-800/60 p-5 ring-1 ring-white/5">
-            <p class="text-sm text-navy-100">{ctaSupporting('calculatorResult')}</p>
-            <Cta placement="calculatorResult" class="mt-4 w-full" />
-          </div>
-        </div>
-      </div>
+      <Calculator id="pool-volume" />
     </div>
   </section>
 
@@ -447,107 +320,9 @@ const breadcrumbSchema = {
             }
           </div>
         </div>
+
+        <Sources sources={sources} />
       </div>
     </div>
   </section>
 </Layout>
-
-<script>
-  import { calculatePool } from '../../lib/pool-math.js';
-
-  const form = document.getElementById('calc') as HTMLFormElement | null;
-  const errorBox = document.getElementById('calc-error');
-  const widthField = document.getElementById('width-field');
-  const lengthLabel = document.getElementById('length-label');
-
-  const num = (id: string) =>
-    Number((document.getElementById(id) as HTMLInputElement | null)?.value);
-
-  const fmt = (value: number, digits = 0) =>
-    value.toLocaleString('en-US', {
-      minimumFractionDigits: digits,
-      maximumFractionDigits: digits,
-    });
-
-  const setText = (id: string, text: string) => {
-    const element = document.getElementById(id);
-    if (element) element.textContent = text;
-  };
-
-  /** Showing the arithmetic builds trust and earns links from pool forums. */
-  const formulaFor = (
-    shape: string,
-    length: number,
-    width: number,
-    avgDepth: number,
-    gallons: number,
-  ) => {
-    const d = fmt(avgDepth, 1);
-    const g = fmt(gallons);
-    switch (shape) {
-      case 'round':
-        return `3.14 × (${length} ÷ 2)² × ${d} × 7.48 = ${g} gal`;
-      case 'oval':
-        return `3.14 × (${length} ÷ 2) × (${width} ÷ 2) × ${d} × 7.48 = ${g} gal`;
-      case 'freeform':
-        return `${length} × ${width} × ${d} × 7.48 × 0.85 = ${g} gal`;
-      default:
-        return `${length} × ${width} × ${d} × 7.48 = ${g} gal`;
-    }
-  };
-
-  const update = () => {
-    const shape =
-      (form?.querySelector('input[name=shape]:checked') as HTMLInputElement | null)
-        ?.value ?? 'rectangle';
-
-    const isRound = shape === 'round';
-    widthField?.classList.toggle('hidden', isRound);
-    if (lengthLabel) lengthLabel.textContent = isRound ? 'Diameter' : 'Length';
-
-    const length = num('length');
-    const width = isRound ? num('length') : num('width');
-    const shallowDepth = num('shallow');
-    const deepDepth = num('deep');
-
-    const invalid =
-      [length, width, shallowDepth, deepDepth].some(
-        (value) => !Number.isFinite(value) || value <= 0,
-      ) || deepDepth < shallowDepth;
-
-    if (invalid) {
-      if (errorBox) {
-        errorBox.textContent =
-          deepDepth < shallowDepth && shallowDepth > 0
-            ? 'The deep end must be at least as deep as the shallow end.'
-            : 'Enter a positive number in every field.';
-        errorBox.classList.remove('hidden');
-      }
-      ['r-gallons', 'r-area', 'r-perimeter', 'r-depth', 'r-weight', 'r-formula'].forEach(
-        (id) => setText(id, '—'),
-      );
-      setText('r-liters', '');
-      return;
-    }
-
-    errorBox?.classList.add('hidden');
-
-    const result = calculatePool({ shape, length, width, shallowDepth, deepDepth });
-
-    setText('r-gallons', fmt(result.gallons));
-    setText('r-liters', `${fmt(result.liters)} liters`);
-    setText('r-area', `${fmt(result.area)} sq ft`);
-    setText('r-perimeter', `${fmt(result.perimeter)} ft`);
-    setText('r-depth', `${fmt(result.avgDepth, 1)} ft`);
-    // Water weighs 8.34 lb per US gallon.
-    setText('r-weight', `${fmt((result.gallons * 8.34) / 2000, 1)} tons`);
-    setText(
-      'r-formula',
-      formulaFor(shape, length, width, result.avgDepth, result.gallons),
-    );
-  };
-
-  form?.addEventListener('input', update);
-  form?.addEventListener('change', update);
-  update();
-</script>
