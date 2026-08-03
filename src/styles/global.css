@@ -83,7 +83,8 @@
 }
 
 @utility btn-primary {
-  @apply btn bg-blue-500 text-white shadow-glow hover:bg-blue-600 active:bg-blue-700;
+  /* blue-600, not blue-500: white on blue-500 is 3.54:1 and fails WCAG AA. */
+  @apply btn bg-blue-600 text-white shadow-glow hover:bg-blue-700 active:bg-blue-800;
 }
 
 @utility btn-secondary {
@@ -99,7 +100,7 @@
 }
 
 @utility eyebrow {
-  @apply inline-flex items-center gap-2 rounded-full bg-blue-50 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-blue-600;
+  @apply inline-flex items-center gap-2 rounded-full bg-blue-50 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-blue-700;
 }
 
 @utility card {

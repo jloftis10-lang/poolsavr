@@ -1,0 +1,66 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const destinations = [
+  {
+    href: '/calculators/pool-volume',
+    name: 'Pool volume calculator',
+    blurb: 'Gallons, surface area and perimeter from your dimensions.',
+  },
+  {
+    href: '/calculators/',
+    name: 'All calculators',
+    blurb: 'Volume, chemistry, heater and pump sizing.',
+  },
+  {
+    href: '/cost/',
+    name: 'Pool costs',
+    blurb: 'Resurfacing, remodelling, tile, coping and upkeep.',
+  },
+  {
+    href: '/pool-care/',
+    name: 'Pool care guides',
+    blurb: 'Green water, cloudy water, algae and leaks.',
+  },
+];
+---
+
+<Layout
+  title="Page Not Found | PoolSavr"
+  description="That page doesn't exist. Here are the calculators and guides most people are looking for."
+  noindex
+>
+  <section class="bg-white py-16">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl">
+        <p class="font-display text-sm font-bold uppercase tracking-widest text-blue-600">
+          404
+        </p>
+        <h1 class="mt-4 text-3xl sm:text-4xl">That page doesn't exist</h1>
+        <p class="mt-4 text-lg leading-relaxed text-navy-600">
+          The link may be out of date, or the address may have a typo. Here is
+          what most people arrive looking for.
+        </p>
+
+        <div class="mt-10 grid gap-4 sm:grid-cols-2">
+          {
+            destinations.map((item) => (
+              <a
+                href={item.href}
+                class="block rounded-2xl border border-navy-100 p-5 transition-shadow hover:shadow-md"
+              >
+                <p class="font-display font-semibold text-navy-900">{item.name}</p>
+                <p class="mt-1 text-sm leading-relaxed text-navy-500">{item.blurb}</p>
+              </a>
+            ))
+          }
+        </div>
+
+        <div class="mt-10 flex flex-col gap-3 sm:flex-row">
+          <a href="/" class="btn-primary">Back to home</a>
+          <a href="/contact" class="btn-outline">Report a broken link</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

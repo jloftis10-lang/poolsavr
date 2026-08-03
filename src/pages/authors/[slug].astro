@@ -44,7 +44,7 @@ const trail = [{ name: author.name, path }];
     <div class="container-page">
       <Breadcrumb trail={trail} class="mb-5" />
       <h1 class="text-3xl sm:text-4xl">{author.name}</h1>
-      <p class="mt-2 font-display font-semibold text-blue-600">{author.role}</p>
+      <p class="mt-2 font-display font-semibold text-blue-700">{author.role}</p>
       {
         author.credentials?.length ? (
           <p class="mt-1 text-sm text-navy-500">{author.credentials.join(' · ')}</p>

@@ -9,7 +9,8 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "test": "tsx --test test/*.test.ts"
+    "test": "tsx --test test/*.test.ts",
+    "og": "node scripts/make-og-image.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -20,6 +21,7 @@
     "typescript": "^5.7.2"
   },
   "devDependencies": {
+    "lighthouse": "^13.4.1",
     "tsx": "^4.23.5"
   }
 }
