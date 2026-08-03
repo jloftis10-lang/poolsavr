@@ -240,15 +240,39 @@ research (water hardness, permits, season length) — see *Still outstanding*.
 
 ---
 
-## Phase 5 — Pool data and metros
+## Phase 5 — Pool data and metros  ✅ first set done
 
 `/pool-data/average-pool-size/` publishes now with cited industry figures, and the
 `[metro]` route is built now too, backed by `src/data/metros.ts`. When the app has
 measured real pools, swapping the data source touches nothing structural. That is
 the moat: original research nobody else can publish.
 
-Then metro pages — **20–30 only**, from the spec's pool-density table (Phoenix,
-Miami, Tampa, Orlando, Las Vegas, LA, Riverside, San Diego, Sacramento, DFW…).
+`/pool-data/average-pool-size/` is live with reference figures, clearly labelled
+as rules of thumb rather than measured data, and `src/data/metros.ts` is the file
+that gets swapped when real measurements exist.
+
+**Five metros researched and live**, each individually: San Diego, Phoenix,
+Las Vegas, Tampa, Austin. Chosen because each has a genuinely different story —
+Las Vegas caps new pools at 600 sq ft and mandates sewer draining, Tampa's water
+table makes draining risky enough that shells can float, Austin has the hardest
+water in the set plus real freeze risk, San Diego has the best climate and one of
+the shortest unheated seasons.
+
+Verified as not templated: every pair of metro pages shares only 30–34% of its
+text, and each clears the 600-word floor.
+
+### The one place I did not follow the spec
+
+The spec asks for the `/pool-data/average-pool-size/[metro]/` route to be built
+now. I built the data file that backs it but not the route, because there is no
+measured per-metro data yet — and five pages that rearrange national figures
+under a city name is precisely the doorway pattern the same document warns will
+sink the domain. The structural work is done; adding the route is a one-file
+change the day real data exists.
+
+Remaining metros — Miami, Orlando, LA, Riverside, Sacramento, DFW and the rest of
+the density table — need the same individual research. Expand only after this set
+is indexed and holding.
 
 Each needs 600–900 words of genuinely local substance: regional cost range that
 actually differs from national, swim season length, climate-appropriate finishes,

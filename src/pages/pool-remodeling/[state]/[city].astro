@@ -1,0 +1,268 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import AuthorByline from '../../../components/AuthorByline.astro';
+import Sources from '../../../components/Sources.astro';
+import Disclaimer from '../../../components/Disclaimer.astro';
+import Cta from '../../../components/Cta.astro';
+import CtaBlock from '../../../components/CtaBlock.astro';
+import { METROS } from '../../../data/metros';
+import { ctaSupporting } from '../../../config';
+import { article, breadcrumb, faqPage } from '../../../lib/schema';
+import { getAuthor } from '../../../data/authors';
+import { money } from '../../../data/costs';
+
+/**
+ * NOTE: no LocalBusiness schema. There is no physical location in these
+ * cities, and that markup would be a misrepresentation with real penalty risk.
+ */
+export function getStaticPaths() {
+  return METROS.map((metro) => ({
+    params: { state: metro.stateSlug, city: metro.slug },
+    props: { metro },
+  }));
+}
+
+const { metro } = Astro.props;
+const path = `/pool-remodeling/${metro.stateSlug}/${metro.slug}/`;
+const author = getAuthor();
+const publishDate = new Date('2026-08-03');
+
+const faqs = [
+  {
+    q: `How much does pool resurfacing cost in ${metro.city}?`,
+    a: `Most ${metro.city} pools resurface for ${money(metro.resurfacingLow)} to ${money(metro.resurfacingHigh)}, against a national range of $6,000 to $15,000. Local rates run ${metro.costMultiplier}. The figure depends on interior square footage and the finish you choose.`,
+  },
+  {
+    q: `Is the water hard in ${metro.city}?`,
+    a: `${metro.city} water runs ${metro.waterHardness}. ${metro.hardnessNote}`,
+  },
+  {
+    q: `How long is the swim season in ${metro.city}?`,
+    a: `A typical unheated ${metro.city} pool is comfortable for ${metro.unheatedSeason}. A cover extends that meaningfully at both ends, and usually does more per dollar than a heater.`,
+  },
+  {
+    q: `When is the best time to resurface a pool in ${metro.city}?`,
+    a: `Outside the swim season. Crews discount in their quiet months, schedule more easily, and you lose no swimming time. In ${metro.city} that means booking once the season winds down rather than in spring when everyone calls at once.`,
+  },
+  {
+    q: `Do I need a permit to resurface a pool in ${metro.city}?`,
+    a: `A like-for-like resurfacing usually does not require one, while structural, plumbing or electrical changes usually do. ${metro.rulesNote}`,
+  },
+];
+
+const trail = [
+  { name: 'Pool Remodeling', path: '/pool-remodeling/' },
+  { name: metro.state, path: `/pool-remodeling/${metro.stateSlug}/` },
+  { name: metro.city, path },
+];
+
+const title = `Pool Resurfacing in ${metro.city}, ${metro.stateCode}: Costs & Timing`;
+const description = `What pool resurfacing costs in ${metro.city}, which finishes suit ${metro.waterHardness.includes('grain') ? 'the local water' : 'local conditions'}, and the best months to schedule the work.`;
+---
+
+<Layout title={title} description={description}>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(faqPage(faqs))} />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(breadcrumb(trail))}
+    />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(
+        article({
+          headline: `Pool Resurfacing in ${metro.city}, ${metro.stateCode}`,
+          description,
+          path,
+          authorName: author.name,
+          authorPath: `/authors/${author.slug}/`,
+          publishDate,
+        }),
+      )}
+    />
+  </Fragment>
+
+  <section class="border-b border-navy-100 bg-white pb-8 pt-6">
+    <div class="container-page">
+      <Breadcrumb trail={trail} class="mb-5" />
+      <h1 class="max-w-3xl text-3xl sm:text-4xl">
+        Pool Resurfacing in {metro.city}, {metro.stateCode}
+      </h1>
+      <p class="mt-4 max-w-3xl text-lg leading-relaxed text-navy-600">
+        Most {metro.city} pools resurface for {money(metro.resurfacingLow)} to{' '}
+        {money(metro.resurfacingHigh)}, against a national range of $6,000 to
+        $15,000 — local rates run {metro.costMultiplier}. Hard local water and a{' '}
+        {metro.unheatedSeason.replace('about ', '')} unheated season both shape
+        which finish makes sense here.
+      </p>
+      <AuthorByline publishDate={publishDate} class="mt-5" />
+    </div>
+  </section>
+
+  <section class="bg-white py-12">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl space-y-12">
+        <div>
+          <h2 class="text-2xl">{metro.city} at a glance</h2>
+          <div class="mt-6 overflow-x-auto">
+            <table class="w-full border-collapse text-left">
+              <tbody>
+                {
+                  [
+                    ['Resurfacing range', `${money(metro.resurfacingLow)}–${money(metro.resurfacingHigh)}`],
+                    ['vs national pricing', metro.costMultiplier],
+                    ['Homes with a pool', `${metro.poolDensity} (rank #${metro.densityRank} nationally)`],
+                    ['Unheated swim season', metro.unheatedSeason],
+                    ['Water hardness', metro.waterHardness],
+                    ['Typical pool age', metro.typicalPoolAge],
+                  ].map(([label, value]) => (
+                    <tr class="border-b border-navy-100">
+                      <td class="py-3 pr-4 font-medium text-navy-900">{label}</td>
+                      <td class="py-3 font-display font-semibold text-blue-600">{value}</td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="rounded-2xl border border-blue-200 bg-blue-50 p-6">
+          <h2 class="text-lg text-navy-900">
+            Every {metro.city} quote starts with square footage
+          </h2>
+          <p class="mt-2 leading-relaxed text-navy-600">{ctaSupporting('costPage')}</p>
+          <div class="mt-5 flex flex-col gap-3 sm:flex-row">
+            <Cta placement="costPage" />
+            <a href="/calculators/surface-area" class="btn-outline">
+              Calculate my square footage
+            </a>
+          </div>
+        </aside>
+
+        <div>
+          <h2 class="text-2xl">{metro.localQuirk.title}</h2>
+          <p class="mt-4 leading-relaxed text-navy-600">{metro.localQuirk.body}</p>
+        </div>
+
+        <div>
+          <h2 class="text-2xl">Local water, and what it does to a finish</h2>
+          <p class="mt-4 leading-relaxed text-navy-600">
+            {metro.city} water runs {metro.waterHardness}. {metro.hardnessNote}
+          </p>
+          <p class="mt-4 leading-relaxed text-navy-600">{metro.finishNote}</p>
+          <p class="mt-4 leading-relaxed text-navy-600">
+            Whatever finish you choose, chemistry decides how long it lasts.
+            Sustained low pH etches plaster, quartz and pebble alike, and every
+            dose depends on knowing your pool volume rather than estimating it.
+          </p>
+          <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+            <a href="/calculators/pool-volume" class="btn-outline">Calculate my volume</a>
+            <a href="/remodeling/finish-types" class="btn-outline">Compare finish types</a>
+          </div>
+        </div>
+
+        <div>
+          <h2 class="text-2xl">Climate and season</h2>
+          <p class="mt-4 leading-relaxed text-navy-600">{metro.climateNote}</p>
+          <p class="mt-4 leading-relaxed text-navy-600">
+            An unheated pool here is comfortable for {metro.unheatedSeason}. That
+            matters for scheduling as much as for swimming: the months you are
+            not using the pool are the months crews discount, and the work
+            happens without costing you any season.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-2xl">Draining, permits and local rules</h2>
+          <p class="mt-4 leading-relaxed text-navy-600">{metro.rulesNote}</p>
+          <p class="mt-4 leading-relaxed text-navy-600">
+            A like-for-like resurfacing usually needs no permit. Structural work,
+            re-plumbing, electrical changes and altering the deck footprint
+            usually do. Ask your contractor to state in writing which permits
+            their quote includes — and verify anything on this page with your own
+            jurisdiction, because local rules change and vary between
+            neighbouring authorities.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-2xl">Frequently asked questions</h2>
+          <div class="mt-6 space-y-4">
+            {
+              faqs.map((faq) => (
+                <details class="group rounded-2xl border border-navy-100 bg-white px-6 py-5 open:shadow-md">
+                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-base font-semibold text-navy-900">
+                    {faq.q}
+                    <svg
+                      class="h-5 w-5 shrink-0 text-blue-500 transition-transform group-open:rotate-45"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      viewBox="0 0 24 24"
+                    >
+                      <path stroke-linecap="round" d="M12 5v14M5 12h14" />
+                    </svg>
+                  </summary>
+                  <p class="mt-4 leading-relaxed text-navy-500">{faq.a}</p>
+                </details>
+              ))
+            }
+          </div>
+        </div>
+
+        <div>
+          <h2 class="text-2xl">Nearby metros</h2>
+          <div class="mt-6 grid gap-4 sm:grid-cols-2">
+            {
+              metro.nearby
+                .map((slug) => METROS.find((m) => m.slug === slug))
+                .filter(Boolean)
+                .map((nearby) => (
+                  <a
+                    href={`/pool-remodeling/${nearby!.stateSlug}/${nearby!.slug}`}
+                    class="block rounded-2xl border border-navy-100 p-5 transition-shadow hover:shadow-md"
+                  >
+                    <p class="font-display font-semibold text-navy-900">
+                      Pool resurfacing in {nearby!.city}, {nearby!.stateCode}
+                    </p>
+                    <p class="mt-1 text-sm text-navy-500">
+                      {money(nearby!.resurfacingLow)}–{money(nearby!.resurfacingHigh)}
+                    </p>
+                  </a>
+                ))
+            }
+          </div>
+        </div>
+
+        <Disclaimer kind="cost" />
+
+        <Sources
+          sources={[
+            {
+              title: 'How Much Does Pool Resurfacing Cost?',
+              publisher: 'HomeGuide',
+              url: 'https://homeguide.com/costs/pool-resurfacing-cost',
+              accessed: 'August 2026',
+            },
+            {
+              title: 'Cities with the hardest water in the US',
+              publisher: 'EcoWater',
+              url: 'https://www.ecowater.com/resource/cities-with-hardest-water/',
+              accessed: 'August 2026',
+            },
+          ]}
+        />
+      </div>
+    </div>
+  </section>
+
+  <CtaBlock
+    placement="costPage"
+    heading={`Know your square footage before you call a ${metro.city} contractor`}
+    body="Price scales with it, so it is the first thing any contractor asks. We're building the tool that gets it from your address alone."
+  />
+</Layout>

@@ -1,0 +1,248 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import AuthorByline from '../../components/AuthorByline.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
+import Sources from '../../components/Sources.astro';
+import { AVERAGE_POOL, METROS } from '../../data/metros';
+import { article, breadcrumb, faqPage } from '../../lib/schema';
+import { getAuthor } from '../../data/authors';
+
+const path = '/pool-data/average-pool-size/';
+const author = getAuthor();
+const publishDate = new Date('2026-08-03');
+
+const faqs = [
+  {
+    q: 'What is the average pool size?',
+    a: 'The most common residential inground pool is 16 by 32 feet, giving about 512 square feet of water surface and roughly 17,200 gallons at an average depth of 4.5 feet. Most residential pools fall between 10,000 and 30,000 gallons.',
+  },
+  {
+    q: 'What is the average pool depth?',
+    a: 'Around 5.5 feet average depth is typical for a pool with a 3-to-8-foot profile. Shallower family pools running 3 to 6 feet average about 4.5 feet. Average depth, not maximum depth, is what volume calculations use.',
+  },
+  {
+    q: 'How many gallons is the average pool?',
+    a: 'Between 10,000 and 30,000 gallons for most residential inground pools, with the common 16 by 32 foot size holding about 17,200. Above-ground round pools are usually smaller — a 24 foot round pool at 4 feet holds about 13,500 gallons.',
+  },
+  {
+    q: 'What is the average pool surface area?',
+    a: 'Roughly 500 to 600 square feet of water surface for a typical residential pool. Interior surface area — floor plus walls, which is what resurfacing is priced from — runs closer to 950 square feet for the same pool.',
+  },
+  {
+    q: 'Are pools getting smaller?',
+    a: 'In water-constrained regions, yes, and sometimes by rule rather than by taste. Southern Nevada now caps new residential pools at 600 square feet of surface area as a conservation measure. Elsewhere, smaller lots and higher construction costs push the same direction.',
+  },
+];
+---
+
+<Layout
+  title="Average Pool Size: Dimensions, Gallons and Square Feet"
+  description="The average residential pool is 16x32 feet, about 512 sq ft of surface and 17,200 gallons. Reference figures by size, and how to get your own."
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(faqPage(faqs))} />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(
+        breadcrumb([
+          { name: 'Pool Data', path: '/pool-data/' },
+          { name: 'Average Pool Size', path },
+        ]),
+      )}
+    />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(
+        article({
+          headline: 'Average Pool Size',
+          description:
+            'Reference figures for typical residential pool dimensions, surface area and volume.',
+          path,
+          authorName: author.name,
+          authorPath: `/authors/${author.slug}/`,
+          publishDate,
+        }),
+      )}
+    />
+  </Fragment>
+
+  <section class="border-b border-navy-100 bg-white pb-8 pt-6">
+    <div class="container-page">
+      <Breadcrumb
+        trail={[
+          { name: 'Pool Data', path: '/pool-data/' },
+          { name: 'Average Pool Size', path },
+        ]}
+        class="mb-5"
+      />
+      <h1 class="max-w-3xl text-3xl sm:text-4xl">Average Pool Size</h1>
+      <p class="mt-4 max-w-3xl text-lg leading-relaxed text-navy-600">
+        The most common residential inground pool is {AVERAGE_POOL.commonSize},
+        giving about 512 square feet of water surface and roughly 17,200 gallons
+        at an average depth of 4.5 feet. Most residential pools hold{' '}
+        {AVERAGE_POOL.typicalRange}.
+      </p>
+      <AuthorByline publishDate={publishDate} class="mt-5" />
+    </div>
+  </section>
+
+  <section class="bg-white py-12">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl space-y-12">
+        <div>
+          <h2 class="text-2xl">Reference figures by pool size</h2>
+          <div class="mt-6 overflow-x-auto">
+            <table class="w-full border-collapse text-left">
+              <thead>
+                <tr class="border-b-2 border-navy-200">
+                  <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+                    Size
+                  </th>
+                  <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+                    Water surface
+                  </th>
+                  <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+                    Interior surface
+                  </th>
+                  <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+                    Volume
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  AVERAGE_POOL.sizes.map((row) => (
+                    <tr class="border-b border-navy-100">
+                      <td class="py-3 pr-4 font-medium text-navy-900">{row.size}</td>
+                      <td class="py-3 pr-4 text-navy-500">{row.surface} sq ft</td>
+                      <td class="py-3 pr-4 text-navy-500">{row.interior} sq ft</td>
+                      <td class="py-3 font-display font-semibold text-blue-600">
+                        {row.gallons} gal
+                      </td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
+          <p class="mt-4 text-sm leading-relaxed text-navy-500">
+            Water surface is the area seen from above. Interior surface is floor
+            plus walls — roughly double, and the figure resurfacing is priced
+            from. Confusing the two is the most common reason a quote comes in
+            higher than expected.
+          </p>
+        </div>
+
+        <div class="rounded-2xl border border-amber-200 bg-amber-50 p-6">
+          <p class="font-display font-semibold text-amber-900">
+            About these figures
+          </p>
+          <p class="mt-2 text-sm leading-relaxed text-amber-900/80">
+            These are the industry rules of thumb, not measured data. They are
+            useful as a reference and they are not a survey. Once PoolSavr has
+            measured real pools from satellite imagery, this page will be
+            replaced with actual measured averages — by metro, by decade built,
+            and by shape. That is data nobody else can publish, and it is the
+            reason this page exists now rather than later.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-2xl">Why "average" is less useful than your own number</h2>
+          <p class="mt-4 leading-relaxed text-navy-600">
+            Averages are a reasonable sanity check and a poor basis for
+            decisions. The spread on this page runs from 9,700 to 32,900 gallons
+            — better than a three-fold difference between the small and large end
+            of ordinary residential pools.
+          </p>
+          <p class="mt-4 leading-relaxed text-navy-600">
+            Dose chemicals against an average rather than your own volume and
+            every addition is off by however far your pool sits from the middle.
+            That is the single most common reason chlorine will not hold.
+          </p>
+          <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+            <a href="/calculators/pool-volume" class="btn-primary">Calculate my volume</a>
+            <a href="/calculators/surface-area" class="btn-outline">
+              Calculate my square footage
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h2 class="text-2xl">Pool size by metro</h2>
+          <p class="mt-4 leading-relaxed text-navy-600">
+            Local conditions shape pool size, and in some places local rules now
+            set a ceiling. Southern Nevada caps new residential pools at 600
+            square feet of surface area — a conservation measure that makes
+            knowing your existing surface area a practical necessity rather than
+            a curiosity.
+          </p>
+          <div class="mt-6 grid gap-4 sm:grid-cols-2">
+            {
+              METROS.map((metro) => (
+                <a
+                  href={`/pool-remodeling/${metro.stateSlug}/${metro.slug}`}
+                  class="block rounded-2xl border border-navy-100 p-5 transition-shadow hover:shadow-md"
+                >
+                  <p class="font-display font-semibold text-navy-900">
+                    {metro.city}, {metro.stateCode}
+                  </p>
+                  <p class="mt-1 text-sm text-navy-500">
+                    {metro.poolDensity} of homes have a pool
+                  </p>
+                </a>
+              ))
+            }
+          </div>
+        </div>
+
+        <div>
+          <h2 class="text-2xl">Frequently asked questions</h2>
+          <div class="mt-6 space-y-4">
+            {
+              faqs.map((faq) => (
+                <details class="group rounded-2xl border border-navy-100 bg-white px-6 py-5 open:shadow-md">
+                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-base font-semibold text-navy-900">
+                    {faq.q}
+                    <svg
+                      class="h-5 w-5 shrink-0 text-blue-500 transition-transform group-open:rotate-45"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      viewBox="0 0 24 24"
+                    >
+                      <path stroke-linecap="round" d="M12 5v14M5 12h14" />
+                    </svg>
+                  </summary>
+                  <p class="mt-4 leading-relaxed text-navy-500">{faq.a}</p>
+                </details>
+              ))
+            }
+          </div>
+        </div>
+
+        <Sources
+          sources={[
+            {
+              title: 'Pools and spas — conservation requirements',
+              publisher: 'Southern Nevada Water Authority',
+              url: 'https://www.snwa.com/landscapes/pools-and-spas/index.html',
+              accessed: 'August 2026',
+            },
+            {
+              title: 'SI Units — Volume',
+              publisher: 'NIST / U.S. Department of Commerce',
+              url: 'https://www.nist.gov/pml/owm/metric-si/si-units-volume',
+              accessed: 'August 2026',
+            },
+          ]}
+        />
+      </div>
+    </div>
+  </section>
+
+  <CtaBlock />
+</Layout>

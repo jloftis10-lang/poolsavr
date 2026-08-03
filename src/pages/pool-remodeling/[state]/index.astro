@@ -1,0 +1,87 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import CtaBlock from '../../../components/CtaBlock.astro';
+import { METROS } from '../../../data/metros';
+import { money } from '../../../data/costs';
+import { breadcrumb } from '../../../lib/schema';
+
+export function getStaticPaths() {
+  const states = new Map<string, { state: string; stateSlug: string }>();
+  for (const metro of METROS) {
+    states.set(metro.stateSlug, { state: metro.state, stateSlug: metro.stateSlug });
+  }
+  return [...states.values()].map((entry) => ({
+    params: { state: entry.stateSlug },
+    props: {
+      ...entry,
+      metros: METROS.filter((metro) => metro.stateSlug === entry.stateSlug),
+    },
+  }));
+}
+
+const { state, stateSlug, metros } = Astro.props;
+const trail = [
+  { name: 'Pool Remodeling', path: '/pool-remodeling/' },
+  { name: state, path: `/pool-remodeling/${stateSlug}/` },
+];
+---
+
+<Layout
+  title={`Pool Resurfacing in ${state}: Costs by Metro`}
+  description={`What pool resurfacing costs across ${state}, with local water hardness, season length and draining rules for each metro.`}
+>
+  <Fragment slot="head">
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(breadcrumb(trail))}
+    />
+  </Fragment>
+
+  <section class="border-b border-navy-100 bg-white py-10">
+    <div class="container-page">
+      <Breadcrumb trail={trail} class="mb-5" />
+      <h1 class="max-w-3xl text-3xl sm:text-4xl">
+        Pool resurfacing in {state}
+      </h1>
+      <p class="mt-4 max-w-3xl text-lg leading-relaxed text-navy-600">
+        Local costs and conditions for the {state} metros we have researched.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-navy-50 py-12">
+    <div class="container-page">
+      <div class="grid gap-5 md:grid-cols-2">
+        {
+          metros.map((metro) => (
+            <a
+              href={`/pool-remodeling/${metro.stateSlug}/${metro.slug}`}
+              class="block rounded-2xl bg-white p-6 shadow-sm transition-shadow hover:shadow-lg"
+            >
+              <h2 class="text-xl">
+                {metro.city}, {metro.stateCode}
+              </h2>
+              <p class="mt-1 font-display text-lg font-bold text-navy-900">
+                {money(metro.resurfacingLow)}–{money(metro.resurfacingHigh)}
+              </p>
+              <p class="mt-2 leading-relaxed text-navy-500">{metro.localQuirk.title}</p>
+              <span class="mt-4 inline-block font-display text-sm font-semibold text-navy-900">
+                Local costs and conditions →
+              </span>
+            </a>
+          ))
+        }
+      </div>
+
+      <p class="mx-auto mt-8 max-w-3xl text-sm text-navy-500">
+        <a href="/pool-remodeling/" class="text-blue-600 underline underline-offset-4">
+          All metros we have researched
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <CtaBlock placement="costPage" />
+</Layout>
