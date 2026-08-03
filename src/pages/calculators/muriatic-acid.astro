@@ -1,0 +1,166 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+import CtaInline from '../../components/CtaInline.astro';
+import RelatedCalculators from '../../components/RelatedCalculators.astro';
+
+const faqs = [
+  {
+    q: 'How much muriatic acid do I add to my pool?',
+    a: 'About 26 fluid ounces of 31.45% muriatic acid per 10,000 gallons lowers total alkalinity by 10 ppm. For a 20,000 gallon pool going from 150 ppm to 100 ppm, that works out to roughly 256 fl oz — about two gallons.',
+  },
+  {
+    q: 'Why does this calculator use alkalinity instead of pH?',
+    a: 'Because pH movement depends on how much buffer the water holds. The same dose of acid barely moves pH in a high-alkalinity pool and sends it plunging in a low-alkalinity one. Alkalinity is the quantity acid consumes predictably, so dosing against it is the reliable approach.',
+  },
+  {
+    q: 'Does muriatic acid lower pH or alkalinity?',
+    a: 'Both, always, at the same time. You cannot lower one without affecting the other with acid alone. Lowering alkalinity while keeping pH up is done by adding acid and then aerating the water, which drives pH back up without restoring alkalinity.',
+  },
+  {
+    q: 'What alkalinity should my pool run at?',
+    a: 'The CDC Model Aquatic Health Code gives an operating range of 60 to 180 ppm. Most residential pools sit near 100 ppm. Below about 60 the pH becomes unstable and swings on its own; above 150 the pH tends to drift upward constantly.',
+  },
+  {
+    q: 'How long before I can swim?',
+    a: 'Wait at least 30 minutes with the pump running, then re-test pH and alkalinity before anyone gets in. Acid needs to disperse fully — swimming in water where it has not mixed is how people get chemical burns.',
+  },
+  {
+    q: 'Is dry acid safer than muriatic acid?',
+    a: 'Sodium bisulfate is easier and safer to handle, and it is a reasonable substitute. The trade-off is that it adds sulfates to the water, which build up over time and can contribute to problems with plaster in high concentrations.',
+  },
+];
+
+const sources = [
+  {
+    title: '2023 Model Aquatic Health Code, 4th Edition — pH and alkalinity',
+    publisher: 'Centers for Disease Control and Prevention',
+    url: 'https://www.cdc.gov/model-aquatic-health-code/media/pdfs/2023-MAHC-508.pdf',
+    accessed: 'August 2026',
+  },
+  {
+    title: 'Home Pool and Hot Tub Water Treatment and Testing',
+    publisher: 'Centers for Disease Control and Prevention',
+    url: 'https://www.cdc.gov/healthy-swimming/about/home-pool-and-hot-tub-water-treatment-and-testing.html',
+    accessed: 'August 2026',
+  },
+];
+---
+
+<CalculatorLayout
+  calculatorId="muriatic-acid"
+  breadcrumbName="Muriatic Acid Calculator"
+  path="/calculators/muriatic-acid/"
+  title="Muriatic Acid Calculator: How Much to Add to a Pool"
+  description="Calculate how much muriatic acid lowers your pool's alkalinity and pH. Dosing for 31.45% and 14.5% acid by pool volume."
+  h1="Muriatic Acid Calculator"
+  answer="About 26 fluid ounces of 31.45% muriatic acid per 10,000 gallons lowers total alkalinity by 10 ppm, and lowers pH along with it. Enter your volume and current alkalinity below. Add acid in stages and re-test — it is far easier to add more than to undo an overdose."
+  publishDate={new Date('2026-08-03')}
+  faqs={faqs}
+  sources={sources}
+  disclaimer="chemistry"
+>
+  <div>
+    <h2 class="text-2xl">Why this is dosed against alkalinity, not pH</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Most acid calculators ask for your current and target pH. That looks
+      helpful and is quietly unreliable.
+    </p>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Alkalinity is the water's buffer — its resistance to pH change. Pour a
+      quart of acid into a pool with 200 ppm alkalinity and pH barely twitches.
+      Pour the same quart into a pool at 50 ppm and pH falls off a cliff. Any
+      chart that maps acid volume straight to a pH drop is ignoring the variable
+      that actually governs the result.
+    </p>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Acid neutralises alkalinity in a fixed, predictable ratio. That is the
+      quantity worth calculating, so it is the one this page uses.
+    </p>
+    <div class="mt-6 rounded-2xl border border-navy-100 bg-navy-50 p-5">
+      <p class="font-display font-semibold text-blue-600">
+        Gallons × ppm to remove ÷ acid strength = fluid ounces
+      </p>
+      <p class="mt-2 text-sm text-navy-500">
+        Alkalinity is measured as ppm of calcium carbonate. Each unit takes a
+        matching amount of hydrochloric acid to neutralise, which is what makes
+        this predictable where pH is not.
+      </p>
+    </div>
+  </div>
+
+  <CtaInline placement="careGuide" />
+
+  <div>
+    <h2 class="text-2xl">Lowering alkalinity without crashing pH</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Acid pulls pH and alkalinity down together, which is inconvenient when
+      alkalinity is high but pH is already where you want it.
+    </p>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      The standard method is add-and-aerate. Add acid to bring alkalinity down,
+      accepting that pH drops too. Then aerate — run a spa jet, point a return
+      upward, turn on a water feature. Aeration drives off carbon dioxide, which
+      raises pH back up while leaving alkalinity where the acid put it.
+    </p>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Repeat as needed. It is slow, and it is the only method that moves the two
+      independently.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Handling acid safely</h2>
+    <ol class="mt-5 space-y-4">
+      {
+        [
+          'Wear eye protection and gloves. Muriatic acid burns skin and its fumes damage lungs.',
+          'Always add acid to water, never water to acid. The reverse can boil and spit acid back at you.',
+          'Dilute in a bucket of pool water first, then pour slowly into the deep end with the pump running.',
+          'Never mix acid with chlorine products. The reaction releases chlorine gas.',
+          'Add in stages — no more than about half the calculated dose at once — then re-test after the water has circulated.',
+          'Store it upright, away from chlorine, in a ventilated place out of reach of children.',
+        ].map((step, index) => (
+          <li class="flex gap-4">
+            <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-500 font-display text-sm font-bold text-white">
+              {index + 1}
+            </span>
+            <span class="pt-0.5 leading-relaxed text-navy-600">{step}</span>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Common mistakes</h2>
+    <div class="mt-5 space-y-4">
+      {
+        [
+          {
+            title: 'Dosing the whole amount at once',
+            body: 'Overshooting alkalinity means adding baking soda to climb back up, then acid again to come down — a loop that wastes chemicals and stresses the water. Half doses and re-tests avoid it.',
+          },
+          {
+            title: 'Assuming all muriatic acid is the same strength',
+            body: 'The 31.45% and 14.5% grades both sell as "muriatic acid". The weaker one needs more than twice the volume for the same effect.',
+          },
+          {
+            title: 'Chasing pH while ignoring alkalinity',
+            body: 'If pH keeps drifting back up no matter how much acid you add, alkalinity is the cause. Fix that and pH stabilises on its own.',
+          },
+          {
+            title: 'Pouring acid near the skimmer',
+            body: 'Sending concentrated acid straight into the equipment can damage the heater and pump seals. Pour into the deep end, away from returns.',
+          },
+        ].map((item) => (
+          <div class="rounded-2xl border border-navy-100 p-5">
+            <h3 class="text-base">{item.title}</h3>
+            <p class="mt-2 leading-relaxed text-navy-500">{item.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <RelatedCalculators slot="related" exclude="muriatic-acid" />
+</CalculatorLayout>

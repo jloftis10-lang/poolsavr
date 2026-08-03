@@ -1,0 +1,161 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+import CtaInline from '../../components/CtaInline.astro';
+import RelatedCalculators from '../../components/RelatedCalculators.astro';
+
+const faqs = [
+  {
+    q: 'What size pool heater do I need?',
+    a: 'Multiply your pool surface area in square feet by the temperature rise you want, then by 12. A 512 square foot pool needing a 16 degree rise works out to about 98,000 BTU per hour, so you would buy a 100,000 BTU heater or larger.',
+  },
+  {
+    q: 'Why does heater sizing use surface area and not volume?',
+    a: 'Because that is where the heat goes. A pool loses most of its heat by evaporation and convection from the water surface, so surface area governs how much energy is needed to hold a temperature. Volume determines how long the initial heat-up takes, which is a separate question.',
+  },
+  {
+    q: 'Is a bigger pool heater always better?',
+    a: 'Bigger heats faster and copes with cold snaps, and it does not waste fuel in the way an oversized furnace does, because it simply runs for less time. The real limits are purchase price, gas line capacity, and meter sizing — an undersized gas supply will starve a large heater.',
+  },
+  {
+    q: 'How long does it take to heat a pool?',
+    a: 'For a rough figure, multiply gallons by 8.34 by the temperature rise to get BTUs needed, then divide by your heater output times about 0.84 for efficiency. A 20,000 gallon pool raised 10 degrees with a 250,000 BTU heater takes roughly 8 hours, and longer in practice because the pool is losing heat throughout.',
+  },
+  {
+    q: 'Does a pool cover reduce the heater size I need?',
+    a: 'Substantially. Evaporation is the largest single heat loss from a pool, and a cover nearly eliminates it. A covered pool holds temperature with far less input, which is why covers pay for themselves faster than almost any other purchase.',
+  },
+  {
+    q: 'Gas heater or heat pump?',
+    a: 'Gas heats quickly and works in cold weather, which suits occasional use and spring or autumn swimming. Heat pumps cost far less to run but heat slowly and lose effectiveness below roughly 50°F air temperature, which suits maintaining a temperature over a long season.',
+  },
+];
+
+const sources = [
+  {
+    title: 'Swimming Pool Heating — sizing and heat loss',
+    publisher: 'U.S. Department of Energy',
+    url: 'https://www.energy.gov/energysaver/swimming-pool-heating',
+    accessed: 'August 2026',
+  },
+];
+---
+
+<CalculatorLayout
+  calculatorId="heater-size"
+  breadcrumbName="Pool Heater Size Calculator"
+  path="/calculators/heater-size/"
+  title="Pool Heater Size Calculator: What BTU Do I Need?"
+  description="Find the BTU rating your pool heater needs, based on surface area, temperature rise and exposure — plus how long heating will take."
+  h1="Pool Heater Sizing Calculator"
+  answer="Pool heaters are sized by surface area times temperature rise times 12, the multiplier manufacturers use to cover evaporation and convection losses. A 512 square foot pool needing a 16 degree rise wants about 98,000 BTU per hour. Windy or shaded pools use a higher factor."
+  publishDate={new Date('2026-08-03')}
+  faqs={faqs}
+  sources={sources}
+>
+  <div>
+    <h2 class="text-2xl">Where the formula comes from</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      The sizing rule in the calculator above is the one published in the sizing
+      guides from the major heater manufacturers, and it is deliberately simple.
+    </p>
+    <div class="mt-6 rounded-2xl border border-navy-100 bg-navy-50 p-5">
+      <p class="font-display font-semibold text-blue-600">
+        Surface area × temperature rise × 12 = BTU per hour
+      </p>
+      <p class="mt-2 text-sm text-navy-500">
+        The 12 absorbs evaporation and convection losses in average conditions.
+        Sheltered sunny pools can use 10; windy or heavily shaded ones need 14 to
+        16.
+      </p>
+    </div>
+    <p class="mt-5 leading-relaxed text-navy-600">
+      Notice what is missing: volume. That is not an oversight. Holding a pool at
+      temperature is a battle against heat escaping from the surface, and the
+      surface is what sets that rate.
+    </p>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Volume matters for a different question — how long the first heat-up takes —
+      which is why the calculator asks for it and reports the time separately.
+    </p>
+  </div>
+
+  <CtaInline placement="costPage" />
+
+  <div>
+    <h2 class="text-2xl">How long heating actually takes</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      One BTU raises one pound of water by one degree Fahrenheit, and water
+      weighs 8.34 pounds per gallon. That gives a clean starting point.
+    </p>
+    <div class="mt-6 rounded-2xl border border-navy-100 bg-navy-50 p-5">
+      <p class="font-display font-semibold text-blue-600">
+        Gallons × 8.34 × temperature rise ÷ (heater BTU × efficiency) = hours
+      </p>
+      <p class="mt-2 text-sm text-navy-500">
+        Gas heaters typically run around 84% efficient, so a 250,000 BTU unit
+        delivers roughly 210,000 BTU per hour into the water.
+      </p>
+    </div>
+    <p class="mt-5 leading-relaxed text-navy-600">
+      Treat that as a floor rather than a promise. The calculation assumes no
+      losses during heat-up, but an uncovered pool is shedding heat the entire
+      time it is warming. On a cold, windy night, real heat-up can take half
+      again as long — and a cover changes that more than anything else you can
+      buy.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">What raises the number you need</h2>
+    <ul class="mt-5 space-y-3">
+      {
+        [
+          'Wind exposure — the single largest variable, and the reason a windbreak is worth considering before a bigger heater.',
+          'Shade, which removes the free solar gain most pools rely on.',
+          'Cool overnight air temperatures, which drive the rise you need each morning.',
+          'A large surface area relative to volume, such as a shallow pool or a wide tanning ledge.',
+          'Water features. Fountains and waterfalls look good and shed heat quickly.',
+          'No cover. Evaporation is the biggest single loss on almost every pool.',
+        ].map((item) => (
+          <li class="flex items-start gap-3">
+            <svg
+              class="mt-0.5 h-5 w-5 shrink-0 text-blue-500"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="text-navy-600">{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Before you buy</h2>
+    <div class="mt-4 space-y-4 leading-relaxed text-navy-600">
+      <p>
+        <strong class="text-navy-900">Check the gas supply.</strong> A large
+        heater needs a gas line and meter capable of feeding it. Fitting a
+        400,000 BTU heater to a line sized for 150,000 means it will never reach
+        its rated output, and undersized gas piping is a genuine safety issue —
+        that part is a job for a licensed installer.
+      </p>
+      <p>
+        <strong class="text-navy-900">Round up, not down.</strong> An oversized
+        heater simply runs for less time. An undersized one runs constantly and
+        still never reaches temperature on the cool nights you bought it for.
+      </p>
+      <p>
+        <strong class="text-navy-900">Price the running cost, not the unit.</strong>{' '}
+        A heat pump costs more up front and far less per hour. Over a long season
+        that reverses the ranking entirely.
+      </p>
+    </div>
+  </div>
+
+  <RelatedCalculators slot="related" exclude="heater-size" />
+</CalculatorLayout>

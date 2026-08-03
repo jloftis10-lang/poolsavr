@@ -11,7 +11,7 @@ const ALL = [
     slug: 'pool-volume',
     name: 'Pool volume calculator',
     blurb: 'Gallons, surface area, and perimeter from your dimensions.',
-    /** Carries the live gallons figure across when linked from a chemistry page. */
+    /** Carries the live gallons figure across when linked from another calculator. */
     chain: true,
   },
   {
@@ -31,9 +31,39 @@ const ALL = [
     blurb: 'Breakpoint shock dose from your free and total chlorine readings.',
     chain: true,
   },
+  {
+    slug: 'salt-level',
+    name: 'Pool salt calculator',
+    blurb: 'Pounds of salt to reach your generator target, or water to replace if over.',
+    chain: true,
+  },
+  {
+    slug: 'muriatic-acid',
+    name: 'Muriatic acid calculator',
+    blurb: 'How much acid lowers your alkalinity, and why pH is the wrong thing to dose against.',
+    chain: true,
+  },
+  {
+    slug: 'baking-soda-alkalinity',
+    name: 'Baking soda calculator',
+    blurb: 'Pounds of bicarbonate to raise total alkalinity into range.',
+    chain: true,
+  },
+  {
+    slug: 'heater-size',
+    name: 'Pool heater size calculator',
+    blurb: 'BTU rating from surface area, temperature rise and exposure.',
+    chain: true,
+  },
+  {
+    slug: 'pump-size',
+    name: 'Pool pump size calculator',
+    blurb: 'Flow rate from turnover time, checked against what your pipe can carry.',
+    chain: true,
+  },
 ];
 
-const items = ALL.filter((item) => item.slug !== exclude);
+const items = ALL.filter((item) => item.slug !== exclude).slice(0, 4);
 ---
 
 <div>

@@ -1,0 +1,146 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+import CtaInline from '../../components/CtaInline.astro';
+import RelatedCalculators from '../../components/RelatedCalculators.astro';
+
+const faqs = [
+  {
+    q: 'How much baking soda do I add to raise alkalinity?',
+    a: 'About 1.4 pounds of sodium bicarbonate per 10,000 gallons raises total alkalinity by 10 ppm. A 20,000 gallon pool going from 70 ppm to 100 ppm needs roughly 8.4 pounds.',
+  },
+  {
+    q: 'Is pool alkalinity increaser the same as baking soda?',
+    a: 'Yes. Almost every product sold as "alkalinity increaser" is sodium bicarbonate — the same compound as baking soda. Check the label, then compare price per pound; the pool-branded version is often several times more expensive for identical chemistry.',
+  },
+  {
+    q: 'What should my pool alkalinity be?',
+    a: 'The CDC Model Aquatic Health Code gives an operating range of 60 to 180 ppm, and most residential pools are targeted near 100 ppm. Below 60 the pH swings unpredictably; above about 150 the pH tends to climb on its own.',
+  },
+  {
+    q: 'Does baking soda raise pH too?',
+    a: 'Slightly. Sodium bicarbonate sits at around pH 8.3, so it nudges pH upward, but its main effect is on alkalinity. If you need a large pH increase, soda ash raises pH far more per pound with less effect on alkalinity.',
+  },
+  {
+    q: 'Why does my alkalinity keep dropping?',
+    a: 'The usual culprit is trichlor tablets, which are strongly acidic and consume alkalinity continuously. Acidic rain, heavy rainfall diluting the pool, and regular acid additions all do the same. If you are topping up alkalinity constantly, look at your chlorine source first.',
+  },
+  {
+    q: 'Can I add too much baking soda?',
+    a: 'Yes. Overshooting means high alkalinity, which locks pH high and makes it stubborn to bring down — and the fix is muriatic acid, which lowers both. Add about three-quarters of the calculated dose, re-test after a full turnover, then top up.',
+  },
+];
+
+const sources = [
+  {
+    title: '2023 Model Aquatic Health Code, 4th Edition — pH and alkalinity',
+    publisher: 'Centers for Disease Control and Prevention',
+    url: 'https://www.cdc.gov/model-aquatic-health-code/media/pdfs/2023-MAHC-508.pdf',
+    accessed: 'August 2026',
+  },
+];
+---
+
+<CalculatorLayout
+  calculatorId="baking-soda-alkalinity"
+  breadcrumbName="Baking Soda Calculator"
+  path="/calculators/baking-soda-alkalinity/"
+  title="Baking Soda Calculator: Raise Pool Alkalinity"
+  description="How much baking soda to raise your pool's total alkalinity. About 1.4 lb per 10,000 gallons per 10 ppm — enter your numbers for the exact dose."
+  h1="Baking Soda & Alkalinity Calculator"
+  answer="About 1.4 pounds of baking soda per 10,000 gallons raises total alkalinity by 10 ppm. Most pools target around 100 ppm, within the 60 to 180 ppm operating range. Enter your volume and current reading below for the exact weight."
+  publishDate={new Date('2026-08-03')}
+  faqs={faqs}
+  sources={sources}
+  disclaimer="chemistry"
+>
+  <div>
+    <h2 class="text-2xl">What alkalinity actually does</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Total alkalinity is the water's resistance to pH change. It is not a
+      chemical you can see the effects of directly — it is the thing that decides
+      whether your pH stays put or wanders.
+    </p>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Run alkalinity too low and pH becomes erratic: a little rain or a dose of
+      chlorine sends it swinging, and nothing you do to pH holds. Run it too high
+      and pH climbs steadily no matter how much acid you add.
+    </p>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      This is why alkalinity gets balanced before pH. Chasing pH while alkalinity
+      is wrong is the most common way people waste a weekend on pool chemistry.
+    </p>
+    <div class="mt-6 rounded-2xl border border-navy-100 bg-navy-50 p-5">
+      <p class="font-display font-semibold text-blue-600">
+        Gallons × ppm needed ÷ 71,400 = pounds of baking soda
+      </p>
+      <p class="mt-2 text-sm text-navy-500">
+        Or in round terms: about 1.4 lb per 10,000 gallons for every 10 ppm you
+        want to climb.
+      </p>
+    </div>
+  </div>
+
+  <CtaInline placement="careGuide" />
+
+  <div>
+    <h2 class="text-2xl">Baking soda or soda ash?</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      They get confused constantly, and they do different jobs.
+    </p>
+    <div class="mt-5 space-y-4">
+      {
+        [
+          {
+            name: 'Sodium bicarbonate (baking soda)',
+            use: 'Raises alkalinity, nudges pH slightly',
+            body: 'The right choice when alkalinity is low and pH is roughly acceptable. Gentle and hard to get badly wrong in a single dose.',
+          },
+          {
+            name: 'Sodium carbonate (soda ash)',
+            use: 'Raises pH sharply, alkalinity somewhat',
+            body: 'For when pH is genuinely low but alkalinity is fine. Far more potent per pound — overshooting is easy, and it can cloud the water if added too fast.',
+          },
+        ].map((item) => (
+          <div class="rounded-2xl border border-navy-100 p-5">
+            <h3 class="text-base">{item.name}</h3>
+            <p class="mt-1 text-sm font-semibold text-blue-600">{item.use}</p>
+            <p class="mt-2 leading-relaxed text-navy-500">{item.body}</p>
+          </div>
+        ))
+      }
+    </div>
+    <p class="mt-5 leading-relaxed text-navy-600">
+      If both pH and alkalinity are low, start with baking soda. Raising
+      alkalinity usually pulls pH up enough on its own that no soda ash is
+      needed.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">How to add it</h2>
+    <ol class="mt-5 space-y-4">
+      {
+        [
+          'Test alkalinity and pH, and confirm your pool volume — the dose scales directly with gallons.',
+          'Add about three-quarters of the calculated amount. Undershooting is easy to correct; overshooting needs acid.',
+          'Broadcast it slowly across the deep end with the pump running, rather than dumping it in one spot.',
+          'Wait a full turnover — typically 6 to 8 hours — before re-testing.',
+          'Top up if needed, then check pH once alkalinity has settled.',
+        ].map((step, index) => (
+          <li class="flex gap-4">
+            <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-500 font-display text-sm font-bold text-white">
+              {index + 1}
+            </span>
+            <span class="pt-0.5 leading-relaxed text-navy-600">{step}</span>
+          </li>
+        ))
+      }
+    </ol>
+    <p class="mt-5 leading-relaxed text-navy-600">
+      Large doses are worth splitting across two days. Adding several pounds at
+      once can cloud the water temporarily as it dissolves.
+    </p>
+  </div>
+
+  <RelatedCalculators slot="related" exclude="baking-soda-alkalinity" />
+</CalculatorLayout>

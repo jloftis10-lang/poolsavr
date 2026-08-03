@@ -1,0 +1,179 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+import CtaInline from '../../components/CtaInline.astro';
+import RelatedCalculators from '../../components/RelatedCalculators.astro';
+
+const faqs = [
+  {
+    q: 'What size pool pump do I need?',
+    a: 'Divide your pool volume by the turnover time in hours, then by 60, to get the flow in gallons per minute. A 20,000 gallon pool on an 8 hour turnover needs about 42 GPM. Then check your pipe can carry that — 1½ inch pipe tops out near 45 GPM.',
+  },
+  {
+    q: 'What is pool turnover rate?',
+    a: 'Turnover is the time it takes to circulate a volume of water equal to the whole pool once through the filter. Eight hours is the common residential target. It is a rule of thumb rather than a law of physics — water mixes rather than moving through in an orderly queue.',
+  },
+  {
+    q: 'Is a bigger pool pump better?',
+    a: 'No, and this is where pumps differ from heaters. An oversized pump pushes water through the filter too fast to be filtered properly, strains the plumbing, wastes electricity, and can cause cavitation. The pipe size, not the pump, is usually the real ceiling.',
+  },
+  {
+    q: 'How many GPM can my pipe handle?',
+    a: 'Roughly 45 GPM for 1½ inch, 80 GPM for 2 inch, 120 GPM for 2½ inch and 160 GPM for 3 inch, based on the water velocities the trade treats as safe. Pushing past those causes noise, pipe wear and wasted energy.',
+  },
+  {
+    q: 'Should I get a variable speed pump?',
+    a: 'In most cases yes, and it is usually the largest energy saving available to a pool owner. Power draw falls roughly with the cube of speed, so running longer at low speed moves the same water for a fraction of the electricity. Many regions now require them on new installations.',
+  },
+  {
+    q: 'How long should I run my pool pump each day?',
+    a: 'Long enough for one full turnover, which is 8 hours for most residential pools. With a variable speed pump, running 12 or more hours at a lower speed achieves the same circulation for less energy, and gives better filtration because the water moves through slowly.',
+  },
+];
+
+const sources = [
+  {
+    title: 'Swimming Pool Pumps — sizing and energy use',
+    publisher: 'U.S. Department of Energy',
+    url: 'https://www.energy.gov/energysaver/swimming-pool-pumps',
+    accessed: 'August 2026',
+  },
+  {
+    title: '2023 Model Aquatic Health Code, 4th Edition — recirculation',
+    publisher: 'Centers for Disease Control and Prevention',
+    url: 'https://www.cdc.gov/model-aquatic-health-code/media/pdfs/2023-MAHC-508.pdf',
+    accessed: 'August 2026',
+  },
+];
+---
+
+<CalculatorLayout
+  calculatorId="pump-size"
+  breadcrumbName="Pool Pump Size Calculator"
+  path="/calculators/pump-size/"
+  title="Pool Pump Size Calculator: What GPM Do I Need?"
+  description="Work out the flow rate your pool pump needs from volume and turnover time, and check whether your pipe size can actually carry it."
+  h1="Pool Pump Sizing Calculator"
+  answer="Divide your pool volume by turnover time in hours, then by 60, to get the flow in gallons per minute. A 20,000 gallon pool on an 8 hour turnover needs about 42 GPM. Then check the pipe: 1½ inch tops out near 45 GPM, 2 inch near 80."
+  publishDate={new Date('2026-08-03')}
+  faqs={faqs}
+  sources={sources}
+>
+  <div>
+    <h2 class="text-2xl">Turnover, and why 8 hours</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Turnover is the time needed to push a pool's worth of water through the
+      filter. Eight hours is the residential convention.
+    </p>
+    <div class="mt-6 rounded-2xl border border-navy-100 bg-navy-50 p-5">
+      <p class="font-display font-semibold text-blue-600">
+        Gallons ÷ (turnover hours × 60) = gallons per minute
+      </p>
+    </div>
+    <p class="mt-5 leading-relaxed text-navy-600">
+      Worth being honest about what turnover is not. Water does not queue up and
+      file through the filter in order — it mixes. After one nominal turnover,
+      something like 63% of the water has actually passed through, not 100%.
+    </p>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      So treat 8 hours as a sensible planning figure rather than a guarantee. A
+      busy pool in hot weather benefits from more; a quiet, covered pool in
+      spring needs less.
+    </p>
+  </div>
+
+  <CtaInline placement="careGuide" />
+
+  <div>
+    <h2 class="text-2xl">Why oversizing is the common mistake</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Heaters reward buying big. Pumps punish it, and this is where a lot of
+      money gets wasted.
+    </p>
+    <div class="mt-4 space-y-4 leading-relaxed text-navy-600">
+      <p>
+        <strong class="text-navy-900">Filtration gets worse, not better.</strong>{' '}
+        Sand and cartridge filters have a rated flow. Push water through faster
+        and fine particles pass straight through, which is how a pool with an
+        enormous pump ends up cloudy.
+      </p>
+      <p>
+        <strong class="text-navy-900">The plumbing becomes the limit.</strong>{' '}
+        A pump demanding more than the suction line can deliver causes
+        cavitation — vapour bubbles collapsing inside the pump. It is noisy and it
+        destroys impellers.
+      </p>
+      <p>
+        <strong class="text-navy-900">Energy use climbs steeply.</strong>{' '}
+        Power draw rises roughly with the cube of flow. Moving 25% more water
+        costs close to double the electricity.
+      </p>
+      <p>
+        <strong class="text-navy-900">Equipment wears faster.</strong>{' '}
+        Higher velocities erode pipe interiors and stress the heater and filter.
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Pipe size sets the ceiling</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Before choosing a pump, look at the plumbing. These are the practical flow
+      ceilings at the velocities the trade treats as safe.
+    </p>
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Pipe size
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Practical max flow
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              Suits a pool of about
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            [
+              ['1½ inch', '45 GPM', 'up to 21,000 gal'],
+              ['2 inch', '80 GPM', 'up to 38,000 gal'],
+              ['2½ inch', '120 GPM', 'up to 57,000 gal'],
+              ['3 inch', '160 GPM', 'up to 76,000 gal'],
+            ].map(([size, flow, pool]) => (
+              <tr class="border-b border-navy-100">
+                <td class="py-3 pr-4 font-medium text-navy-900">{size}</td>
+                <td class="py-3 pr-4 font-display font-semibold text-blue-600">{flow}</td>
+                <td class="py-3 text-navy-500">{pool}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-5 text-sm leading-relaxed text-navy-500">
+      Pool sizes assume an 8 hour turnover. If your calculated flow exceeds what
+      your pipe can carry, the answer is a longer turnover time or larger
+      plumbing — not a bigger pump.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Variable speed changes the arithmetic</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Because power scales with roughly the cube of speed, halving the speed cuts
+      consumption to about an eighth while moving half the water. Run twice as
+      long at half speed and you have circulated the same volume for roughly a
+      quarter of the electricity.
+    </p>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Slower flow also filters better, since water spends longer in the medium.
+      For most pools this is the single largest energy saving available, and many
+      regions now require variable speed pumps on new installations.
+    </p>
+  </div>
+
+  <RelatedCalculators slot="related" exclude="pump-size" />
+</CalculatorLayout>

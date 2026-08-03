@@ -14,6 +14,16 @@ npm run build    # astro check + static build to dist/
 npm run preview  # serve the production build
 ```
 
+## Testing
+
+```bash
+npm test    # 25 unit tests over the pool, chemistry and equipment math
+```
+
+The dosing math is health-adjacent, so it is pinned by tests rather than trusted.
+If a constant changes, someone is being told to put a different amount of
+chemical in their pool — those tests should fail loudly.
+
 ## Phase 1 scope (shipped)
 
 Home and `/calculators/pool-volume/` are the two pages that matter right now —
@@ -55,6 +65,8 @@ src/config.ts                        APP_LIVE switch + CTA labels per placement
 src/content.config.ts                Typed frontmatter for costs/guides/metros
 src/data/authors.ts                  Editorial bylines
 src/lib/pool-math.js                 Pure volume/area/perimeter math
+src/lib/chemistry.ts                 Chlorine, alkalinity, acid, salt — cited
+src/lib/equipment.ts                 Heater and pump sizing
 src/lib/schema.ts                    JSON-LD builders
 src/lib/calculators/                 Per-calculator field config + pure compute
 src/components/calculator/Calculator.astro   Shared calculator island

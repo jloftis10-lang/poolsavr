@@ -145,30 +145,33 @@ hub crumb back in Phase 2B once the hub is real — linking or pointing schema a
 
 ---
 
-## Phase 2B — The calculator suite  🔄 in progress
+## Phase 2B — The calculator suite  ✅ done
 
-Four of nine live: `/calculators/` hub, `pool-volume`, `surface-area`,
-`chlorine-dosage`, `pool-shock`. All four run off `CalculatorLayout`, so the
-remaining five are article-writing rather than engineering.
+All nine calculators and the `/calculators/` hub are live, every one on
+`CalculatorLayout`. `src/lib/chemistry.ts` and `src/lib/equipment.ts` hold the
+math; both are pure and covered by `npm test` (25 tests).
 
-`src/lib/chemistry.ts` is done and covers every remaining chemistry page —
-salt, muriatic acid and baking soda need only their field config and prose.
-Constants are derived from stoichiometry and pinned by `npm test` (17 tests)
-against published dosing tables.
+Chemistry constants are derived from stoichiometry with the derivation written
+out, and pinned against published dosing tables. Equipment sizing uses the
+manufacturer rule (surface area × rise × 12) published by Hayward, Pentair and
+Raypak, plus straight thermodynamics for heat-up time.
 
 | Page | Depends on | Notes |
 | --- | --- | --- |
-| ~~`surface-area/`~~ | pool-math | **Done** |
-| ~~`chlorine-dosage/`~~ | chemistry.ts | **Done** — liquid, cal-hypo, dichlor, trichlor |
-| ~~`pool-shock/`~~ | chemistry.ts | **Done** — breakpoint from free/total readings |
-| `salt-level/` | chemistry.ts | `saltNeeded()` + `dilutionToLowerSalt()` ready |
-| `muriatic-acid/` | chemistry.ts | `acidForAlkalinity()` ready |
-| `baking-soda-alkalinity/` | chemistry.ts | `bakingSodaForAlkalinity()` ready |
-| `heater-size/` | new `equipment.ts` | BTU by volume, surface area, temp rise |
-| `pump-size/` | equipment.ts | Turnover rate and flow |
+| `surface-area/` | pool-math | Square footage and perimeter |
+| `chlorine-dosage/` | chemistry.ts | Liquid, cal-hypo, dichlor, trichlor, with byproducts |
+| `pool-shock/` | chemistry.ts | Breakpoint from free/total readings |
+| `salt-level/` | chemistry.ts | Also handles the over-target case: drain volume, not a dose |
+| `muriatic-acid/` | chemistry.ts | Dosed against alkalinity, not pH — see the page for why |
+| `baking-soda-alkalinity/` | chemistry.ts | Bicarbonate to raise TA |
+| `heater-size/` | equipment.ts | BTU from area × rise × exposure, plus heat-up time |
+| `pump-size/` | equipment.ts | Turnover flow, checked against pipe capacity |
 
 Every one prefills gallons from `?gallons=`, links back to volume, and carries
-FAQPage + WebApplication + BreadcrumbList schema. 800–1,200 words each.
+FAQPage + WebApplication + BreadcrumbList schema. All nine server-render their
+default result, so they work with JavaScript disabled.
+
+**Next:** Phase 3, the cost pillar.
 
 **Chemistry gets sourced, not recalled.** Dosing advice is health-adjacent: a
 wrong cal-hypo figure can hurt someone or wreck a pool surface. Every constant

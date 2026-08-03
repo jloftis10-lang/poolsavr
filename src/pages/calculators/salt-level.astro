@@ -1,0 +1,151 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+import CtaInline from '../../components/CtaInline.astro';
+import RelatedCalculators from '../../components/RelatedCalculators.astro';
+
+const faqs = [
+  {
+    q: 'How much salt does my pool need?',
+    a: 'One pound of pool salt per 1,000 gallons raises salinity by about 120 ppm. A 20,000 gallon pool going from 2,400 ppm to 3,200 ppm needs roughly 133 pounds, or between three and four 40-pound bags.',
+  },
+  {
+    q: 'What salt level should a saltwater pool run at?',
+    a: 'Most chlorine generators are built for 2,700 to 3,400 ppm, with 3,200 ppm a common target. Check the manual for your specific unit — running below the minimum makes the cell work harder and shortens its life, and running well above it can accelerate corrosion.',
+  },
+  {
+    q: 'How do I lower salt in my pool?',
+    a: 'You cannot remove salt chemically. The only way down is replacing water: drain a portion and refill with fresh. To go from 4,000 ppm to 3,200 ppm you would replace about 20% of the volume.',
+  },
+  {
+    q: 'What kind of salt should I use?',
+    a: 'Use salt sold for pool use — sodium chloride at 99% purity or better, non-iodised, with no anti-caking agents. Water softener salt is usually acceptable if it meets that purity. Rock salt and table salt are not.',
+  },
+  {
+    q: 'Why is my salt reading dropping?',
+    a: 'Salt does not evaporate, so it only leaves with water. Splash-out, backwashing, draining, and heavy rain overflow all carry salt away. Steady losses without any of those usually means a leak worth chasing.',
+  },
+  {
+    q: 'How long until the salt reads correctly?',
+    a: 'Brush the salt around to dissolve it and run the pump for at least 24 hours before testing. Testing too early gives a reading from water that has not mixed, which leads people to add salt twice.',
+  },
+];
+
+const sources = [
+  {
+    title: '2023 Model Aquatic Health Code, 4th Edition',
+    publisher: 'Centers for Disease Control and Prevention',
+    url: 'https://www.cdc.gov/model-aquatic-health-code/media/pdfs/2023-MAHC-508.pdf',
+    accessed: 'August 2026',
+  },
+];
+---
+
+<CalculatorLayout
+  calculatorId="salt-level"
+  breadcrumbName="Pool Salt Calculator"
+  path="/calculators/salt-level/"
+  title="Pool Salt Calculator: How Much Salt to Add"
+  description="Work out how many pounds of salt your pool needs to reach its target ppm, or how much water to replace to bring salinity down."
+  h1="Pool Salt Calculator"
+  answer="One pound of pool salt per 1,000 gallons raises salinity by about 120 ppm. Most chlorine generators want 2,700 to 3,400 ppm. Enter your volume and current reading below and the calculator works out the pounds — or, if you are over target, how much water to replace."
+  publishDate={new Date('2026-08-03')}
+  faqs={faqs}
+  sources={sources}
+  disclaimer="chemistry"
+>
+  <div>
+    <h2 class="text-2xl">How salt dosing works</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Salt is the simplest chemistry on this site, because nothing consumes it.
+      Add a known weight to a known volume of water and the concentration moves
+      by a predictable amount.
+    </p>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      A pound of salt is 453.6 grams. Dissolve that in 1,000 gallons — about
+      3,785 litres — and you get roughly 120 milligrams per litre, which is
+      120 ppm.
+    </p>
+    <div class="mt-6 rounded-2xl border border-navy-100 bg-navy-50 p-5">
+      <p class="font-display font-semibold text-blue-600">
+        Gallons × ppm needed ÷ 120,000 = pounds of salt
+      </p>
+      <p class="mt-2 text-sm text-navy-500">
+        Which is the same as saying: 1 lb per 1,000 gallons per 120 ppm.
+      </p>
+    </div>
+  </div>
+
+  <CtaInline placement="careGuide" />
+
+  <div>
+    <h2 class="text-2xl">Going down is harder than going up</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Worth being blunt about this: there is no chemical that removes salt. If
+      you overshoot, the only route back is replacing water with fresh.
+    </p>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      The calculator handles that case. Set a target below your current reading
+      and it tells you how many gallons to swap out rather than what to add.
+    </p>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      This is the practical reason to add salt conservatively — go to the low end
+      of your generator's range, run the pump for a day, test, and top up. Adding
+      a bag too many costs a partial drain to undo.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">How to add it</h2>
+    <ol class="mt-5 space-y-4">
+      {
+        [
+          'Test first, and confirm your pool volume — every figure here scales directly with gallons.',
+          'Turn the chlorine generator off, but leave the pump running.',
+          'Broadcast the salt across the shallow end rather than dumping it in one place.',
+          'Brush it around until it dissolves. Undissolved salt sitting on plaster can stain it.',
+          'Run the pump at least 24 hours before testing, then turn the generator back on.',
+        ].map((step, index) => (
+          <li class="flex gap-4">
+            <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-500 font-display text-sm font-bold text-white">
+              {index + 1}
+            </span>
+            <span class="pt-0.5 leading-relaxed text-navy-600">{step}</span>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Common mistakes</h2>
+    <div class="mt-5 space-y-4">
+      {
+        [
+          {
+            title: 'Testing too soon',
+            body: 'Salt takes hours to distribute. Test before it has mixed and the reading comes back low, which tempts you into adding a second dose you did not need.',
+          },
+          {
+            title: 'Trusting the generator display over a test',
+            body: 'Built-in salinity readouts drift as the cell ages and scales. Confirm with test strips or a meter before dosing.',
+          },
+          {
+            title: 'Overshooting the target',
+            body: 'There is no way back except draining. Aim for the lower end of your generator range and creep up.',
+          },
+          {
+            title: 'Using the wrong salt',
+            body: 'Iodised salt and anti-caking additives can discolour water or stain surfaces. Use salt sold for pools, or softener salt of equivalent purity.',
+          },
+        ].map((item) => (
+          <div class="rounded-2xl border border-navy-100 p-5">
+            <h3 class="text-base">{item.title}</h3>
+            <p class="mt-2 leading-relaxed text-navy-500">{item.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <RelatedCalculators slot="related" exclude="salt-level" />
+</CalculatorLayout>

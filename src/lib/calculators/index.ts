@@ -1,7 +1,12 @@
+import { bakingSodaAlkalinity } from './baking-soda-alkalinity';
 import { chlorineDosage } from './chlorine-dosage';
+import { heaterSize } from './heater-size';
+import { muriaticAcid } from './muriatic-acid';
 import { poolShock } from './pool-shock';
 import { poolSurfaceArea } from './surface-area';
 import { poolVolume } from './pool-volume';
+import { pumpSize } from './pump-size';
+import { saltLevel } from './salt-level';
 import type { CalculatorDef } from './types';
 
 /**
@@ -14,6 +19,11 @@ export const CALCULATORS: Record<string, CalculatorDef> = {
   [poolSurfaceArea.id]: poolSurfaceArea,
   [chlorineDosage.id]: chlorineDosage,
   [poolShock.id]: poolShock,
+  [saltLevel.id]: saltLevel,
+  [muriaticAcid.id]: muriaticAcid,
+  [bakingSodaAlkalinity.id]: bakingSodaAlkalinity,
+  [heaterSize.id]: heaterSize,
+  [pumpSize.id]: pumpSize,
 };
 
 export const getCalculator = (id: string): CalculatorDef => {
