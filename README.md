@@ -64,6 +64,7 @@ api/lead.js                          Vercel function receiving form submissions
 src/config.ts                        APP_LIVE switch + CTA labels per placement
 src/content.config.ts                Typed frontmatter for costs/guides/metros
 src/data/authors.ts                  Editorial bylines
+src/data/costs.ts                    National cost estimates + sources
 src/lib/pool-math.js                 Pure volume/area/perimeter math
 src/lib/chemistry.ts                 Chlorine, alkalinity, acid, salt — cited
 src/lib/equipment.ts                 Heater and pump sizing

@@ -1,0 +1,64 @@
+---
+interface Props {
+  exclude?: string;
+}
+
+const { exclude } = Astro.props;
+
+const ALL = [
+  {
+    slug: 'pool-resurfacing',
+    name: 'Pool resurfacing cost',
+    blurb: 'What a new interior finish costs by size, material and region.',
+  },
+  {
+    slug: 'pool-remodel',
+    name: 'Pool remodel cost',
+    blurb: 'Whole-project budgets, with what is included at each tier.',
+  },
+  {
+    slug: 'replaster',
+    name: 'Cost to replaster a pool',
+    blurb: 'The plaster-specific numbers, and when replastering is the right call.',
+  },
+  {
+    slug: 'pebble-finishes',
+    name: 'Pebble finish cost',
+    blurb: 'What pebble costs, and whether the longer life justifies the price.',
+  },
+  {
+    slug: 'tile-replacement',
+    name: 'Pool tile replacement cost',
+    blurb: 'Waterline tile priced by the linear foot of perimeter.',
+  },
+  {
+    slug: 'coping-and-decking',
+    name: 'Coping and decking cost',
+    blurb: 'The edge and the surround — often the bigger half of a remodel.',
+  },
+  {
+    slug: 'monthly-maintenance',
+    name: 'Monthly pool maintenance cost',
+    blurb: 'What running a pool costs each month, DIY versus a service.',
+  },
+];
+
+const items = ALL.filter((item) => item.slug !== exclude).slice(0, 4);
+---
+
+<div>
+  <h2 class="text-2xl">Related costs</h2>
+  <div class="mt-6 grid gap-4 sm:grid-cols-2">
+    {
+      items.map((item) => (
+        <a
+          href={`/cost/${item.slug}`}
+          class="block rounded-2xl border border-navy-100 p-5 transition-shadow hover:shadow-md"
+        >
+          <p class="font-display font-semibold text-navy-900">{item.name}</p>
+          <p class="mt-1 text-sm leading-relaxed text-navy-500">{item.blurb}</p>
+        </a>
+      ))
+    }
+  </div>
+</div>

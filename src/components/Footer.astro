@@ -23,9 +23,20 @@ const columns = [
     ],
   },
   {
+    title: 'Costs',
+    links: [
+      { href: '/cost/pool-resurfacing', label: 'Resurfacing' },
+      { href: '/cost/pool-remodel', label: 'Remodel' },
+      { href: '/cost/tile-replacement', label: 'Tile' },
+      { href: '/cost/coping-and-decking', label: 'Coping & decking' },
+      { href: '/cost/monthly-maintenance', label: 'Monthly upkeep' },
+    ],
+  },
+  {
     title: 'Company',
     links: [
       { href: '/calculators/', label: 'All calculators' },
+      { href: '/cost/', label: 'All costs' },
       { href: '/about', label: 'About' },
       { href: '/contact', label: 'Contact' },
       { href: '/privacy', label: 'Privacy' },
@@ -39,7 +50,7 @@ const year = new Date().getFullYear();
 
 <footer class="border-t border-navy-800 bg-navy-900 text-navy-200">
   <div class="container-page py-16">
-    <div class="grid gap-12 lg:grid-cols-[1.5fr_2fr]">
+    <div class="grid gap-12 lg:grid-cols-[1fr_2.5fr]">
       <div>
         <Logo class="text-2xl" variant="light" />
         <p class="mt-4 max-w-sm text-sm leading-relaxed text-navy-300">
@@ -49,7 +60,7 @@ const year = new Date().getFullYear();
         <Cta placement="footer" class="mt-6" />
       </div>
 
-      <div class="grid gap-8 sm:grid-cols-3">
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
         {
           columns.map((column) => (
             <div>

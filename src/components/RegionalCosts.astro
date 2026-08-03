@@ -1,0 +1,49 @@
+---
+import { REGIONS } from '../data/costs';
+---
+
+<div>
+  <h2 class="text-2xl">How much region changes the number</h2>
+  <p class="mt-4 leading-relaxed text-navy-600">
+    National figures are a starting point, not a quote. Labour rates, permitting,
+    season length, and how many crews compete locally all move the final price —
+    and they move it a lot.
+  </p>
+
+  <div class="mt-6 overflow-x-auto">
+    <table class="w-full border-collapse text-left">
+      <thead>
+        <tr class="border-b-2 border-navy-200">
+          <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+            Region
+          </th>
+          <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+            vs national
+          </th>
+          <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+            Why
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          REGIONS.map((region) => (
+            <tr class="border-b border-navy-100">
+              <td class="py-3 pr-4 font-medium text-navy-900">{region.name}</td>
+              <td class="py-3 pr-4 font-display font-semibold text-blue-600">
+                {region.multiplier}
+              </td>
+              <td class="py-3 text-sm text-navy-500">{region.note}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <p class="mt-4 text-sm leading-relaxed text-navy-500">
+    These multipliers are directional. Treat them as a sanity check on a bid
+    rather than a prediction, and remember that timing matters too — booking work
+    in the off-season is often the single largest discount available.
+  </p>
+</div>

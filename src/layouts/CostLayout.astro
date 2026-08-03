@@ -1,0 +1,151 @@
+---
+import Layout from './Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import AuthorByline from '../components/AuthorByline.astro';
+import Sources from '../components/Sources.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+import Cta from '../components/Cta.astro';
+import CtaBlock from '../components/CtaBlock.astro';
+import type { Source } from '../components/Sources.astro';
+import { ctaSupporting } from '../config';
+import { article, breadcrumb, faqPage } from '../lib/schema';
+import { getAuthor } from '../data/authors';
+import { lastReviewed } from '../data/costs';
+
+interface Props {
+  title: string;
+  description: string;
+  h1: string;
+  /** The number, immediately. 40–55 words, self-contained — snippet bait. */
+  answer: string;
+  path: string;
+  breadcrumbName: string;
+  publishDate: Date;
+  updatedDate?: Date;
+  faqs: { q: string; a: string }[];
+  sources?: Source[];
+}
+
+const {
+  title,
+  description,
+  h1,
+  answer,
+  path,
+  breadcrumbName,
+  publishDate,
+  updatedDate,
+  faqs,
+  sources = [],
+} = Astro.props;
+
+const trail = [
+  { name: 'Cost', path: '/cost/' },
+  { name: breadcrumbName, path },
+];
+
+const author = getAuthor();
+---
+
+<Layout title={title} description={description}>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(faqPage(faqs))} />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(breadcrumb(trail))}
+    />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(
+        article({
+          headline: h1,
+          description,
+          path,
+          authorName: author.name,
+          authorPath: `/authors/${author.slug}/`,
+          publishDate,
+          updatedDate,
+        }),
+      )}
+    />
+  </Fragment>
+
+  <!-- H1, then the number immediately. No preamble. -->
+  <section class="border-b border-navy-100 bg-white pb-8 pt-6">
+    <div class="container-page">
+      <Breadcrumb trail={trail} class="mb-5" />
+      <h1 class="max-w-3xl text-3xl sm:text-4xl">{h1}</h1>
+      <p class="mt-4 max-w-3xl text-lg leading-relaxed text-navy-600">{answer}</p>
+      <AuthorByline publishDate={publishDate} updatedDate={updatedDate} class="mt-5" />
+    </div>
+  </section>
+
+  <section class="bg-white py-12">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl space-y-12">
+        <!-- Cost table first: the primary snippet target -->
+        <slot name="table" />
+
+        <!-- App CTA, framed on square footage since that is what price scales with -->
+        <aside class="rounded-2xl border border-blue-200 bg-blue-50 p-6">
+          <h2 class="text-lg text-navy-900">
+            Every quote on this page starts with square footage
+          </h2>
+          <p class="mt-2 leading-relaxed text-navy-600">
+            {ctaSupporting('costPage')}
+          </p>
+          <div class="mt-5 flex flex-col gap-3 sm:flex-row">
+            <Cta placement="costPage" />
+            <a href="/calculators/surface-area" class="btn-outline">
+              Calculate my square footage
+            </a>
+          </div>
+        </aside>
+
+        <slot />
+
+        <div>
+          <h2 class="text-2xl">Frequently asked questions</h2>
+          <div class="mt-6 space-y-4">
+            {
+              faqs.map((faq) => (
+                <details class="group rounded-2xl border border-navy-100 bg-white px-6 py-5 open:shadow-md">
+                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-base font-semibold text-navy-900">
+                    {faq.q}
+                    <svg
+                      class="h-5 w-5 shrink-0 text-blue-500 transition-transform group-open:rotate-45"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      viewBox="0 0 24 24"
+                    >
+                      <path stroke-linecap="round" d="M12 5v14M5 12h14" />
+                    </svg>
+                  </summary>
+                  <p class="mt-4 leading-relaxed text-navy-500">{faq.a}</p>
+                </details>
+              ))
+            }
+          </div>
+        </div>
+
+        <slot name="related" />
+
+        <Disclaimer kind="cost" />
+        <p class="text-sm text-navy-400">
+          Figures last reviewed {lastReviewed}.
+        </p>
+
+        <Sources sources={sources} />
+      </div>
+    </div>
+  </section>
+
+  <CtaBlock
+    placement="costPage"
+    heading="Know your square footage before you call anyone"
+    body="Price scales with it, so it is the first thing any contractor asks. We're building the tool that gets it from your address alone."
+  />
+</Layout>

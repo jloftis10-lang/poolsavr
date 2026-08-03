@@ -1,0 +1,64 @@
+---
+import { FINISHES, POOL_SIZES, money, resurfacingCost, getFinish } from '../data/costs';
+
+interface Props {
+  /** Restrict to one finish, or show all three side by side. */
+  finishId?: string;
+  heading?: string;
+  intro?: string;
+}
+
+const { finishId, heading = 'Cost by pool size', intro } = Astro.props;
+const finishes = finishId ? [getFinish(finishId)] : FINISHES;
+---
+
+<div>
+  <h2 class="text-2xl">{heading}</h2>
+  {intro && <p class="mt-4 leading-relaxed text-navy-600">{intro}</p>}
+
+  <div class="mt-6 overflow-x-auto">
+    <table class="w-full border-collapse text-left">
+      <thead>
+        <tr class="border-b-2 border-navy-200">
+          <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+            Pool size
+          </th>
+          <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+            Interior sq ft
+          </th>
+          {
+            finishes.map((finish) => (
+              <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+                {finish.name}
+              </th>
+            ))
+          }
+        </tr>
+      </thead>
+      <tbody>
+        {
+          POOL_SIZES.map((pool) => (
+            <tr class="border-b border-navy-100">
+              <td class="py-3 pr-4 font-medium text-navy-900">{pool.size}</td>
+              <td class="py-3 pr-4 text-navy-500">{pool.interiorSqFt}</td>
+              {finishes.map((finish) => {
+                const cost = resurfacingCost(pool.interiorSqFt, finish);
+                return (
+                  <td class="py-3 pr-4 font-display font-semibold text-blue-600">
+                    {money(cost.low)}–{money(cost.high)}
+                  </td>
+                );
+              })}
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <p class="mt-4 text-sm leading-relaxed text-navy-500">
+    Interior square footage is floor plus walls — the area a crew actually
+    coats — which is roughly double the water's surface area. A deeper pool has
+    more wall, so it costs more to resurface at the same length and width.
+  </p>
+</div>

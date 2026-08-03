@@ -1,0 +1,135 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
+import Disclaimer from '../../components/Disclaimer.astro';
+import { breadcrumb } from '../../lib/schema';
+import { lastReviewed } from '../../data/costs';
+
+const trail = [{ name: 'Cost', path: '/cost/' }];
+
+const pages = [
+  {
+    slug: 'pool-resurfacing',
+    name: 'Pool resurfacing cost',
+    answer: 'What does resurfacing cost?',
+    price: '$6,000–$15,000',
+    blurb:
+      'The whole picture on interior finishes: price by size, by material, and cost per year of surface life.',
+    featured: true,
+  },
+  {
+    slug: 'pool-remodel',
+    name: 'Pool remodel cost',
+    answer: 'What does a full remodel cost?',
+    price: '$14,000–$65,000',
+    blurb:
+      'Budget tiers with what is included at each, and how every line item is priced.',
+    featured: true,
+  },
+  {
+    slug: 'replaster',
+    name: 'Cost to replaster a pool',
+    answer: 'What does replastering cost?',
+    price: '$3,800–$7,600',
+    blurb: 'Plaster specifically — the cheapest finish up front, and the shortest-lived.',
+  },
+  {
+    slug: 'pebble-finishes',
+    name: 'Pebble finish cost',
+    answer: 'What does pebble cost?',
+    price: '$9,500–$14,250',
+    blurb: 'Three times the price of plaster per square foot. Whether that pays back over 20 years.',
+  },
+  {
+    slug: 'tile-replacement',
+    name: 'Pool tile replacement cost',
+    answer: 'What does new tile cost?',
+    price: '$25–$30 / linear ft',
+    blurb: 'Waterline tile is priced by perimeter, not area — which changes which pools cost more.',
+  },
+  {
+    slug: 'coping-and-decking',
+    name: 'Coping and decking cost',
+    answer: 'What do coping and decking cost?',
+    price: '$30–$50 / linear ft',
+    blurb: 'The edge and the surround, often the larger half of a remodel budget.',
+  },
+  {
+    slug: 'monthly-maintenance',
+    name: 'Monthly pool maintenance cost',
+    answer: 'What does a pool cost to run?',
+    price: '$80–$300 / month',
+    blurb: 'DIY against a weekly service, plus the irregular costs nobody budgets for.',
+  },
+];
+---
+
+<Layout
+  title="Pool Costs in 2026: Resurfacing, Remodel and Upkeep"
+  description="Estimated 2026 costs for pool resurfacing, remodelling, tile, coping, decking and monthly maintenance — with what drives each number."
+>
+  <Fragment slot="head">
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(breadcrumb(trail))}
+    />
+  </Fragment>
+
+  <section class="border-b border-navy-100 bg-white py-10">
+    <div class="container-page">
+      <Breadcrumb trail={trail} class="mb-5" />
+      <h1 class="max-w-3xl text-3xl sm:text-4xl">Pool costs</h1>
+      <p class="mt-4 max-w-3xl text-lg leading-relaxed text-navy-600">
+        National estimates for the work pool owners actually pay for, with the
+        arithmetic behind each figure. Every page states what the price is
+        calculated from, because that is the part contractors assume you already
+        know.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-navy-50 py-12">
+    <div class="container-page">
+      <div class="grid gap-5 md:grid-cols-2">
+        {
+          pages.map((item) => (
+            <a
+              href={`/cost/${item.slug}`}
+              class:list={[
+                'block rounded-2xl bg-white p-6 shadow-sm transition-shadow hover:shadow-lg',
+                item.featured && 'ring-2 ring-blue-500',
+              ]}
+            >
+              <p class="font-display text-sm font-semibold text-blue-600">
+                {item.answer}
+              </p>
+              <h2 class="mt-2 text-xl">{item.name}</h2>
+              <p class="mt-1 font-display text-lg font-bold text-navy-900">
+                {item.price}
+              </p>
+              <p class="mt-2 leading-relaxed text-navy-500">{item.blurb}</p>
+              <span class="mt-4 inline-block font-display text-sm font-semibold text-navy-900">
+                See the breakdown →
+              </span>
+            </a>
+          ))
+        }
+      </div>
+
+      <div class="mx-auto mt-10 max-w-3xl">
+        <Disclaimer kind="cost" />
+        <p class="mt-4 text-sm text-navy-400">
+          Figures last reviewed {lastReviewed}.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CtaBlock
+    placement="costPage"
+    heading="Every quote starts with square footage"
+    body="Price scales with it, so it is the first thing any contractor asks for. We're building the tool that gets it from your address alone."
+  />
+</Layout>

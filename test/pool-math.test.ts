@@ -55,3 +55,15 @@ test('geometry helpers agree with closed forms', () => {
 test('unknown shapes fail loudly rather than silently returning zero', () => {
   assert.throws(() => surfaceArea('hexagon', 10, 10), /Unknown shape/);
 });
+
+test('interior surface area covers floor plus walls', async () => {
+  const { interiorSurfaceArea } = await import('../src/lib/pool-math.js');
+  // 16x32 pool, 4.5 ft average: floor 512 + walls (96 perimeter x 4.5) = 944
+  near(interiorSurfaceArea('rectangle', 32, 16, 4.5), 944, 0.1, '16x32 at 4.5ft');
+  // Deeper pool means more wall, so more finish to pay for.
+  assert.ok(
+    interiorSurfaceArea('rectangle', 32, 16, 6) >
+      interiorSurfaceArea('rectangle', 32, 16, 4.5),
+    'deeper pool has more interior area',
+  );
+});

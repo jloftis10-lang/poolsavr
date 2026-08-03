@@ -1,0 +1,238 @@
+---
+import CostLayout from '../../layouts/CostLayout.astro';
+import CostTable from '../../components/CostTable.astro';
+import RegionalCosts from '../../components/RegionalCosts.astro';
+import RelatedCosts from '../../components/RelatedCosts.astro';
+import { COST_SOURCES, FINISHES, costPerYear, money, resurfacingCost } from '../../data/costs';
+
+const faqs = [
+  {
+    q: 'How much does it cost to resurface a pool?',
+    a: 'Most pool resurfacing runs $6,000 to $15,000. The figure depends on interior square footage and finish: plaster costs $4 to $8 per square foot, quartz $5 to $10, and pebble $10 to $15. A typical 16 by 32 foot pool has roughly 950 square feet of interior surface.',
+  },
+  {
+    q: 'How often does a pool need resurfacing?',
+    a: 'Plaster lasts 7 to 12 years, quartz 10 to 15, and pebble 15 to 25. Water chemistry matters as much as the material — a pool run at aggressive pH will eat through any finish faster than the label suggests.',
+  },
+  {
+    q: 'What is the cheapest way to resurface a pool?',
+    a: 'White plaster has the lowest up-front cost, but it also has the shortest life. Measured per year of surface life, plaster and pebble land closer together than the sticker price suggests, and pebble often works out cheaper over twenty years.',
+  },
+  {
+    q: 'Can I resurface a pool myself?',
+    a: 'Realistically, no. Plaster and pebble go on wet and set fast, and a crew of several people works the whole surface at once to avoid cold joints. A botched application delaminates and has to be chipped out and redone, which costs more than hiring it out.',
+  },
+  {
+    q: 'How long does pool resurfacing take?',
+    a: 'Typically 5 to 10 days from drain to refill: chip out the old surface, prep, apply the new finish, then acid-wash and refill. Add time for tile or coping work in the same visit, and for weather delays.',
+  },
+  {
+    q: 'How do I know if my pool needs resurfacing?',
+    a: 'Rough patches that snag skin, visible aggregate showing through, staining that will not brush out, chronic chemistry problems, and hairline cracking are the common signals. Plaster past about ten years with several of these is due.',
+  },
+];
+
+const example = {
+  size: '16 × 32 ft',
+  interior: 950,
+  perimeter: 96,
+};
+---
+
+<CostLayout
+  title="Pool Resurfacing Cost in 2026: Price by Size and Finish"
+  description="Pool resurfacing runs $6,000–$15,000 for most pools. See estimated prices by square footage, finish type and region, with a worked example."
+  h1="Pool Resurfacing Cost"
+  answer="Pool resurfacing runs $6,000 to $15,000 for most residential pools. Price is driven by interior square footage and finish: plaster costs $4 to $8 per square foot, quartz $5 to $10, and pebble $10 to $15. A typical 16 by 32 foot pool has about 950 square feet of interior surface."
+  path="/cost/pool-resurfacing/"
+  breadcrumbName="Pool Resurfacing Cost"
+  publishDate={new Date('2026-08-03')}
+  faqs={faqs}
+  sources={[COST_SOURCES.homeguideResurfacing, COST_SOURCES.angiRemodel]}
+>
+  <CostTable
+    slot="table"
+    heading="Resurfacing cost by pool size and finish"
+    intro="Estimated total cost for the interior finish only. Tile, coping and decking are priced separately — see the remodel page for a whole-project budget."
+  />
+
+  <div>
+    <h2 class="text-2xl">What drives the price</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Four things move a resurfacing quote, roughly in order of impact.
+    </p>
+    <div class="mt-6 space-y-4">
+      {
+        [
+          {
+            title: 'Interior square footage',
+            body: 'The dominant variable, and the one people misjudge. Interior area is floor plus walls, not the water surface — usually close to double. A deeper pool costs more to resurface than a shallow one of identical length and width, because it has more wall.',
+          },
+          {
+            title: 'Finish material',
+            body: 'The spread between plaster and pebble is roughly three times per square foot. On a 950 square foot pool that is the difference between about $4,000 and about $14,000.',
+          },
+          {
+            title: 'Condition of the old surface',
+            body: 'A straightforward chip-out is priced into every quote. Structural cracks, delamination, or rebar that has begun to rust are not, and they can add thousands once the pool is drained and the crew can actually see the shell.',
+          },
+          {
+            title: 'Access',
+            body: 'Crews move several tons of material by hand. A pool behind a narrow gate, up a slope, or with no truck access costs meaningfully more in labour than one a chute can reach.',
+          },
+        ].map((item) => (
+          <div class="rounded-2xl border border-navy-100 p-5">
+            <h3 class="text-base">{item.title}</h3>
+            <p class="mt-2 leading-relaxed text-navy-500">{item.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Cost by finish, and what you get</h2>
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Finish
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Per sq ft
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Lifespan
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              Cost per year*
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            FINISHES.map((finish) => {
+              const perYear = costPerYear(example.interior, finish);
+              return (
+                <tr class="border-b border-navy-100">
+                  <td class="py-3 pr-4 font-medium text-navy-900">{finish.name}</td>
+                  <td class="py-3 pr-4 text-navy-500">
+                    ${finish.lowPerSqFt}–${finish.highPerSqFt}
+                  </td>
+                  <td class="py-3 pr-4 text-navy-500">
+                    {finish.lifespanLow}–{finish.lifespanHigh} yrs
+                  </td>
+                  <td class="py-3 font-display font-semibold text-blue-600">
+                    {money(perYear.low)}–{money(perYear.high)}
+                  </td>
+                </tr>
+              );
+            })
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-4 text-sm leading-relaxed text-navy-500">
+      *Cost per year on a {example.interior} sq ft pool — total price divided by
+      expected surface life. This is the comparison worth making, and it narrows
+      the gap between finishes considerably.
+    </p>
+
+    <div class="mt-6 space-y-4">
+      {
+        FINISHES.map((finish) => (
+          <div class="rounded-2xl border border-navy-100 bg-navy-50 p-5">
+            <h3 class="text-base">{finish.name}</h3>
+            <p class="mt-2 leading-relaxed text-navy-500">{finish.note}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <RegionalCosts />
+
+  <div>
+    <h2 class="text-2xl">A worked example</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      A {example.size} rectangular pool with a 3-to-8-foot depth range. Average
+      depth is 5.5 feet, so the interior surface is roughly {example.interior} square
+      feet — floor plus walls — and the perimeter is {example.perimeter} feet.
+    </p>
+
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Line item
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              Estimated cost
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            [
+              ['Drain and chip out old plaster', '$1,000–$2,000'],
+              [
+                `Quartz finish, ${example.interior} sq ft`,
+                `${money(resurfacingCost(example.interior, FINISHES[1]).low)}–${money(resurfacingCost(example.interior, FINISHES[1]).high)}`,
+              ],
+              ['Acid wash and start-up', '$300–$700'],
+              ['Refill (about 23,000 gallons)', '$100–$300'],
+            ].map(([item, cost]) => (
+              <tr class="border-b border-navy-100">
+                <td class="py-3 pr-4 text-navy-700">{item}</td>
+                <td class="py-3 font-display font-semibold text-blue-600">{cost}</td>
+              </tr>
+            ))
+          }
+          <tr class="border-b-2 border-navy-200">
+            <td class="py-3 pr-4 font-display font-bold text-navy-900">Total</td>
+            <td class="py-3 font-display font-bold text-navy-900">$6,150–$12,500</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Note that the chip-out, start-up and refill are close to fixed. They do not
+      scale with the finish you choose, which is part of why upgrading from
+      plaster to quartz costs less in practice than comparing per-square-foot
+      rates suggests.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">How to reduce the cost</h2>
+    <ul class="mt-5 space-y-3">
+      {
+        [
+          'Book in the off-season. Crews discount to keep working through the quiet months, and this is usually the largest single saving available.',
+          'Bundle tile and coping into the same visit. The pool is already drained and the crew already mobilised — doing it later means paying for both again.',
+          'Get three quotes, and make sure each one is priced from the same square footage. Two bids on different assumed areas are not comparable.',
+          'Ask what happens if they find structural damage. A quote that stays silent on this is not a fixed price.',
+          'Do not automatically buy the cheapest finish. Compare cost per year of life, not sticker price.',
+        ].map((item) => (
+          <li class="flex items-start gap-3">
+            <svg
+              class="mt-0.5 h-5 w-5 shrink-0 text-blue-500"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="text-navy-600">{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <RelatedCosts slot="related" exclude="pool-resurfacing" />
+</CostLayout>

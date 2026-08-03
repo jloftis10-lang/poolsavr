@@ -181,7 +181,7 @@ well-sourced calculators than eight confident-sounding ones.
 
 ---
 
-## Phase 3 — Cost pillar
+## Phase 3 — Cost pillar  ✅ done
 
 Seven pages, 1,500–2,500 words each: `pool-resurfacing/`, `pool-remodel/`,
 `replaster/`, `pebble-finishes/`, `tile-replacement/`, `coping-and-decking/`,
@@ -191,8 +191,17 @@ Template order is fixed by the spec: H1 → the number immediately → cost tabl
 size → square-footage-framed CTA → what drives price → by finish → regional
 variation → worked example → how to reduce cost → FAQ → related.
 
+All seven pages plus the `/cost/` hub are live on `CostLayout`.
+
 Costs live in `src/data/costs.ts`, not inline in prose, so the annual refresh is
-one file.
+one file — it carries a `lastReviewed` stamp rendered on every cost page. Cost
+content decays fastest of anything on the site; revisit it at least annually.
+
+Each page carries Article, FAQPage and BreadcrumbList schema, a cited `<Sources>`
+list, `<Disclaimer kind="cost" />`, and exactly one square-footage-framed CTA.
+
+**Next:** Phase 4, the care and remodeling libraries. `green-pool/` first — it is
+the highest-volume page on the whole plan.
 
 Each page carries `<Disclaimer kind="cost" />` and a `<Sources>` list. Figures are
 researched national estimates presented as estimates — never as quotes.

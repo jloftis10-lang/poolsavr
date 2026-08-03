@@ -1,0 +1,204 @@
+---
+import CostLayout from '../../layouts/CostLayout.astro';
+import RegionalCosts from '../../components/RegionalCosts.astro';
+import RelatedCosts from '../../components/RelatedCosts.astro';
+import { COST_SOURCES } from '../../data/costs';
+
+const faqs = [
+  {
+    q: 'How much does pool coping cost?',
+    a: 'Coping costs $30 to $50 per linear foot of perimeter. A 16 by 32 foot pool with 96 feet of perimeter runs about $2,880 to $4,800 depending on material — poured concrete at the bottom of the range, cut stone at the top.',
+  },
+  {
+    q: 'How much does a pool deck cost?',
+    a: 'Resurfacing an existing deck costs $6 to $12 per square foot. Replacing it entirely with stamped concrete runs $6,000 to $15,000 for a typical surround. Pavers and natural stone cost more, and are easier to repair later.',
+  },
+  {
+    q: 'What is pool coping?',
+    a: 'The capping that sits on the pool wall between the tile and the deck. It caps the shell edge, stops water getting behind the wall, and gives you something to grip. It is structural as well as decorative, which is why failing coping should not be left.',
+  },
+  {
+    q: 'Can you replace coping without draining the pool?',
+    a: 'Sometimes, for a straightforward like-for-like swap. But coping sits directly above waterline tile, and disturbing one usually means disturbing the other — at which point the pool comes down anyway. Most contractors will price it drained.',
+  },
+  {
+    q: 'Do I need to replace coping and decking together?',
+    a: 'No, though they meet at a joint that has to be watertight. Replacing decking against sound existing coping is routine. Replacing coping while leaving old decking often leaves a visible mismatch at the seam.',
+  },
+  {
+    q: 'Which decking material is best around a pool?',
+    a: 'It depends on climate. Pavers handle freeze-thaw well and can be lifted and relaid for repairs. Stamped concrete costs less but cracks eventually and is hard to patch invisibly. In hot regions, surface temperature underfoot matters more than either — light colours and stone stay usable in the sun.',
+  },
+];
+---
+
+<CostLayout
+  title="Pool Coping and Decking Cost in 2026"
+  description="Coping costs $30–$50 per linear foot and decking $6–$12 per square foot to resurface. See material comparisons and a worked example."
+  h1="Pool Coping and Decking Cost"
+  answer="Pool coping costs $30 to $50 per linear foot of perimeter — about $2,880 to $4,800 on a 16 by 32 foot pool. Deck resurfacing runs $6 to $12 per square foot, and a full stamped concrete replacement runs $6,000 to $15,000 for a typical surround."
+  path="/cost/coping-and-decking/"
+  breadcrumbName="Coping & Decking Cost"
+  publishDate={new Date('2026-08-03')}
+  faqs={faqs}
+  sources={[COST_SOURCES.angiRemodel, COST_SOURCES.homeguideTile]}
+>
+  <div slot="table">
+    <h2 class="text-2xl">Coping cost by perimeter</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Coping, like waterline tile, is priced by the linear foot of perimeter.
+    </p>
+
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Pool size
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Perimeter
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              Coping
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            [
+              ['12 × 24 ft', '72 ft', '$2,160–$3,600'],
+              ['14 × 28 ft', '84 ft', '$2,520–$4,200'],
+              ['16 × 32 ft', '96 ft', '$2,880–$4,800'],
+              ['18 × 36 ft', '108 ft', '$3,240–$5,400'],
+              ['20 × 40 ft', '120 ft', '$3,600–$6,000'],
+            ].map(([size, perimeter, cost]) => (
+              <tr class="border-b border-navy-100">
+                <td class="py-3 pr-4 font-medium text-navy-900">{size}</td>
+                <td class="py-3 pr-4 text-navy-500">{perimeter}</td>
+                <td class="py-3 font-display font-semibold text-blue-600">{cost}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Coping materials</h2>
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Material
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Per linear ft
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              Notes
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            [
+              ['Poured concrete', '$30–$40', 'Cheapest and most common. Can be coloured, and cracks with shell movement.'],
+              ['Precast concrete', '$35–$45', 'Uniform and quick to lay. Individual pieces can be swapped if damaged.'],
+              ['Brick', '$35–$50', 'Traditional look. Grout lines need maintenance.'],
+              ['Natural stone', '$45–$75+', 'Travertine and flagstone. Handsome and cool underfoot; needs sealing.'],
+            ].map(([material, cost, note]) => (
+              <tr class="border-b border-navy-100">
+                <td class="py-3 pr-4 font-medium text-navy-900">{material}</td>
+                <td class="py-3 pr-4 font-display font-semibold text-blue-600">{cost}</td>
+                <td class="py-3 text-sm text-navy-500">{note}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      In hot, sunny regions, surface temperature deserves more weight than looks.
+      Dark concrete can become genuinely too hot to stand on in midsummer, while
+      travertine stays usable — which is why it is so common around desert pools
+      despite the price.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Decking cost by approach</h2>
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Approach
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Per sq ft
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              600 sq ft deck
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            [
+              ['Resurface existing concrete', '$6–$12', '$3,600–$7,200'],
+              ['Stamped concrete, new pour', '$10–$25', '$6,000–$15,000'],
+              ['Pavers', '$12–$30', '$7,200–$18,000'],
+              ['Natural stone', '$20–$40', '$12,000–$24,000'],
+            ].map(([approach, perSqFt, total]) => (
+              <tr class="border-b border-navy-100">
+                <td class="py-3 pr-4 font-medium text-navy-900">{approach}</td>
+                <td class="py-3 pr-4 text-navy-500">{perSqFt}</td>
+                <td class="py-3 font-display font-semibold text-blue-600">{total}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Resurfacing is only an option if the slab underneath is sound. Deck
+      resurfacing over a cracked or heaving slab telegraphs every fault within a
+      season or two, and the money is wasted.
+    </p>
+  </div>
+
+  <RegionalCosts />
+
+  <div>
+    <h2 class="text-2xl">How to reduce the cost</h2>
+    <ul class="mt-5 space-y-3">
+      {
+        [
+          'Keep sound coping. If it is not cracked or loose, replacing tile beneath it alone is possible and saves thousands.',
+          'Resurface the deck rather than replacing it, if the slab underneath is genuinely sound. Have someone assess it honestly first.',
+          'Reduce the deck footprint. Decking is priced by area, and a lot of poolside concrete goes unused.',
+          'Schedule with resurfacing, so drain, refill and mobilisation are paid once.',
+          'Get quotes stating the perimeter and deck area used. Comparing bids priced from different measurements tells you nothing.',
+        ].map((item) => (
+          <li class="flex items-start gap-3">
+            <svg
+              class="mt-0.5 h-5 w-5 shrink-0 text-blue-500"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="text-navy-600">{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <RelatedCosts slot="related" exclude="coping-and-decking" />
+</CostLayout>

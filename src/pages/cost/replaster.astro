@@ -1,0 +1,174 @@
+---
+import CostLayout from '../../layouts/CostLayout.astro';
+import CostTable from '../../components/CostTable.astro';
+import RegionalCosts from '../../components/RegionalCosts.astro';
+import RelatedCosts from '../../components/RelatedCosts.astro';
+import { COST_SOURCES } from '../../data/costs';
+
+const faqs = [
+  {
+    q: 'How much does it cost to replaster a pool?',
+    a: 'Standard white plaster costs $4 to $8 per square foot of interior surface. A 16 by 32 foot pool with about 950 square feet of interior comes to roughly $3,800 to $7,600, plus around $1,000 to $2,000 for chip-out and start-up.',
+  },
+  {
+    q: 'How long does pool plaster last?',
+    a: 'Seven to twelve years is the normal range. Water chemistry is the deciding factor: a pool run consistently acidic will etch its plaster and fail at the short end, while balanced water regularly reaches the long end or beyond.',
+  },
+  {
+    q: 'When should I replaster my pool?',
+    a: 'When the surface feels rough enough to graze skin, when staining no longer brushes out, when you can see the grey substrate through the white, or when chemistry has become hard to hold. Any two of those together on plaster over ten years old means it is time.',
+  },
+  {
+    q: 'Is replastering cheaper than resurfacing with pebble?',
+    a: 'Up front, substantially — roughly a third of the price per square foot. Over twenty years the gap narrows sharply, because you will likely replaster twice in the time one pebble finish lasts.',
+  },
+  {
+    q: 'Can you plaster over old plaster?',
+    a: 'It is done, and it frequently fails. New plaster bonded to old delaminates and lifts in sheets. A proper job chips out the old surface first, which is why chip-out appears as a line item on every honest quote.',
+  },
+  {
+    q: 'How long before I can swim after replastering?',
+    a: 'The pool is refilled immediately and start-up chemistry begins the same day, but brushing continues daily for a week or two while the plaster cures. Most contractors say two weeks before normal use, and no automatic cleaner during that period.',
+  },
+];
+---
+
+<CostLayout
+  title="Cost to Replaster a Pool in 2026: Price by Size"
+  description="Replastering costs $4–$8 per square foot, or roughly $3,800–$7,600 for a 16x32 pool. See prices by size, plus what drives the quote."
+  h1="Cost to Replaster a Pool"
+  answer="Replastering costs $4 to $8 per square foot of interior surface — about $3,800 to $7,600 for a 16 by 32 foot pool, plus $1,000 to $2,000 for chip-out and start-up. Plaster is the cheapest interior finish up front and the shortest-lived, lasting 7 to 12 years."
+  path="/cost/replaster/"
+  breadcrumbName="Replastering Cost"
+  publishDate={new Date('2026-08-03')}
+  faqs={faqs}
+  sources={[COST_SOURCES.homeguideResurfacing]}
+>
+  <CostTable
+    slot="table"
+    finishId="plaster"
+    heading="Replastering cost by pool size"
+    intro="White plaster only. Add roughly $1,000 to $2,000 for chip-out, acid wash and start-up, which does not scale much with pool size."
+  />
+
+  <div>
+    <h2 class="text-2xl">What drives a replastering quote</h2>
+    <div class="mt-6 space-y-4">
+      {
+        [
+          {
+            title: 'Interior square footage',
+            body: 'Floor plus walls, not the water surface. A deeper pool has more wall and therefore costs more at the same length and width.',
+          },
+          {
+            title: 'Whether chip-out is included',
+            body: 'The single most common difference between two quotes on the same pool. Plaster applied over old plaster is cheaper and fails early — check the quote says chip-out explicitly.',
+          },
+          {
+            title: 'Condition underneath',
+            body: 'Once the old surface comes off, hollow spots, rusted rebar and structural cracks become visible. Reputable contractors flag this as a possibility up front rather than after.',
+          },
+          {
+            title: 'Colour and additives',
+            body: 'Tinted plaster costs more than white and shows mottling more readily. It is a real aesthetic choice, not a durability one.',
+          },
+        ].map((item) => (
+          <div class="rounded-2xl border border-navy-100 p-5">
+            <h3 class="text-base">{item.title}</h3>
+            <p class="mt-2 leading-relaxed text-navy-500">{item.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Plaster versus the alternatives</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Plaster wins clearly on up-front cost. The honest comparison is cost per
+      year of surface life, and there it looks different.
+    </p>
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Finish
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              950 sq ft pool
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Lifespan
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              Per year
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            [
+              ['White plaster', '$3,800–$7,600', '7–12 yrs', '$317–$1,086'],
+              ['Quartz', '$4,750–$9,500', '10–15 yrs', '$317–$950'],
+              ['Pebble', '$9,500–$14,250', '15–25 yrs', '$380–$950'],
+            ].map(([finish, total, life, perYear]) => (
+              <tr class="border-b border-navy-100">
+                <td class="py-3 pr-4 font-medium text-navy-900">{finish}</td>
+                <td class="py-3 pr-4 text-navy-500">{total}</td>
+                <td class="py-3 pr-4 text-navy-500">{life}</td>
+                <td class="py-3 font-display font-semibold text-blue-600">{perYear}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Per year of life the three finishes converge. Plaster still makes sense if
+      you are selling soon, if cash flow matters more than lifetime cost, or if
+      you simply prefer the smooth surface underfoot.
+    </p>
+  </div>
+
+  <RegionalCosts />
+
+  <div>
+    <h2 class="text-2xl">How to make plaster last</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Water chemistry decides whether you get seven years or twelve, and it costs
+      nothing to get right.
+    </p>
+    <ul class="mt-5 space-y-3">
+      {
+        [
+          'Keep pH in the 7.2 to 7.8 range. Sustained low pH etches plaster and shortens its life more than anything else.',
+          'Hold alkalinity between 60 and 180 ppm so pH stops swinging on its own.',
+          'Keep calcium hardness in range — water low in calcium will pull it out of the plaster itself.',
+          'Brush the new surface daily for the first two weeks while it cures.',
+          'Do not let a trichlor feeder discharge onto one spot. Concentrated acid will eat a hole in the finish beneath it.',
+        ].map((item) => (
+          <li class="flex items-start gap-3">
+            <svg
+              class="mt-0.5 h-5 w-5 shrink-0 text-blue-500"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="text-navy-600">{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-5 leading-relaxed text-navy-600">
+      All of that depends on dosing against an accurate pool volume. Getting the
+      gallons wrong means every chemical adjustment is off by the same
+      percentage, and the finish pays for it.
+    </p>
+  </div>
+
+  <RelatedCosts slot="related" exclude="replaster" />
+</CostLayout>

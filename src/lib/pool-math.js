@@ -43,6 +43,19 @@ export function perimeter(shape, length, width) {
   }
 }
 
+/**
+ * The area a resurfacing crew actually coats: floor plus walls.
+ *
+ * This is materially larger than the water's surface area, which is why a
+ * quote for a 512 sq ft pool talks about roughly 1,000 sq ft of finish. The
+ * floor is approximated as flat — a sloped floor is slightly larger still.
+ */
+export function interiorSurfaceArea(shape, length, width, avgDepth) {
+  const floor = surfaceArea(shape, length, width);
+  const walls = perimeter(shape, length, width) * avgDepth;
+  return floor + walls;
+}
+
 export function averageDepth(shallowDepth, deepDepth) {
   return (shallowDepth + deepDepth) / 2;
 }

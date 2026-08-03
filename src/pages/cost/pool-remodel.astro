@@ -1,0 +1,238 @@
+---
+import CostLayout from '../../layouts/CostLayout.astro';
+import RegionalCosts from '../../components/RegionalCosts.astro';
+import RelatedCosts from '../../components/RelatedCosts.astro';
+import { COST_SOURCES, LINE_ITEMS, REMODEL_TIERS, range } from '../../data/costs';
+
+const faqs = [
+  {
+    q: 'How much does a pool remodel cost?',
+    a: 'A cosmetic refresh — interior finish, waterline tile and coping — runs $14,000 to $28,000. A full remodel adding decking and equipment runs $30,000 to $65,000. Structural work that changes the pool itself starts around $55,000 and climbs past $120,000.',
+  },
+  {
+    q: 'What is the difference between resurfacing and remodelling?',
+    a: 'Resurfacing replaces the interior finish only. Remodelling is a broader project that usually includes the finish plus tile, coping, decking, and often equipment. If the shell is sound and you only dislike how the surface looks, resurfacing alone may be all you need.',
+  },
+  {
+    q: 'Does a pool remodel add value to a house?',
+    a: 'It rarely returns its full cost at resale, and that is worth being honest about. A tired pool can actively deter buyers, so bringing it back to sound and presentable protects value more reliably than a luxury remodel adds it.',
+  },
+  {
+    q: 'How long does a pool remodel take?',
+    a: 'A cosmetic refresh takes one to two weeks. A full remodel with decking runs three to six weeks. Structural work with permits can run several months, and permitting is usually the slowest part rather than the construction.',
+  },
+  {
+    q: 'What should I remodel first on a limited budget?',
+    a: 'Fix anything structural first — cracks, leaks, failing plumbing — because everything cosmetic sits on top of it. After that, the interior finish gives the biggest visible change per dollar, and it is the item with a genuine service life rather than a purely aesthetic one.',
+  },
+  {
+    q: 'Do I need a permit to remodel my pool?',
+    a: 'Usually not for a like-for-like resurface, and usually yes for changing the shell, the plumbing, the electrical, or the deck footprint. Requirements are local, so ask your contractor to confirm in writing which permits their quote includes.',
+  },
+];
+---
+
+<CostLayout
+  title="Pool Remodel Cost in 2026: Budget Tiers and Line Items"
+  description="Pool remodels run $14,000–$28,000 for a cosmetic refresh and $30,000–$65,000 for a full project. See what is included at each tier."
+  h1="Pool Remodel Cost"
+  answer="A cosmetic pool refresh — interior finish, waterline tile and coping — runs $14,000 to $28,000. A full remodel adding decking and equipment runs $30,000 to $65,000. Structural remodels that change the pool itself start near $55,000 and can pass $120,000."
+  path="/cost/pool-remodel/"
+  breadcrumbName="Pool Remodel Cost"
+  publishDate={new Date('2026-08-03')}
+  faqs={faqs}
+  sources={[COST_SOURCES.angiRemodel, COST_SOURCES.homeguideResurfacing]}
+>
+  <div slot="table">
+    <h2 class="text-2xl">Remodel cost by scope</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Remodels are easier to budget by tier than by line item, because the scope
+      tends to move in blocks. These are the three that contractors actually
+      quote.
+    </p>
+
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Scope
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Typical range
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              Includes
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            REMODEL_TIERS.map((tier) => (
+              <tr class="border-b border-navy-100">
+                <td class="py-3 pr-4 font-medium text-navy-900">{tier.name}</td>
+                <td class="py-3 pr-4 font-display font-semibold text-blue-600">
+                  {range(tier.low, tier.high)}
+                </td>
+                <td class="py-3 text-sm text-navy-500">{tier.includes.join(', ')}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">What each tier actually means</h2>
+    <div class="mt-6 space-y-4">
+      {
+        REMODEL_TIERS.map((tier) => (
+          <div class="rounded-2xl border border-navy-100 bg-navy-50 p-5">
+            <div class="flex flex-wrap items-baseline justify-between gap-2">
+              <h3 class="text-base">{tier.name}</h3>
+              <span class="font-display font-semibold text-blue-600">
+                {range(tier.low, tier.high)}
+              </span>
+            </div>
+            <p class="mt-2 leading-relaxed text-navy-500">{tier.note}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Line items, and what each is priced by</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      This is the part worth understanding before you read a quote. Each item is
+      priced by a different unit, which is why two pools of the same size can
+      produce very different bids.
+    </p>
+
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Item
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Priced by
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              Typical total
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            LINE_ITEMS.map((item) => (
+              <tr class="border-b border-navy-100">
+                <td class="py-3 pr-4 font-medium text-navy-900">{item.name}</td>
+                <td class="py-3 pr-4 text-sm text-navy-500">{item.unit}</td>
+                <td class="py-3 font-display font-semibold text-blue-600">
+                  {range(item.typicalLow, item.typicalHigh)}
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Notice that the interior finish scales with square footage while tile and
+      coping scale with perimeter. A long, narrow pool has far more perimeter per
+      square foot than a square one, so its tile and coping bill runs high
+      relative to its resurfacing bill.
+    </p>
+  </div>
+
+  <RegionalCosts />
+
+  <div>
+    <h2 class="text-2xl">A worked example</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      A 16 by 32 foot pool, 20 years old, sound shell, dated finish and tile.
+      Roughly 950 square feet of interior surface and 96 feet of perimeter, with
+      a 600 square foot deck.
+    </p>
+
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Line item
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Basis
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              Estimated
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            [
+              ['Quartz interior finish', '950 sq ft × $5–$10', '$4,750–$9,500'],
+              ['Waterline tile', '96 lin ft × $25–$30', '$2,400–$2,880'],
+              ['Coping', '96 lin ft × $30–$50', '$2,880–$4,800'],
+              ['Deck resurfacing', '600 sq ft × $6–$12', '$3,600–$7,200'],
+              ['Variable-speed pump', 'per project', '$1,200–$2,500'],
+            ].map(([item, basis, cost]) => (
+              <tr class="border-b border-navy-100">
+                <td class="py-3 pr-4 text-navy-700">{item}</td>
+                <td class="py-3 pr-4 text-sm text-navy-500">{basis}</td>
+                <td class="py-3 font-display font-semibold text-blue-600">{cost}</td>
+              </tr>
+            ))
+          }
+          <tr class="border-b-2 border-navy-200">
+            <td class="py-3 pr-4 font-display font-bold text-navy-900">Total</td>
+            <td class="py-3 pr-4" />
+            <td class="py-3 font-display font-bold text-navy-900">$14,830–$26,880</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="mt-4 leading-relaxed text-navy-600">
+      That lands squarely in the cosmetic-refresh-plus-deck band. Adding a heater,
+      automation, or any reshaping of the pool itself moves it into full remodel
+      territory quickly.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">How to reduce the cost</h2>
+    <ul class="mt-5 space-y-3">
+      {
+        [
+          'Phase the work, but keep the drained-pool items together. Finish, tile and coping all need the pool empty — splitting them across years means paying to drain and refill twice.',
+          'Separate wants from needs in writing. Structural repair and a failing pump are needs; a new deck is a want, and a contractor will happily quote them as one number.',
+          'Reuse coping if it is sound. Replacing tile without touching coping is possible and saves several thousand.',
+          'Book off-season. The same discount that applies to resurfacing applies here, on a larger total.',
+          'Get three quotes priced from the same measurements, and check each one states the square footage and perimeter it used.',
+        ].map((item) => (
+          <li class="flex items-start gap-3">
+            <svg
+              class="mt-0.5 h-5 w-5 shrink-0 text-blue-500"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="text-navy-600">{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <RelatedCosts slot="related" exclude="pool-remodel" />
+</CostLayout>

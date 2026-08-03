@@ -1,0 +1,177 @@
+---
+import CostLayout from '../../layouts/CostLayout.astro';
+import CostTable from '../../components/CostTable.astro';
+import RegionalCosts from '../../components/RegionalCosts.astro';
+import RelatedCosts from '../../components/RelatedCosts.astro';
+import { COST_SOURCES } from '../../data/costs';
+
+const faqs = [
+  {
+    q: 'How much does a pebble pool finish cost?',
+    a: 'Pebble finishes cost $10 to $15 per square foot of interior surface. A 16 by 32 foot pool with roughly 950 square feet of interior comes to about $9,500 to $14,250, before chip-out and start-up.',
+  },
+  {
+    q: 'How long does a pebble finish last?',
+    a: 'Fifteen to twenty-five years, against seven to twelve for plaster. That durability is the entire argument for the price, and it is a real one — over twenty years pebble often costs less per year than plaster.',
+  },
+  {
+    q: 'Is pebble worth the extra cost over plaster?',
+    a: 'On lifetime cost, usually yes. On comfort, it depends on you. Pebble is textured — some people find it pleasantly grippy underfoot and others find it abrasive, particularly children who sit on the steps. Go and touch a finished pool before committing.',
+  },
+  {
+    q: 'What is the difference between PebbleTec and pebble finish?',
+    a: 'PebbleTec is a brand name that became a generic term, in the way people say Hoover for vacuum. Several manufacturers make comparable exposed-aggregate finishes. Compare the actual product specification and warranty rather than the name.',
+  },
+  {
+    q: 'Is polished pebble smoother?',
+    a: 'Yes. Polished variants grind the exposed stone down for a smoother surface, at roughly 15 to 25 percent more cost. If texture is your only reservation about pebble, this is the answer to it.',
+  },
+  {
+    q: 'Does pebble hide stains better than plaster?',
+    a: 'Considerably. The varied colour of exposed aggregate disguises the mottling, scale marks and staining that show clearly on white plaster. It is one of the practical reasons pebble pools tend to look presentable for longer.',
+  },
+];
+---
+
+<CostLayout
+  title="Pebble Pool Finish Cost in 2026: Price and Lifespan"
+  description="Pebble finishes cost $10–$15 per square foot, or $9,500–$14,250 for a 16x32 pool. See whether the 15–25 year lifespan justifies the price."
+  h1="Pebble Pool Finish Cost"
+  answer="Pebble finishes cost $10 to $15 per square foot of interior surface — roughly $9,500 to $14,250 for a 16 by 32 foot pool. That is about three times the price of plaster per square foot, but pebble lasts 15 to 25 years against plaster's 7 to 12."
+  path="/cost/pebble-finishes/"
+  breadcrumbName="Pebble Finish Cost"
+  publishDate={new Date('2026-08-03')}
+  faqs={faqs}
+  sources={[COST_SOURCES.homeguideResurfacing]}
+>
+  <CostTable
+    slot="table"
+    finishId="pebble"
+    heading="Pebble finish cost by pool size"
+    intro="Interior finish only. Add roughly $1,000 to $2,000 for chip-out, acid wash and start-up."
+  />
+
+  <div>
+    <h2 class="text-2xl">Does the lifespan justify the price?</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      This is the only question that matters on this page, so here is the
+      arithmetic rather than an opinion.
+    </p>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Take a 950 square foot pool over a twenty-year horizon. Plaster at the
+      midpoint costs about $5,700 and lasts around ten years, so you buy it
+      twice: roughly $11,400. Pebble at the midpoint costs about $11,875 and
+      lasts the full twenty, so you buy it once.
+    </p>
+
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Over 20 years
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Applications
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              Total
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            [
+              ['White plaster', 'Two', '~$11,400 + two chip-outs'],
+              ['Quartz', 'One or two', '~$7,100–$14,250'],
+              ['Pebble', 'One', '~$11,875 + one chip-out'],
+            ].map(([finish, apps, total]) => (
+              <tr class="border-b border-navy-100">
+                <td class="py-3 pr-4 font-medium text-navy-900">{finish}</td>
+                <td class="py-3 pr-4 text-navy-500">{apps}</td>
+                <td class="py-3 font-display font-semibold text-blue-600">{total}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Once the second chip-out is counted, pebble comes out ahead over twenty
+      years — and you have drained the pool once instead of twice. The honest
+      caveat is that this assumes you keep the house that long. If you might sell
+      within five years, the up-front difference is money you will not recover.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">The texture question</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      The most common regret with pebble has nothing to do with money. Exposed
+      aggregate is textured by design, and how that feels varies from pleasant
+      grip to genuinely abrasive depending on the stone size and how much is
+      exposed.
+    </p>
+    <div class="mt-6 space-y-4">
+      {
+        [
+          {
+            name: 'Standard pebble',
+            body: 'Largest exposed stone, most texture, longest life, lowest price within the pebble family. Grippy on steps and slopes, rough on the feet of anyone who sits on the bottom.',
+          },
+          {
+            name: 'Small or mini pebble',
+            body: 'Smaller aggregate, noticeably smoother, similar durability. A reasonable default for families.',
+          },
+          {
+            name: 'Polished pebble',
+            body: 'Ground smooth after curing. Closest to plaster underfoot while keeping the durability, at roughly 15 to 25 percent more than standard pebble.',
+          },
+        ].map((item) => (
+          <div class="rounded-2xl border border-navy-100 bg-navy-50 p-5">
+            <h3 class="text-base">{item.name}</h3>
+            <p class="mt-2 leading-relaxed text-navy-500">{item.body}</p>
+          </div>
+        ))
+      }
+    </div>
+    <p class="mt-5 leading-relaxed text-navy-600">
+      Go and stand in a finished pool with the exact product before you sign.
+      Every installer has recent work they can show you, and ten minutes barefoot
+      settles the question better than any description.
+    </p>
+  </div>
+
+  <RegionalCosts />
+
+  <div>
+    <h2 class="text-2xl">How to reduce the cost</h2>
+    <ul class="mt-5 space-y-3">
+      {
+        [
+          'Choose standard rather than polished pebble if texture does not bother you — it is the same durability for less.',
+          'Bundle tile and coping into the same drain. The chip-out and mobilisation are already paid for.',
+          'Book off-season, as with any resurfacing work.',
+          'Compare warranties carefully. A ten-year warranty on a fifteen-year product is worth real money, and terms vary widely between manufacturers.',
+          'Get quotes priced from the same interior square footage, and check what each one assumed.',
+        ].map((item) => (
+          <li class="flex items-start gap-3">
+            <svg
+              class="mt-0.5 h-5 w-5 shrink-0 text-blue-500"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="text-navy-600">{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <RelatedCosts slot="related" exclude="pebble-finishes" />
+</CostLayout>

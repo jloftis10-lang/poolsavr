@@ -1,0 +1,223 @@
+---
+import CostLayout from '../../layouts/CostLayout.astro';
+import RegionalCosts from '../../components/RegionalCosts.astro';
+import RelatedCosts from '../../components/RelatedCosts.astro';
+import { COST_SOURCES, MAINTENANCE, range } from '../../data/costs';
+
+const faqs = [
+  {
+    q: 'How much does pool maintenance cost per month?',
+    a: 'Doing it yourself runs $80 to $150 a month once chemicals, electricity and water are counted. A weekly professional service runs $150 to $300. The national average across both sits near $140 a month.',
+  },
+  {
+    q: 'Is a pool service worth it?',
+    a: 'It costs roughly $1,000 to $2,400 a year more than doing it yourself. Whether that is worth it depends on your time and how much you enjoy the work — but a service that catches a chemistry problem early can also prevent a resurfacing bill years ahead of schedule.',
+  },
+  {
+    q: 'What is the biggest monthly pool cost?',
+    a: 'Electricity for the pump, usually $50 to $100 a month, and often more than chemicals. A variable-speed pump is the single largest saving available, because power draw falls roughly with the cube of speed.',
+  },
+  {
+    q: 'How much do pool chemicals cost per month?',
+    a: 'Typically $30 to $60 a month for a residential pool, more in peak summer and less in the off-season. Overdosing because of an inaccurate pool volume is a common and entirely avoidable way to inflate that figure.',
+  },
+  {
+    q: 'Does a saltwater pool cost less to maintain?',
+    a: 'Month to month, yes — often around $45 in DIY chemical costs against $50 to $80 for a chlorine pool. The offset is the salt cell, which costs several hundred dollars and needs replacing every three to seven years.',
+  },
+  {
+    q: 'How can I lower my pool maintenance costs?',
+    a: 'Run a variable-speed pump at low speed for longer, use a cover to cut evaporation and chemical loss, keep the filter clean so the pump works less, and dose against an accurate pool volume so nothing is wasted.',
+  },
+];
+---
+
+<CostLayout
+  title="Monthly Pool Maintenance Cost in 2026: DIY vs Service"
+  description="Pool maintenance costs $80–$150 monthly for DIY and $150–$300 for a weekly service. See the full breakdown and where the money actually goes."
+  h1="Monthly Pool Maintenance Cost"
+  answer="Maintaining a pool yourself costs $80 to $150 a month once chemicals, electricity and water are counted. A weekly professional service runs $150 to $300 a month. The national average across both sits near $140. Electricity for the pump is usually the largest single item."
+  path="/cost/monthly-maintenance/"
+  breadcrumbName="Monthly Maintenance Cost"
+  publishDate={new Date('2026-08-03')}
+  faqs={faqs}
+  sources={[COST_SOURCES.homeguideMaintenance, COST_SOURCES.homeAdvisorMaintenance]}
+>
+  <div slot="table">
+    <h2 class="text-2xl">Monthly cost, DIY versus a service</h2>
+
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Approach
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Per month
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              Per year
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-navy-100">
+            <td class="py-3 pr-4 font-medium text-navy-900">Doing it yourself</td>
+            <td class="py-3 pr-4 font-display font-semibold text-blue-600">
+              {range(MAINTENANCE.diy.low, MAINTENANCE.diy.high)}
+            </td>
+            <td class="py-3 text-navy-500">
+              {range(MAINTENANCE.diy.low * 12, MAINTENANCE.diy.high * 12)}
+            </td>
+          </tr>
+          <tr class="border-b border-navy-100">
+            <td class="py-3 pr-4 font-medium text-navy-900">Weekly professional service</td>
+            <td class="py-3 pr-4 font-display font-semibold text-blue-600">
+              {range(MAINTENANCE.professional.low, MAINTENANCE.professional.high)}
+            </td>
+            <td class="py-3 text-navy-500">
+              {range(MAINTENANCE.professional.low * 12, MAINTENANCE.professional.high * 12)}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="mt-4 text-sm leading-relaxed text-navy-500">
+      A service typically covers weekly visits and routine chemicals. It usually
+      excludes algae recovery, equipment repair, and seasonal opening and
+      closing — worth confirming before signing.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Where the money actually goes</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Most people assume chemicals dominate. For most pools, electricity does.
+    </p>
+
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Item
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              Per month
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            MAINTENANCE.breakdown.map((row) => (
+              <tr class="border-b border-navy-100">
+                <td class="py-3 pr-4 font-medium text-navy-900">{row.item}</td>
+                <td class="py-3 font-display font-semibold text-blue-600">
+                  {range(row.low, row.high)}
+                </td>
+              </tr>
+            ))
+          }
+          <tr class="border-b-2 border-navy-200">
+            <td class="py-3 pr-4 font-display font-bold text-navy-900">Total</td>
+            <td class="py-3 font-display font-bold text-navy-900">
+              {range(
+                MAINTENANCE.breakdown.reduce((sum, row) => sum + row.low, 0),
+                MAINTENANCE.breakdown.reduce((sum, row) => sum + row.high, 0),
+              )}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="mt-4 leading-relaxed text-navy-600">
+      The pump is the largest line, which makes it the biggest lever. A
+      variable-speed pump running longer at low speed moves the same water for a
+      fraction of the power, because consumption scales with roughly the cube of
+      speed.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">What is not in the monthly figure</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Routine cost is the easy part to budget. These are the items that arrive
+      irregularly and catch people out.
+    </p>
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Item
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Cost
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              How often
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            [
+              ['Opening and closing', '$300–$700 each', 'Twice a year in cold climates'],
+              ['Filter media replacement', '$100–$800', 'Sand every 5–7 yrs, cartridges every 2–5'],
+              ['Salt cell replacement', '$400–$1,200', 'Every 3–7 years'],
+              ['Pump replacement', '$800–$2,500', 'Every 8–12 years'],
+              ['Heater replacement', '$2,000–$6,000', 'Every 8–15 years'],
+              ['Resurfacing', '$6,000–$15,000', 'Every 7–25 years by finish'],
+            ].map(([item, cost, frequency]) => (
+              <tr class="border-b border-navy-100">
+                <td class="py-3 pr-4 font-medium text-navy-900">{item}</td>
+                <td class="py-3 pr-4 font-display font-semibold text-blue-600">{cost}</td>
+                <td class="py-3 text-sm text-navy-500">{frequency}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Averaged out, these add roughly $80 to $200 a month to the true cost of
+      owning a pool. Setting that aside monthly is far more comfortable than
+      meeting a resurfacing bill from nowhere.
+    </p>
+  </div>
+
+  <RegionalCosts />
+
+  <div>
+    <h2 class="text-2xl">How to reduce the cost</h2>
+    <ul class="mt-5 space-y-3">
+      {
+        [
+          'Fit a variable-speed pump. It is the largest single saving available on a pool, and often pays for itself within two or three seasons.',
+          'Use a cover. It cuts evaporation, which cuts both water and the chemicals that leave with it, and it slashes heating cost.',
+          'Keep the filter clean. A dirty filter makes the pump work harder for less flow, which shows up directly on the electricity bill.',
+          'Dose against an accurate pool volume. Guessing high wastes chemicals every single week; guessing low means fixing problems that should never have started.',
+          'Buy chemicals in bulk before summer. Prices climb in peak season.',
+        ].map((item) => (
+          <li class="flex items-start gap-3">
+            <svg
+              class="mt-0.5 h-5 w-5 shrink-0 text-blue-500"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="text-navy-600">{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <RelatedCosts slot="related" exclude="monthly-maintenance" />
+</CostLayout>

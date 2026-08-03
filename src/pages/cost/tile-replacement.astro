@@ -1,0 +1,212 @@
+---
+import CostLayout from '../../layouts/CostLayout.astro';
+import RegionalCosts from '../../components/RegionalCosts.astro';
+import RelatedCosts from '../../components/RelatedCosts.astro';
+import { COST_SOURCES } from '../../data/costs';
+
+const faqs = [
+  {
+    q: 'How much does pool tile replacement cost?',
+    a: 'Waterline tile costs $25 to $30 per linear foot of perimeter. A 16 by 32 foot pool has 96 feet of perimeter, so waterline tile runs about $2,400 to $2,880. Tiling a whole pool interior is a different job entirely, at $20 to $50 per square foot.',
+  },
+  {
+    q: 'Why is pool tile priced by the linear foot?',
+    a: 'Because waterline tile is a band running around the edge, not a surface. Its cost tracks perimeter, not area. This is why a long narrow lap pool costs more to tile than a square pool of the same square footage.',
+  },
+  {
+    q: 'When does pool tile need replacing?',
+    a: 'When grout is failing and tiles are loose or falling off, when calcium scale can no longer be removed without damaging the glaze, or when tile is cracking from freeze-thaw or shell movement. Cosmetic dating is the other common reason, and there is nothing wrong with that.',
+  },
+  {
+    q: 'Can I replace just a few tiles?',
+    a: 'Yes, and it is far cheaper — a few hundred dollars for a small section. The difficulty is matching: tile lines get discontinued, and a patch in a slightly different shade often looks worse than the damage did. Ask for spares whenever tile is installed.',
+  },
+  {
+    q: 'Should I replace tile at the same time as resurfacing?',
+    a: 'Almost always. Both need the pool drained and the crew on site. Doing them separately means paying twice for drain, refill and mobilisation — commonly $1,500 or more of pure duplication.',
+  },
+  {
+    q: 'What is the difference between waterline tile and a full tile pool?',
+    a: 'Waterline tile is a band of roughly six inches at the water surface, where scale and oils collect. A fully tiled pool covers the entire interior with tile instead of plaster or pebble — a luxury finish that runs well into five figures and is priced by area.',
+  },
+];
+---
+
+<CostLayout
+  title="Pool Tile Replacement Cost in 2026: Price per Foot"
+  description="Waterline tile costs $25–$30 per linear foot — about $2,400–$2,880 for a 16x32 pool. See what drives the price and when to replace."
+  h1="Pool Tile Replacement Cost"
+  answer="Waterline tile replacement costs $25 to $30 per linear foot of pool perimeter. A 16 by 32 foot pool has 96 feet of perimeter, putting waterline tile at roughly $2,400 to $2,880. Tiling an entire pool interior is a separate job priced by area, at $20 to $50 per square foot."
+  path="/cost/tile-replacement/"
+  breadcrumbName="Tile Replacement Cost"
+  publishDate={new Date('2026-08-03')}
+  faqs={faqs}
+  sources={[COST_SOURCES.homeguideTile, COST_SOURCES.angiTile]}
+>
+  <div slot="table">
+    <h2 class="text-2xl">Waterline tile cost by pool perimeter</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Tile is priced by the linear foot of perimeter, so this table is organised
+      by perimeter rather than by pool area.
+    </p>
+
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Pool size
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Perimeter
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              Waterline tile
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            [
+              ['12 × 24 ft', '72 ft', '$1,800–$2,160'],
+              ['14 × 28 ft', '84 ft', '$2,100–$2,520'],
+              ['16 × 32 ft', '96 ft', '$2,400–$2,880'],
+              ['18 × 36 ft', '108 ft', '$2,700–$3,240'],
+              ['20 × 40 ft', '120 ft', '$3,000–$3,600'],
+            ].map(([size, perimeter, cost]) => (
+              <tr class="border-b border-navy-100">
+                <td class="py-3 pr-4 font-medium text-navy-900">{size}</td>
+                <td class="py-3 pr-4 text-navy-500">{perimeter}</td>
+                <td class="py-3 font-display font-semibold text-blue-600">{cost}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <p class="mt-4 text-sm leading-relaxed text-navy-500">
+      Perimeter for a rectangular pool is twice the length plus twice the width.
+      Curved and freeform pools have more perimeter than their dimensions
+      suggest, so their tile bill runs higher than this table implies.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">What drives the price</h2>
+    <div class="mt-6 space-y-4">
+      {
+        [
+          {
+            title: 'Perimeter, not pool size',
+            body: 'The whole quote hangs off this number. Two pools with identical square footage can differ by 20 feet of perimeter, and that is several hundred dollars of tile and labour.',
+          },
+          {
+            title: 'Tile material',
+            body: 'Basic ceramic sits at the bottom of the range. Glass tile can double or triple the material cost, and porcelain and stone sit between. The labour is broadly similar; the material is where the spread comes from.',
+          },
+          {
+            title: 'Removing the old tile',
+            body: 'Old tile has to come off without damaging the shell or the beam beneath. Tile that was set in a hard mortar bed takes longer to remove than tile set in thinset.',
+          },
+          {
+            title: 'Whether coping comes off too',
+            body: 'Tile sits directly beneath coping. If the coping is being replaced anyway, doing both together is cheaper than either alone — but replacing tile under coping you intend to keep takes more care and more time.',
+          },
+        ].map((item) => (
+          <div class="rounded-2xl border border-navy-100 p-5">
+            <h3 class="text-base">{item.title}</h3>
+            <p class="mt-2 leading-relaxed text-navy-500">{item.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Tile material comparison</h2>
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Material
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Per linear ft
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              Notes
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            [
+              ['Ceramic', '$25–$30', 'The default. Durable, wide choice, easiest to source a match later.'],
+              ['Porcelain', '$28–$40', 'Denser than ceramic and better in freeze-thaw climates.'],
+              ['Glass', '$50–$100+', 'The luxury option. Striking, and the most expensive to repair.'],
+              ['Natural stone', '$40–$75', 'Handsome but porous — needs sealing and shows scale readily.'],
+            ].map(([material, cost, note]) => (
+              <tr class="border-b border-navy-100">
+                <td class="py-3 pr-4 font-medium text-navy-900">{material}</td>
+                <td class="py-3 pr-4 font-display font-semibold text-blue-600">{cost}</td>
+                <td class="py-3 text-sm text-navy-500">{note}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <RegionalCosts />
+
+  <div>
+    <h2 class="text-2xl">A worked example</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      A 16 by 32 foot rectangular pool, 96 feet of perimeter, ceramic waterline
+      tile being replaced during a resurfacing.
+    </p>
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Line item
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              Estimated
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            [
+              ['Remove old waterline tile, 96 lin ft', '$500–$900'],
+              ['Ceramic tile, materials', '$700–$1,200'],
+              ['Installation labour', '$1,200–$1,800'],
+              ['Drain and refill', 'Included — pool already drained'],
+            ].map(([item, cost]) => (
+              <tr class="border-b border-navy-100">
+                <td class="py-3 pr-4 text-navy-700">{item}</td>
+                <td class="py-3 font-display font-semibold text-blue-600">{cost}</td>
+              </tr>
+            ))
+          }
+          <tr class="border-b-2 border-navy-200">
+            <td class="py-3 pr-4 font-display font-bold text-navy-900">Total</td>
+            <td class="py-3 font-display font-bold text-navy-900">$2,400–$3,900</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Done as a standalone job with its own drain and refill, add roughly $1,000
+      to $1,500. That duplication is the entire argument for scheduling tile with
+      resurfacing.
+    </p>
+  </div>
+
+  <RelatedCosts slot="related" exclude="tile-replacement" />
+</CostLayout>
