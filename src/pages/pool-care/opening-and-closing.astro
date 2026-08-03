@@ -1,0 +1,202 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import RelatedGuides from '../../components/RelatedGuides.astro';
+
+const steps = [
+  {
+    name: 'Clear and remove the cover',
+    text: 'Pump standing water off the cover before pulling it back — tipping a winter cover full of debris into the pool turns a two-hour job into a two-week recovery. Clean and dry the cover before storing it.',
+  },
+  {
+    name: 'Top the water up and reconnect equipment',
+    text: 'Bring the level back to the middle of the skimmer, reinstall drain plugs, baskets and the pressure gauge, and reconnect anything removed for winter.',
+  },
+  {
+    name: 'Start the pump and check for leaks',
+    text: 'Prime the pump, start it, and watch the equipment pad for the first few minutes. Winter is hard on seals and unions, and a dripping joint is easiest to catch now.',
+  },
+  {
+    name: 'Test everything and balance in order',
+    text: 'Alkalinity, then pH, then cyanuric acid, then chlorine, then calcium. After a winter under a cover, expect most readings to be off.',
+  },
+  {
+    name: 'Shock and run continuously',
+    text: 'Shock to breakpoint and run the pump 24 hours a day until the water is clear and chlorine holds overnight. Two or three days is normal for a well-closed pool.',
+  },
+  {
+    name: 'Brush, vacuum and clean the filter',
+    text: 'Brush the whole surface, vacuum what settles, and clean the filter once it loads up. Repeat until the water is clear.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'When should I open my pool?',
+    a: 'Once daytime temperatures are consistently above about 70°F. Opening early costs a few weeks of chemicals but is far cheaper than opening late — algae grows under a cover in warm water, and a green opening is the most expensive way to start a season.',
+  },
+  {
+    q: 'When should I close my pool?',
+    a: 'When water temperature stays below about 60°F, where algae growth effectively stops. Closing while the water is still warm invites a bloom that sits under the cover all winter.',
+  },
+  {
+    q: 'How much does it cost to open or close a pool?',
+    a: 'A professional opening or closing typically runs $300 to $700 each. Doing it yourself costs chemicals and a day, and the main risk is winterising badly — a cracked pipe from trapped water costs far more than the service would have.',
+  },
+  {
+    q: 'Do I need to drain water before winter?',
+    a: 'Lower it to below the skimmer or return, depending on your climate and cover type, so water cannot freeze inside the skimmer. In hard-freeze regions the lines must be blown out and plugged. Never drain a pool completely for winter — an empty shell can lift out of saturated ground.',
+  },
+  {
+    q: 'Why is my pool green when I open it?',
+    a: 'It was closed with chlorine too low, closed while the water was still warm, or the cover let light and debris through. All three let algae grow slowly through winter. Closing properly is what makes opening easy.',
+  },
+  {
+    q: 'Can I leave my pool open all winter?',
+    a: 'In mild climates, yes — many people run the pump on a reduced schedule year-round and skip the whole ritual. Where hard freezes occur, that means keeping water moving through every freeze event, and a power cut on a cold night can burst the plumbing.',
+  },
+];
+
+const sources = [
+  {
+    title: 'Home Pool and Hot Tub Water Treatment and Testing',
+    publisher: 'Centers for Disease Control and Prevention',
+    url: 'https://www.cdc.gov/healthy-swimming/about/home-pool-and-hot-tub-water-treatment-and-testing.html',
+    accessed: 'August 2026',
+  },
+];
+---
+
+<ArticleLayout
+  title="Opening and Closing a Pool: Season Checklists"
+  description="Step-by-step opening and closing checklists, plus the timing that decides whether spring costs you a weekend or three weeks."
+  h1="Opening and Closing a Pool"
+  fastAnswer="Open once daytime temperatures hold above about 70°F, and close once the water stays below 60°F. Closing well is what makes opening easy — most green springs are caused by a rushed autumn."
+  path="/pool-care/opening-and-closing/"
+  breadcrumbName="Opening & Closing"
+  hub={{ name: 'Pool Care', path: '/pool-care/' }}
+  publishDate={new Date('2026-08-03')}
+  faqs={faqs}
+  sources={sources}
+  steps={steps}
+  stepsHeading="Opening a pool, step by step"
+  disclaimer="chemistry"
+  calculatorId="chlorine-dosage"
+  calculatorHeading="Opening and closing doses"
+  calculatorIntro="Both ends of the season need a proper chlorine dose against your actual volume. Enter yours to work out how much to add."
+>
+  <div>
+    <h2 class="text-2xl">Closing a pool, step by step</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Closing gets less attention than opening and matters more. Almost every
+      difficult spring traces back to a rushed autumn.
+    </p>
+    <ol class="mt-6 space-y-4">
+      {
+        [
+          'Balance the water fully — alkalinity, pH and calcium — a few days before closing. Water sits unattended for months, and unbalanced water attacks surfaces the whole time.',
+          'Clean thoroughly. Brush, vacuum, empty baskets and clean the filter. Organic debris left in the pool feeds algae all winter.',
+          'Shock to breakpoint and let chlorine come back down to normal before covering. Do not cover a pool with chlorine still at shock level.',
+          'Add a winter algaecide once chlorine has dropped, so it is not immediately destroyed.',
+          'Lower the water below the skimmer, or as your cover requires.',
+          'Blow out the lines and plug them if you get hard freezes. This is the step that prevents burst pipes, and the one most worth paying for if unsure.',
+          'Remove and store baskets, gauges and the pump drain plugs somewhere you will find them again.',
+          'Fit the cover securely, with no gaps for light or leaves.',
+        ].map((step, index) => (
+          <li class="flex gap-4">
+            <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-navy-700 font-display text-sm font-bold text-white">
+              {index + 1}
+            </span>
+            <span class="pt-0.5 leading-relaxed text-navy-600">{step}</span>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Timing, by climate</h2>
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Climate
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Open
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Close
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              Notes
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            [
+              ['Northeast / Midwest', 'Late April–May', 'Late September–October', 'Full winterisation, lines blown out'],
+              ['Mid-Atlantic', 'April', 'October–November', 'Freeze protection still needed'],
+              ['Southeast', 'March', 'November, or not at all', 'Many pools run year-round'],
+              ['Southwest / California', 'Often year-round', 'Rarely closed', 'Reduced winter run time instead'],
+            ].map(([climate, open, close, notes]) => (
+              <tr class="border-b border-navy-100">
+                <td class="py-3 pr-4 font-medium text-navy-900">{climate}</td>
+                <td class="py-3 pr-4 text-navy-500">{open}</td>
+                <td class="py-3 pr-4 text-navy-500">{close}</td>
+                <td class="py-3 text-sm text-navy-500">{notes}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Water temperature is the real trigger, not the calendar. Sixty degrees is
+      the number that matters at both ends — algae growth effectively stops below
+      it and restarts above it.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Why pools open green</h2>
+    <div class="mt-4 space-y-4 leading-relaxed text-navy-600">
+      <p>
+        <strong class="text-navy-900">Closed too early.</strong> Covering water
+        still above 60°F gives algae months of warm, dark, unchlorinated water.
+      </p>
+      <p>
+        <strong class="text-navy-900">Opened too late.</strong> The reverse
+        problem. Water warms under the cover in spring, and every week past 70°F
+        is another week of growth before you look at it.
+      </p>
+      <p>
+        <strong class="text-navy-900">Debris left in the pool.</strong> Leaves
+        and organics decompose all winter and consume whatever chlorine remains.
+      </p>
+      <p>
+        <strong class="text-navy-900">A cover that lets light through.</strong>{' '}
+        Mesh covers let in enough light to sustain algae. That is a trade-off for
+        easier handling, not a fault — but it means expecting more spring work.
+      </p>
+    </div>
+    <a href="/pool-care/green-pool" class="btn-outline mt-6">
+      If it opened green, start here
+    </a>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">When to call a professional</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Winterising plumbing in a hard-freeze region is the one step worth paying
+      for if you are not confident. Blowing out lines requires the right
+      equipment and knowing which valves to close in which order, and the cost of
+      getting it wrong is a cracked underground pipe that will not be discovered
+      until spring — a repair that dwarfs the $300 to $700 a closing service
+      costs.
+    </p>
+  </div>
+
+  <RelatedGuides slot="related" exclude="pool-care/opening-and-closing" pillar="care" />
+</ArticleLayout>

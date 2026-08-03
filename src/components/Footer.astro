@@ -33,10 +33,22 @@ const columns = [
     ],
   },
   {
+    title: 'Guides',
+    links: [
+      { href: '/pool-care/green-pool', label: 'Green pool' },
+      { href: '/pool-care/cloudy-water', label: 'Cloudy water' },
+      { href: '/pool-care/losing-water', label: 'Losing water' },
+      { href: '/remodeling/when-to-resurface', label: 'When to resurface' },
+      { href: '/remodeling/plaster-vs-pebble', label: 'Plaster vs pebble' },
+    ],
+  },
+  {
     title: 'Company',
     links: [
       { href: '/calculators/', label: 'All calculators' },
       { href: '/cost/', label: 'All costs' },
+      { href: '/pool-care/', label: 'Pool care' },
+      { href: '/remodeling/', label: 'Remodeling' },
       { href: '/about', label: 'About' },
       { href: '/contact', label: 'Contact' },
       { href: '/privacy', label: 'Privacy' },
@@ -50,7 +62,7 @@ const year = new Date().getFullYear();
 
 <footer class="border-t border-navy-800 bg-navy-900 text-navy-200">
   <div class="container-page py-16">
-    <div class="grid gap-12 lg:grid-cols-[1fr_2.5fr]">
+    <div class="grid gap-12 lg:grid-cols-[1fr_3.2fr]">
       <div>
         <Logo class="text-2xl" variant="light" />
         <p class="mt-4 max-w-sm text-sm leading-relaxed text-navy-300">
@@ -60,7 +72,7 @@ const year = new Date().getFullYear();
         <Cta placement="footer" class="mt-6" />
       </div>
 
-      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
         {
           columns.map((column) => (
             <div>

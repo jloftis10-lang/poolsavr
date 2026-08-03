@@ -208,9 +208,14 @@ researched national estimates presented as estimates — never as quotes.
 
 ---
 
-## Phase 4 — Care and remodeling
+## Phase 4 — Care and remodeling  ✅ done
 
-Eleven pages on `ArticleLayout` with HowTo schema.
+All eleven pages plus both hubs are live on `ArticleLayout`, which implements the
+care template: H1, fast-answer box, numbered steps with HowTo schema, an inline
+calculator embed, then why it happened, prevention, and when to call a pro.
+
+Five care guides embed a live calculator mid-article — the highest-intent moment
+on a troubleshooting page, since every dose depends on gallons.
 
 Care (1,200–2,000 words): `green-pool/` first — huge, seasonal, urgent, and every
 step needs gallons, which makes it the tightest possible link into the volume
@@ -226,6 +231,12 @@ genuinely wins somewhere), `process-and-timeline/`,
 in later without a rewrite.
 
 Every care page routes to a calculator. Every calculator routes to the app CTA.
+`questions-to-ask-a-contractor` has a "Finding contractors" section structured so
+a directory can slot in later without a rewrite.
+
+**Next:** Phase 5 — `/pool-data/average-pool-size/` with cited figures and the
+`[metro]` route, then the first metro set. Metro pages still need genuinely local
+research (water hardness, permits, season length) — see *Still outstanding*.
 
 ---
 

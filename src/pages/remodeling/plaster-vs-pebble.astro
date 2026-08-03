@@ -1,0 +1,205 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import RelatedGuides from '../../components/RelatedGuides.astro';
+
+const faqs = [
+  {
+    q: 'Is pebble better than plaster for a pool?',
+    a: 'Pebble lasts roughly twice as long and resists stains far better, but costs about three times as much per square foot and is textured underfoot. Over twenty years pebble usually costs less in total; over five years plaster is clearly cheaper.',
+  },
+  {
+    q: 'How much more does pebble cost than plaster?',
+    a: 'Plaster runs $4 to $8 per square foot and pebble $10 to $15. On a 950 square foot interior that is roughly $3,800–$7,600 against $9,500–$14,250 — a difference of about $6,000 at the midpoints.',
+  },
+  {
+    q: 'Is pebble rough on your feet?',
+    a: 'Standard pebble is noticeably textured, and this is the most common regret people report. Small pebble is considerably smoother, and polished pebble is close to plaster at 15 to 25 percent extra. Stand in a finished pool before deciding.',
+  },
+  {
+    q: 'Does pebble hide stains better than plaster?',
+    a: 'Substantially. The varied colour of exposed aggregate disguises mottling, scale and staining that show plainly on white plaster. It is one of the practical reasons pebble pools look presentable for longer.',
+  },
+  {
+    q: 'Which is better for a saltwater pool?',
+    a: 'Both are compatible with salt systems. Pebble tends to hold up slightly better over time simply because it is more durable overall, but salt is not the deciding factor for either — chemistry management is.',
+  },
+  {
+    q: 'Can I put pebble over existing plaster?',
+    a: 'No, and nobody reputable will offer to. The old surface is chipped out first regardless of what goes on next, which is why switching finishes at resurfacing time costs only the material difference.',
+  },
+];
+
+const sources = [
+  {
+    title: 'How Much Does Pool Resurfacing Cost?',
+    publisher: 'HomeGuide',
+    url: 'https://homeguide.com/costs/pool-resurfacing-cost',
+    accessed: 'August 2026',
+  },
+];
+---
+
+<ArticleLayout
+  title="Plaster vs Pebble Pool Finish: An Honest Comparison"
+  description="Plaster costs a third of pebble per square foot and lasts half as long. Which wins depends on how long you're staying — here's the arithmetic."
+  h1="Plaster vs Pebble"
+  fastAnswer="Plaster costs about a third of pebble per square foot and lasts about half as long. Over twenty years pebble usually works out cheaper; over five, plaster clearly wins. Texture, not cost, is the thing people most often regret."
+  path="/remodeling/plaster-vs-pebble/"
+  breadcrumbName="Plaster vs Pebble"
+  hub={{ name: 'Remodeling', path: '/remodeling/' }}
+  publishDate={new Date('2026-08-03')}
+  faqs={faqs}
+  sources={sources}
+>
+  <div>
+    <h2 class="text-2xl">Head to head</h2>
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              &nbsp;
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              White plaster
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              Pebble
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            [
+              ['Cost per sq ft', '$4–$8', '$10–$15'],
+              ['950 sq ft pool', '$3,800–$7,600', '$9,500–$14,250'],
+              ['Lifespan', '7–12 years', '15–25 years'],
+              ['Cost per year', '$317–$1,086', '$380–$950'],
+              ['Texture', 'Smoothest available', 'Noticeably textured'],
+              ['Stain resistance', 'Poor — shows everything', 'Good — colour hides marks'],
+              ['Repairs', 'Easy to patch, patches visible', 'Harder to patch, blends better'],
+              ['Colour options', 'White or tinted, mottles', 'Wide range, very consistent'],
+            ].map(([attribute, plaster, pebble]) => (
+              <tr class="border-b border-navy-100">
+                <td class="py-3 pr-4 font-medium text-navy-900">{attribute}</td>
+                <td class="py-3 pr-4 text-navy-500">{plaster}</td>
+                <td class="py-3 text-navy-500">{pebble}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">The twenty-year arithmetic</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      This is the calculation that decides it, and it is simple enough to do
+      here.
+    </p>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Take a 950 square foot interior and midpoint pricing. Plaster costs about
+      $5,700 and lasts around ten years, so across twenty you buy it twice —
+      roughly $11,400, plus a second chip-out at $1,000 to $2,000. Pebble costs
+      about $11,875 once, plus one chip-out.
+    </p>
+    <div class="mt-6 rounded-2xl border border-blue-200 bg-blue-50 p-6">
+      <p class="font-display font-semibold text-navy-900">Over twenty years</p>
+      <p class="mt-2 leading-relaxed text-navy-600">
+        Plaster: about $12,400–$13,400 total, and two separate weeks with the
+        pool out of action.
+      </p>
+      <p class="mt-2 leading-relaxed text-navy-600">
+        Pebble: about $12,875 total, and one week out of action.
+      </p>
+      <p class="mt-3 leading-relaxed text-navy-600">
+        Effectively a tie on money, with pebble ahead on disruption. Below about
+        ten years, plaster wins clearly. Beyond twenty, pebble does.
+      </p>
+    </div>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      So the honest framing is not which is better value. It is how long you
+      expect to own the pool.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Where plaster genuinely wins</h2>
+    <ul class="mt-5 space-y-3">
+      {
+        [
+          'Up-front cost, by roughly $6,000 on a mid-size pool. That is a real constraint for most households, not a rounding error.',
+          'Smoothness. If children sit on the bottom or you swim laps in bare feet, plaster is more comfortable, and no pebble variant fully closes that gap.',
+          'Selling within a few years. The extra spend on pebble will not come back at resale.',
+          'Classic appearance. White plaster gives the bright blue water people picture when they imagine a pool.',
+        ].map((item) => (
+          <li class="flex items-start gap-3">
+            <svg
+              class="mt-0.5 h-5 w-5 shrink-0 text-blue-500"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="text-navy-600">{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Where pebble genuinely wins</h2>
+    <ul class="mt-5 space-y-3">
+      {
+        [
+          'Durability. Fifteen to twenty-five years against seven to twelve is not a marginal difference.',
+          'Stain resistance. Varied aggregate colour hides the marks that make white plaster look tired after five years.',
+          'Fewer disruptions. One resurfacing instead of two means one drained pool instead of two.',
+          'Grip on steps and slopes, which is a genuine safety benefit for older swimmers and children.',
+          'Consistency. Pebble does not mottle the way tinted plaster does.',
+        ].map((item) => (
+          <li class="flex items-start gap-3">
+            <svg
+              class="mt-0.5 h-5 w-5 shrink-0 text-blue-500"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="text-navy-600">{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">The compromise most people miss</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Quartz aggregate sits between the two and rarely gets considered, because
+      the argument is always framed as plaster against pebble.
+    </p>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Quartz costs $5 to $10 per square foot, lasts 10 to 15 years, and is only
+      slightly textured. For a household that wants better than plaster without
+      pebble's price or texture, it is frequently the right answer — and its cost
+      per year is as good as either.
+    </p>
+    <a href="/remodeling/finish-types" class="btn-outline mt-5">
+      All four finish types compared
+    </a>
+  </div>
+
+  <RelatedGuides
+    slot="related"
+    exclude="remodeling/plaster-vs-pebble"
+    pillar="remodeling"
+    heading="Related guides"
+  />
+</ArticleLayout>

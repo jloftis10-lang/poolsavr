@@ -1,0 +1,214 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import RelatedGuides from '../../components/RelatedGuides.astro';
+
+const steps = [
+  {
+    name: 'Test before you add anything',
+    text: 'Free chlorine, combined chlorine, pH, alkalinity and calcium hardness. Cloudiness has five common causes and they need opposite treatments, so dosing blind is how a two-day problem becomes a two-week one.',
+  },
+  {
+    name: 'Check the filter first',
+    text: 'Note the pressure gauge. If it is 8 to 10 psi above its clean reading, clean or backwash it. If the pressure is normal but the water is cloudy, the filter may be channelling or bypassing rather than filtering.',
+  },
+  {
+    name: 'Fix chlorine if it is low',
+    text: 'If free chlorine is under 1 ppm, or combined chlorine is over 0.5 ppm, that is your answer. Shock to breakpoint and the haze usually clears as the filter catches what the chlorine kills.',
+  },
+  {
+    name: 'Bring pH and alkalinity into range',
+    text: 'High pH pushes calcium out of solution and clouds the water on its own. Target pH 7.2 to 7.6 and alkalinity 60 to 180 ppm before assuming anything else is wrong.',
+  },
+  {
+    name: 'Run the filter longer',
+    text: 'Extend to 24 hours a day while clearing. Very fine particles need many passes, and a pool that runs eight hours will simply take three times as long to clear as one that runs continuously.',
+  },
+  {
+    name: 'Add clarifier or flocculant if it is still slow',
+    text: 'Clarifier clumps fine particles so the filter can catch them, over a day or two. Flocculant sinks them to the floor to be vacuumed to waste — faster, but it bypasses the filter and you lose some water.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Why is my pool cloudy but the chlorine is fine?',
+    a: 'The three usual causes are a filter that is dirty or not running long enough, high pH pushing calcium out of solution, and very fine debris after a storm. Check filter pressure and pH before adding any chemical.',
+  },
+  {
+    q: 'How long does it take to clear a cloudy pool?',
+    a: 'With the cause corrected and the filter running continuously, most cloudy pools clear in 24 to 48 hours. Fine particulate after a dust storm or a heavy algae kill can take three to four days of filtration.',
+  },
+  {
+    q: 'Should I use clarifier or flocculant?',
+    a: 'Clarifier is gentler and works through the filter over a day or two — the right default. Flocculant drops everything to the floor within hours but must be vacuumed to waste, which means losing water and bypassing the filter. Use floc when you need the pool clear fast.',
+  },
+  {
+    q: 'Can high calcium make a pool cloudy?',
+    a: 'Yes. Calcium hardness above roughly 400 ppm, particularly combined with high pH or high alkalinity, causes calcium to fall out of solution as a fine white haze. Lower pH first; if that does not fix it, some water needs replacing.',
+  },
+  {
+    q: 'Is it safe to swim in a cloudy pool?',
+    a: 'If chlorine is in range and you can clearly see the bottom, it is generally fine. If you cannot see the main drain, do not swim — that is a drowning hazard regardless of the chemistry, and it usually means chlorine has been overwhelmed too.',
+  },
+  {
+    q: 'Why did my pool go cloudy right after shocking?',
+    a: 'That is normal and usually a good sign. Shocking kills algae and oxidises organics, and the dead material becomes visible haze before the filter removes it. Keep the pump running and it should clear within a day or two.',
+  },
+];
+
+const sources = [
+  {
+    title: 'Home Pool and Hot Tub Water Treatment and Testing',
+    publisher: 'Centers for Disease Control and Prevention',
+    url: 'https://www.cdc.gov/healthy-swimming/about/home-pool-and-hot-tub-water-treatment-and-testing.html',
+    accessed: 'August 2026',
+  },
+  {
+    title: '2023 Model Aquatic Health Code, 4th Edition — water quality',
+    publisher: 'Centers for Disease Control and Prevention',
+    url: 'https://www.cdc.gov/model-aquatic-health-code/media/pdfs/2023-MAHC-508.pdf',
+    accessed: 'August 2026',
+  },
+];
+---
+
+<ArticleLayout
+  title="Cloudy Pool Water: Causes and How to Fix It"
+  description="Cloudy pool water has five common causes. Diagnose which one you have from your test readings, then clear it in 24–48 hours."
+  h1="Why Your Pool Water Is Cloudy"
+  fastAnswer="Cloudy water is almost always a dirty or under-run filter, low chlorine, or high pH pushing calcium out of solution. Test first to tell which — the fixes are different, and treating the wrong one makes it worse."
+  path="/pool-care/cloudy-water/"
+  breadcrumbName="Cloudy Water"
+  hub={{ name: 'Pool Care', path: '/pool-care/' }}
+  publishDate={new Date('2026-08-03')}
+  faqs={faqs}
+  sources={sources}
+  steps={steps}
+  stepsHeading="Clearing cloudy water"
+  disclaimer="chemistry"
+  calculatorId="chlorine-dosage"
+  calculatorHeading="If chlorine is the cause, here is the dose"
+  calculatorIntro="Low free chlorine is the most common cause of cloudiness. Enter your volume and current reading to work out how much to add."
+>
+  <div>
+    <h2 class="text-2xl">The five causes, and how to tell them apart</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      This is the part worth slowing down for. Cloudy water looks identical
+      whatever caused it, and the treatments contradict each other.
+    </p>
+
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Cause
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Tell-tale
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              Fix
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            [
+              ['Filter problem', 'High pressure, or short run times', 'Clean or backwash, run 24/7'],
+              ['Low free chlorine', 'FC under 1 ppm', 'Shock to breakpoint'],
+              ['Chloramines', 'Combined chlorine over 0.5 ppm', 'Shock to breakpoint'],
+              ['High pH or calcium', 'pH over 7.8, CH over 400 ppm', 'Lower pH with acid'],
+              ['Fine debris', 'Recent storm, dust or pollen', 'Clarifier, then filter'],
+            ].map(([cause, tell, fix]) => (
+              <tr class="border-b border-navy-100">
+                <td class="py-3 pr-4 font-medium text-navy-900">{cause}</td>
+                <td class="py-3 pr-4 text-navy-500">{tell}</td>
+                <td class="py-3 font-display font-semibold text-blue-600">{fix}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Note the contradiction in that table: two causes want more chlorine and one
+      wants acid. Add chlorine to a pool that is cloudy from high pH and you have
+      spent money to change nothing.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Clarifier versus flocculant</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Both make fine particles clump together. What happens next is completely
+      different, and picking the wrong one wastes a weekend.
+    </p>
+    <div class="mt-6 space-y-4">
+      {
+        [
+          {
+            name: 'Clarifier',
+            body: 'Binds particles into clumps large enough for the filter to catch. Slower — one to three days — but it works through the filter with no manual effort and no water loss. The right default for mild haze.',
+          },
+          {
+            name: 'Flocculant',
+            body: 'Drops everything to the floor overnight as a layer of sediment. Faster, but you must vacuum to waste rather than through the filter, which means losing several inches of water and refilling. Use it when you need clarity by the weekend.',
+          },
+        ].map((item) => (
+          <div class="rounded-2xl border border-navy-100 bg-navy-50 p-5">
+            <h3 class="text-base">{item.name}</h3>
+            <p class="mt-2 leading-relaxed text-navy-500">{item.body}</p>
+          </div>
+        ))
+      }
+    </div>
+    <p class="mt-5 leading-relaxed text-navy-600">
+      Never use flocculant with a cartridge filter and no waste line — you will
+      have no way to remove the sediment, and vacuuming it through the cartridge
+      simply puts it straight back into the pool.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">How to prevent it</h2>
+    <ul class="mt-5 space-y-3">
+      {
+        [
+          'Clean the filter on schedule rather than waiting for pressure to climb.',
+          'Run at least one full turnover daily, and more during heatwaves or heavy use.',
+          'Keep pH between 7.2 and 7.6 — high pH is a slow, steady route to cloudiness.',
+          'Shock after storms, heavy use, and anything that dumps organics into the pool.',
+          'Dose against an accurate volume, so chlorine actually lands in range instead of near it.',
+        ].map((item) => (
+          <li class="flex items-start gap-3">
+            <svg
+              class="mt-0.5 h-5 w-5 shrink-0 text-blue-500"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="text-navy-600">{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">When to call a professional</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Cloudy water that will not clear after a week of correct chemistry and
+      continuous filtration usually means the filter itself has failed — channelled
+      sand, a split cartridge, or a multiport valve letting water bypass. Those
+      are worth a service visit, because no amount of chemical fixes water that
+      is not being filtered.
+    </p>
+  </div>
+
+  <RelatedGuides slot="related" exclude="pool-care/cloudy-water" pillar="care" />
+</ArticleLayout>

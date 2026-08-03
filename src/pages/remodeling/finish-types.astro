@@ -1,0 +1,213 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import RelatedGuides from '../../components/RelatedGuides.astro';
+
+const faqs = [
+  {
+    q: 'What are the different pool finish types?',
+    a: 'Four categories cover almost every residential pool: white plaster, quartz aggregate, pebble aggregate, and full tile. They run from about $4 to well over $25 per square foot, and from 7 years of life to effectively permanent.',
+  },
+  {
+    q: 'What is the best pool finish?',
+    a: 'There is no single best. Plaster wins on up-front cost and smoothness, pebble on durability and stain resistance, quartz sits between the two, and tile wins on longevity and looks while costing several times more. The right answer depends on your budget horizon and how the surface feels underfoot.',
+  },
+  {
+    q: 'Which pool finish lasts longest?',
+    a: 'Tile, effectively indefinitely if maintained. Among the applied finishes, pebble at 15 to 25 years is the most durable — roughly double the life of standard plaster.',
+  },
+  {
+    q: 'Which pool finish is smoothest?',
+    a: 'White plaster, followed by quartz. Standard pebble is noticeably textured. Polished pebble narrows that gap considerably at around 15 to 25 percent extra cost.',
+  },
+  {
+    q: 'Does the finish colour affect water temperature?',
+    a: 'Slightly. Darker finishes absorb more solar energy and can lift water temperature by a degree or two. The effect is real but small — a cover does far more for heat retention than finish colour does.',
+  },
+  {
+    q: 'Can I change finish type when I resurface?',
+    a: 'Yes, and resurfacing is exactly when to do it. The old surface is chipped out regardless, so switching from plaster to quartz or pebble costs only the difference in material and labour, not a penalty.',
+  },
+];
+
+const sources = [
+  {
+    title: 'How Much Does Pool Resurfacing Cost?',
+    publisher: 'HomeGuide',
+    url: 'https://homeguide.com/costs/pool-resurfacing-cost',
+    accessed: 'August 2026',
+  },
+];
+---
+
+<ArticleLayout
+  title="Pool Finish Types Compared: Plaster, Quartz, Pebble"
+  description="Plaster, quartz, pebble and tile compared on cost, lifespan, texture and maintenance — with an honest note on where each one wins."
+  h1="Pool Finish Types Compared"
+  fastAnswer="Plaster is cheapest and smoothest but lasts 7 to 12 years. Pebble costs about three times as much per square foot and lasts 15 to 25. Quartz sits between them, and tile outlasts everything at several times the price."
+  path="/remodeling/finish-types/"
+  breadcrumbName="Finish Types"
+  hub={{ name: 'Remodeling', path: '/remodeling/' }}
+  publishDate={new Date('2026-08-03')}
+  faqs={faqs}
+  sources={sources}
+>
+  <div>
+    <h2 class="text-2xl">The four options side by side</h2>
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Finish
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Per sq ft
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Lifespan
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Texture
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              Wins on
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            [
+              ['White plaster', '$4–$8', '7–12 yrs', 'Smoothest', 'Up-front cost'],
+              ['Quartz', '$5–$10', '10–15 yrs', 'Slightly textured', 'Balance'],
+              ['Pebble', '$10–$15', '15–25 yrs', 'Textured', 'Durability'],
+              ['Tile', '$25–$50+', '25+ yrs', 'Smooth, grouted', 'Longevity and looks'],
+            ].map(([finish, cost, life, texture, wins]) => (
+              <tr class="border-b border-navy-100">
+                <td class="py-3 pr-4 font-medium text-navy-900">{finish}</td>
+                <td class="py-3 pr-4 font-display font-semibold text-blue-600">{cost}</td>
+                <td class="py-3 pr-4 text-navy-500">{life}</td>
+                <td class="py-3 pr-4 text-navy-500">{texture}</td>
+                <td class="py-3 text-sm text-navy-500">{wins}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-4 text-sm leading-relaxed text-navy-500">
+      Prices are per square foot of interior surface — floor plus walls, roughly
+      double the water surface area.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Where each one genuinely wins</h2>
+    <div class="mt-6 space-y-4">
+      {
+        [
+          {
+            name: 'White plaster',
+            wins: 'Lowest up-front cost, smoothest underfoot',
+            loses: 'Shortest life, stains most readily, shows every mark',
+            pick: 'Pick it if you are selling within a few years, if cash flow matters more than lifetime cost, or if smoothness is genuinely your priority.',
+          },
+          {
+            name: 'Quartz aggregate',
+            wins: 'Better stain resistance and life than plaster, modest premium',
+            loses: 'Costs more than plaster without pebble’s durability',
+            pick: 'The sensible default for most people. Meaningfully better than plaster for a fraction of the step up to pebble.',
+          },
+          {
+            name: 'Pebble aggregate',
+            wins: 'Longest-lived applied finish, hides stains and mottling well',
+            loses: 'Highest applied-finish cost, and the texture divides people',
+            pick: 'Pick it if you are staying put long term. Over twenty years it often costs less than plaster once you count buying plaster twice.',
+          },
+          {
+            name: 'Tile',
+            wins: 'Effectively permanent, unmatched appearance',
+            loses: 'Several times the cost, and grout needs maintenance',
+            pick: 'A luxury choice. Genuinely lasts, but the price puts it out of scope for most remodels.',
+          },
+        ].map((item) => (
+          <div class="rounded-2xl border border-navy-100 p-5">
+            <h3 class="text-base">{item.name}</h3>
+            <p class="mt-2 text-sm font-semibold text-blue-600">Wins: {item.wins}</p>
+            <p class="mt-1 text-sm font-semibold text-navy-500">Loses: {item.loses}</p>
+            <p class="mt-3 leading-relaxed text-navy-500">{item.pick}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Cost per year, which is the fairer comparison</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Sticker price makes plaster look like the obvious budget choice. Dividing
+      by expected life tells a different story.
+    </p>
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Finish
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              950 sq ft pool
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              Cost per year
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            [
+              ['White plaster', '$3,800–$7,600', '$317–$1,086'],
+              ['Quartz', '$4,750–$9,500', '$317–$950'],
+              ['Pebble', '$9,500–$14,250', '$380–$950'],
+            ].map(([finish, total, perYear]) => (
+              <tr class="border-b border-navy-100">
+                <td class="py-3 pr-4 font-medium text-navy-900">{finish}</td>
+                <td class="py-3 pr-4 text-navy-500">{total}</td>
+                <td class="py-3 font-display font-semibold text-blue-600">{perYear}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      The three converge almost completely. Add the second chip-out that plaster
+      requires within twenty years and pebble moves ahead outright. That does not
+      make plaster wrong — it makes the choice about your time horizon rather
+      than about value.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">What the finish does not fix</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Every finish on this page lives or dies by water chemistry. Sustained low
+      pH etches plaster, quartz and pebble alike, and water low in calcium will
+      pull it out of the surface itself.
+    </p>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Paying for a twenty-five year finish and then running the water badly buys
+      you a twelve-year finish at pebble prices. The chemistry is the cheaper
+      half of the decision.
+    </p>
+    <a href="/pool-care/water-chemistry-basics" class="btn-outline mt-5">
+      Water chemistry basics
+    </a>
+  </div>
+
+  <RelatedGuides
+    slot="related"
+    exclude="remodeling/finish-types"
+    pillar="remodeling"
+    heading="Related guides"
+  />
+</ArticleLayout>

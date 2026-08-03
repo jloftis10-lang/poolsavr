@@ -1,0 +1,246 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import RelatedGuides from '../../components/RelatedGuides.astro';
+
+const steps = [
+  {
+    name: 'Look at the colour and where it is growing',
+    text: 'Green algae floats and clouds the whole pool. Yellow or mustard algae clings to shaded walls and looks like sand or pollen. Black algae forms dark raised spots with roots into the plaster.',
+  },
+  {
+    name: 'Brush a patch and watch what happens',
+    text: 'Green algae clouds off immediately. Yellow brushes away easily but returns in the same place within a day. Black algae resists the brush entirely and needs a stainless steel brush to break its cap.',
+  },
+  {
+    name: 'Rule out stains and pollen',
+    text: 'If a spot does not brush off at all, it may be a metal stain rather than algae. Pollen looks like mustard algae but collects on the surface rather than clinging to walls, and skims off easily.',
+  },
+  {
+    name: 'Match the treatment to the type',
+    text: 'Green needs a double shock. Yellow needs triple plus brushing and treating everything that entered the pool. Black needs the caps broken open before any chemical will reach the cells.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'What are the different types of pool algae?',
+    a: 'Three matter for treatment: green algae, which floats and clouds the water; yellow or mustard algae, which clings to shaded walls and resists normal chlorine; and black algae, which roots into plaster and is the hardest to remove.',
+  },
+  {
+    q: 'How do I get rid of mustard algae?',
+    a: 'Triple shock, brush thoroughly, and treat everything that has been in the pool — floats, toys, swimsuits, and the pool brush itself. Mustard algae survives on those and reinfects the pool days later, which is why it seems to come back from nowhere.',
+  },
+  {
+    q: 'What kills black algae in a pool?',
+    a: 'Breaking its protective cap first, with a stainless steel brush, then chlorine at shock level directly on the spots. Some people rub a trichlor tablet on the scrubbed patch. Black algae roots into plaster, so severe cases need acid washing or resurfacing.',
+  },
+  {
+    q: 'Is pool algae dangerous?',
+    a: 'The algae itself is largely harmless. The problem is what it indicates — chlorine has been overwhelmed, so bacteria are not being controlled either. Algae also makes surfaces slippery and hides the bottom, both genuine safety issues.',
+  },
+  {
+    q: 'Why does my algae keep coming back?',
+    a: 'Usually chlorine that dips too low between doses, cyanuric acid high enough to blunt the chlorine, or contaminated equipment reintroducing it. With mustard algae in particular, cleaning gear and swimwear matters as much as treating the water.',
+  },
+  {
+    q: 'Does algaecide prevent algae?',
+    a: 'As prevention, yes — a maintenance dose is genuinely useful, especially late in the season. As a cure it is weak; chlorine at shock level does the killing. Adding algaecide during a shock often wastes it, since high chlorine degrades many formulations.',
+  },
+];
+
+const sources = [
+  {
+    title: 'Home Pool and Hot Tub Water Treatment and Testing',
+    publisher: 'Centers for Disease Control and Prevention',
+    url: 'https://www.cdc.gov/healthy-swimming/about/home-pool-and-hot-tub-water-treatment-and-testing.html',
+    accessed: 'August 2026',
+  },
+];
+---
+
+<ArticleLayout
+  title="Pool Algae Types: Green, Yellow and Black Compared"
+  description="Identify which algae you have from colour, location and how it brushes — then treat it correctly. The three types need different approaches."
+  h1="Types of Pool Algae"
+  fastAnswer="Green algae floats and clouds the water, yellow clings to shaded walls, and black roots into plaster as raised spots. Identify which you have before treating — green needs a double shock, black needs scrubbing before any chemical will reach it."
+  path="/pool-care/algae-types/"
+  breadcrumbName="Algae Types"
+  hub={{ name: 'Pool Care', path: '/pool-care/' }}
+  publishDate={new Date('2026-08-03')}
+  faqs={faqs}
+  sources={sources}
+  steps={steps}
+  stepsHeading="Identifying what you have"
+  disclaimer="chemistry"
+  calculatorId="pool-shock"
+  calculatorHeading="Work out your shock dose"
+  calculatorIntro="All three types are treated with chlorine at shock level — the difference is the multiplier and the physical work. Start with the breakpoint dose for your volume, then multiply as below."
+>
+  <div>
+    <h2 class="text-2xl">The three types at a glance</h2>
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Type
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Looks like
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Shock dose
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              Difficulty
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            [
+              ['Green', 'Cloudy green water throughout', '2×', 'Straightforward'],
+              ['Yellow / mustard', 'Sandy film on shaded walls', '3×', 'Persistent'],
+              ['Black', 'Dark raised spots with roots', '3× plus scrubbing', 'Hard'],
+            ].map(([type, looks, dose, difficulty]) => (
+              <tr class="border-b border-navy-100">
+                <td class="py-3 pr-4 font-medium text-navy-900">{type}</td>
+                <td class="py-3 pr-4 text-navy-500">{looks}</td>
+                <td class="py-3 pr-4 font-display font-semibold text-blue-600">{dose}</td>
+                <td class="py-3 text-navy-500">{difficulty}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Green algae</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      The common one, and the easiest to fix. It suspends in the water rather
+      than clinging, which is why the whole pool goes green at once rather than
+      developing patches.
+    </p>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      It responds well to chlorine, so a double shock with the pump running and
+      thorough brushing clears most blooms in 24 to 48 hours. If yours is not
+      responding, the cause is almost always an underestimated volume or high
+      cyanuric acid rather than unusually stubborn algae.
+    </p>
+    <a href="/pool-care/green-pool" class="btn-outline mt-5">
+      Full green pool recovery guide
+    </a>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Yellow or mustard algae</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      This one fools people. It looks like sand or pollen collecting on shaded
+      walls and the deep end, brushes away easily, and then reappears in exactly
+      the same spot within a day.
+    </p>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Mustard algae tolerates chlorine levels that would destroy green algae, so
+      normal shocking often fails. It also survives out of the water, which is
+      the detail most guides omit.
+    </p>
+    <div class="mt-6 rounded-2xl border border-blue-200 bg-blue-50 p-5">
+      <p class="font-display font-semibold text-navy-900">
+        Treat the equipment, not just the pool
+      </p>
+      <p class="mt-2 leading-relaxed text-navy-600">
+        Swimsuits, floats, toys, the pool brush, the vacuum head and the skimmer
+        basket all harbour mustard algae. Soak them in chlorinated water or run
+        them through a hot wash at the same time as you shock. Skip this and the
+        pool reinfects itself within a week, which is why people believe it is
+        impossible to get rid of.
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Black algae</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Technically a cyanobacterium rather than an alga, and the hardest of the
+      three. It forms dark spots with a waxy protective layer and puts roots down
+      into plaster, which is why it favours older, rougher surfaces and grout
+      lines.
+    </p>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      The protective cap is the whole problem: chlorine cannot reach the living
+      cells beneath it. Any treatment that skips the scrubbing step fails, no
+      matter how much chlorine goes in.
+    </p>
+    <ol class="mt-5 space-y-3">
+      {
+        [
+          'Scrub each spot hard with a stainless steel brush on plaster — a nylon brush will not break the cap. Use nylon on vinyl or fibreglass to avoid damaging the surface.',
+          'Shock at triple strength immediately afterwards, while the caps are open.',
+          'Apply chlorine directly to the scrubbed spots. Rubbing a trichlor tablet on them is a common trade approach.',
+          'Repeat daily for several days. Roots left in the plaster regrow, and one round almost never finishes it.',
+        ].map((step, index) => (
+          <li class="flex gap-4">
+            <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-500 font-display text-sm font-bold text-white">
+              {index + 1}
+            </span>
+            <span class="pt-0.5 leading-relaxed text-navy-600">{step}</span>
+          </li>
+        ))
+      }
+    </ol>
+    <p class="mt-5 leading-relaxed text-navy-600">
+      Black algae that keeps returning in the same spots usually means the
+      plaster is porous enough to shelter the roots permanently. At that point it
+      is a surface problem rather than a chemistry one, and resurfacing is the
+      real fix.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">How to prevent all three</h2>
+    <ul class="mt-5 space-y-3">
+      {
+        [
+          'Keep free chlorine in range continuously. Every algae problem starts with chlorine dipping too low for too long.',
+          'Test cyanuric acid a few times a season and keep it near 30 to 50 ppm.',
+          'Brush weekly, including the shaded corners and steps where mustard and black algae start.',
+          'Run one full turnover a day minimum, and more in hot weather.',
+          'Rinse gear and swimwear that has been in another pool or a lake before it goes in yours.',
+          'Dose against a measured volume, so chlorine actually reaches the level you intended.',
+        ].map((item) => (
+          <li class="flex items-start gap-3">
+            <svg
+              class="mt-0.5 h-5 w-5 shrink-0 text-blue-500"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="text-navy-600">{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">When to call a professional</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Black algae established across a large area of plaster usually needs
+      professional treatment, and sometimes an acid wash — a job that removes a
+      layer of the surface and is easy to do badly. If black algae returns
+      repeatedly in the same spots after correct treatment, the honest answer is
+      that the surface has reached the end of its life and resurfacing will fix
+      it permanently where chemicals will not.
+    </p>
+    <a href="/remodeling/when-to-resurface" class="btn-outline mt-5">
+      Signs your pool needs resurfacing
+    </a>
+  </div>
+
+  <RelatedGuides slot="related" exclude="pool-care/algae-types" pillar="care" />
+</ArticleLayout>

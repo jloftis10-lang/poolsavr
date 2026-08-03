@@ -1,0 +1,289 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import RelatedGuides from '../../components/RelatedGuides.astro';
+
+const steps = [
+  {
+    name: 'Test the water and work out your volume',
+    text: 'You need free chlorine, pH and cyanuric acid, plus an accurate gallon figure. Every dose below scales directly with volume, and guessing it is the single most common reason a green pool takes a week instead of two days.',
+  },
+  {
+    name: 'Brush the walls and floor thoroughly',
+    text: 'Algae anchors itself to plaster. Brushing breaks the colonies open so chlorine can reach the cells rather than skidding off a protective film. Pay particular attention to steps, corners and behind ladders.',
+  },
+  {
+    name: 'Lower pH to about 7.2',
+    text: 'Chlorine is far more effective at the low end of the normal range. Use muriatic acid to bring pH down before shocking — the same dose of chlorine does noticeably more work at 7.2 than at 7.8.',
+  },
+  {
+    name: 'Shock hard, and after sunset',
+    text: 'Light algae needs roughly double the normal shock dose; a dark green pool needs triple. Sunlight destroys unstabilised chlorine within hours, so shock after dark and let it work overnight.',
+  },
+  {
+    name: 'Run the pump continuously',
+    text: 'Twenty-four hours a day until the water clears, not the usual eight. Circulation is what carries chlorine to the algae and carries dead algae to the filter.',
+  },
+  {
+    name: 'Clean the filter as it loads up',
+    text: 'Dead algae has to physically leave the water. Backwash sand filters when pressure rises 8 to 10 psi above clean, and rinse cartridges. Expect to do this several times over the recovery.',
+  },
+  {
+    name: 'Hold chlorine high until it stops falling',
+    text: 'Re-test morning and evening. While algae remains alive it consumes chlorine, so a reading that drops overnight means the job is not done. Re-dose to your shock level each evening until the level holds.',
+  },
+  {
+    name: 'Clear the last haze, then rebalance',
+    text: 'Once the water is blue but cloudy, the remaining work is filtration. Add clarifier or floc if it is slow, then bring pH, alkalinity and stabiliser back into range before anyone swims.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'How long does it take to clear a green pool?',
+    a: 'A light green pool usually clears in 24 to 48 hours. Dark green with poor visibility takes three to five days, and a swamp-green pool where you cannot see the bottom can take a week. Most of that time is filtration, not chemistry.',
+  },
+  {
+    q: 'How much shock do I need for a green pool?',
+    a: 'Roughly double a normal breakpoint dose for light green, triple for dark green. On a 20,000 gallon pool that is about 4 to 6 pounds of 73% cal-hypo. Use the calculator on this page to work it out for your actual volume.',
+  },
+  {
+    q: 'Why is my pool still green after shocking?',
+    a: 'The four usual reasons: the volume was underestimated so the dose was short, cyanuric acid is high enough to blunt the chlorine, the filter is not running long enough, or the pool needs a second and third shock. Algae blooms rarely die to one dose.',
+  },
+  {
+    q: 'Can I swim in a green pool?',
+    a: 'No. Green water means chlorine has been overwhelmed, so whatever else is in there is not being controlled either. You also cannot see the bottom, which is a genuine drowning risk. Wait until the water is clear and free chlorine is back below 4 ppm.',
+  },
+  {
+    q: 'Will baking soda clear a green pool?',
+    a: 'No. Baking soda raises alkalinity and does nothing to algae. It is worth adding after the pool is clear if alkalinity is low, but it plays no part in the recovery itself.',
+  },
+  {
+    q: 'Do I need algaecide?',
+    a: 'Usually not for a standard green bloom — chlorine at shock level does the killing. Algaecide is better used as prevention afterwards, or against black algae which resists chlorine. Adding it during a shock is often wasted, since high chlorine degrades many algaecides.',
+  },
+  {
+    q: 'Should I drain a green pool instead?',
+    a: 'Almost never. Draining risks the shell popping out of the ground from groundwater pressure, and a refill costs hundreds in water plus a full chemical start-up. Draining is a last resort for cyanuric acid so high that chlorine cannot work at any dose.',
+  },
+];
+
+const sources = [
+  {
+    title: '2023 Model Aquatic Health Code, 4th Edition — disinfection',
+    publisher: 'Centers for Disease Control and Prevention',
+    url: 'https://www.cdc.gov/model-aquatic-health-code/media/pdfs/2023-MAHC-508.pdf',
+    accessed: 'August 2026',
+  },
+  {
+    title: 'Home Pool and Hot Tub Water Treatment and Testing',
+    publisher: 'Centers for Disease Control and Prevention',
+    url: 'https://www.cdc.gov/healthy-swimming/about/home-pool-and-hot-tub-water-treatment-and-testing.html',
+    accessed: 'August 2026',
+  },
+];
+---
+
+<ArticleLayout
+  title="How to Clear a Green Pool Fast (Step-by-Step)"
+  description="Clear a green pool in 24–72 hours. Exact shock amounts by pool size, plus what to do when chlorine alone isn't working."
+  h1="How to Clear a Green Pool"
+  fastAnswer="Brush the walls, drop pH to about 7.2, then shock with two to three times the normal dose after sunset and run the pump continuously. Most green pools clear in 24 to 72 hours, and the delay is usually filtration rather than chemistry."
+  path="/pool-care/green-pool/"
+  breadcrumbName="Green Pool"
+  hub={{ name: 'Pool Care', path: '/pool-care/' }}
+  publishDate={new Date('2026-08-03')}
+  faqs={faqs}
+  sources={sources}
+  steps={steps}
+  stepsHeading="Clearing a green pool, step by step"
+  disclaimer="chemistry"
+  calculatorId="pool-shock"
+  calculatorHeading="Work out your shock dose"
+  calculatorIntro="Every step above depends on your pool volume. Enter it here with your free and total chlorine readings, then double the result for a light bloom or triple it for dark green water."
+>
+  <div>
+    <h2 class="text-2xl">Why your pool turned green</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Green water is algae, and algae only takes hold when free chlorine has
+      fallen far enough for long enough. The bloom is the symptom; the chlorine
+      failure is the cause.
+    </p>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Under summer conditions a pool can go from clear to visibly green in under
+      24 hours. That speed is why people assume something dramatic happened,
+      when the reality is usually a few quiet days of chlorine sitting too low.
+    </p>
+
+    <div class="mt-6 space-y-4">
+      {
+        [
+          {
+            title: 'Chlorine ran out',
+            body: 'A holiday, a broken feeder, or simply a hot week that burned through more chlorine than usual. The most common cause by a wide margin.',
+          },
+          {
+            title: 'Cyanuric acid is too high',
+            body: 'Stabiliser protects chlorine from sunlight, but past roughly 100 ppm it slows chlorine so much that normal levels stop being effective. The reading looks fine and the pool goes green anyway.',
+          },
+          {
+            title: 'The pump was not running enough',
+            body: 'Chlorine that never circulates only sanitises the water near the return. Short run times in peak summer are a reliable route to algae.',
+          },
+          {
+            title: 'Heavy rain or a storm',
+            body: 'Rain dilutes chlorine, drops pH, and washes organic matter into the pool. A big storm can trigger a bloom within a day.',
+          },
+          {
+            title: 'The volume was wrong all along',
+            body: 'A pool assumed to be 15,000 gallons that actually holds 20,000 has been under-chlorinated by 25% every single week. It survives until a hot spell, then does not.',
+          },
+        ].map((item) => (
+          <div class="rounded-2xl border border-navy-100 p-5">
+            <h3 class="text-base">{item.title}</h3>
+            <p class="mt-2 leading-relaxed text-navy-500">{item.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">How green is it, and what that means</h2>
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Water
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Shock dose
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              Expect
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            [
+              ['Slightly cloudy, faint green tint', 'Normal breakpoint dose', '12–24 hours'],
+              ['Clearly green, bottom still visible', 'Double', '24–48 hours'],
+              ['Dark green, bottom not visible', 'Triple', '3–5 days'],
+              ['Swamp green, surface debris', 'Triple, repeated daily', '5–10 days'],
+            ].map(([water, dose, time]) => (
+              <tr class="border-b border-navy-100">
+                <td class="py-3 pr-4 font-medium text-navy-900">{water}</td>
+                <td class="py-3 pr-4 font-display font-semibold text-blue-600">{dose}</td>
+                <td class="py-3 text-navy-500">{time}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      For the worst two rows, be realistic about the filter. Killing the algae is
+      a day's work; removing several pounds of dead cells from the water is what
+      takes the rest of the week.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">When chlorine alone is not working</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      If you have shocked twice and the water has not moved, stop adding chlorine
+      and diagnose instead. Adding more of something that is not working is the
+      most expensive way through this.
+    </p>
+    <div class="mt-4 space-y-4 leading-relaxed text-navy-600">
+      <p>
+        <strong class="text-navy-900">Test cyanuric acid.</strong> This is the
+        first thing to check. Above about 100 ppm, chlorine becomes so slow that
+        no realistic dose works. The fix is replacing water — typically draining
+        a third to a half — and there is no chemical shortcut.
+      </p>
+      <p>
+        <strong class="text-navy-900">Re-check your volume.</strong> If you have
+        been dosing from a guess, the dose has been short every time. Measure the
+        pool properly and recalculate.
+      </p>
+      <p>
+        <strong class="text-navy-900">Check the filter is actually filtering.</strong>{' '}
+        Channelled sand, a torn cartridge, or a bypassing multiport valve all let
+        water return unfiltered. If pressure never rises during a bloom, the
+        filter is not catching anything.
+      </p>
+      <p>
+        <strong class="text-navy-900">Consider it mustard or black algae.</strong>{' '}
+        Yellow algae hides in shade and resists normal chlorine levels; black
+        algae roots into plaster and needs scrubbing with a stainless brush
+        before chemicals can reach it.
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">How to stop it happening again</h2>
+    <ul class="mt-5 space-y-3">
+      {
+        [
+          'Hold free chlorine in range continuously, not on average. Two days at zero is enough to start a bloom that takes a week to fix.',
+          'Keep cyanuric acid between about 30 and 50 ppm. Test it a few times a season, not once a decade.',
+          'Run the pump for at least one full turnover a day, and longer in a heatwave.',
+          'Brush weekly. It costs ten minutes and disrupts colonies before they establish.',
+          'Dose against a measured volume rather than an estimate, so every addition lands where you intended.',
+          'Shock after heavy rain, storms, or a busy weekend rather than waiting to see what happens.',
+        ].map((item) => (
+          <li class="flex items-start gap-3">
+            <svg
+              class="mt-0.5 h-5 w-5 shrink-0 text-blue-500"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="text-navy-600">{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">When to call a professional</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Most green pools are a homeowner job. These are the cases where paying
+      someone is the cheaper decision.
+    </p>
+    <ul class="mt-5 space-y-3">
+      {
+        [
+          'Cyanuric acid above 100 ppm — a partial drain and refill needs doing correctly, and draining an inground pool carries a real risk of the shell lifting.',
+          'Black algae established across the plaster, which usually needs professional scrubbing and sometimes acid washing.',
+          'The pool has been green and stagnant for months, where the filter and possibly the plumbing may need work before chemistry will hold.',
+          'You have shocked three times with no change and cannot identify why.',
+          'Any suspicion of a structural leak, since a pool losing water is also losing the chemicals you keep adding.',
+        ].map((item) => (
+          <li class="flex items-start gap-3">
+            <svg
+              class="mt-0.5 h-5 w-5 shrink-0 text-blue-500"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="text-navy-600">{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <RelatedGuides slot="related" exclude="pool-care/green-pool" pillar="care" />
+</ArticleLayout>

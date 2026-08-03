@@ -1,0 +1,109 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
+import { breadcrumb } from '../../lib/schema';
+
+const trail = [{ name: 'Pool Care', path: '/pool-care/' }];
+
+const guides = [
+  {
+    slug: 'green-pool',
+    name: 'How to clear a green pool',
+    answer: 'My pool turned green',
+    blurb:
+      'Brush, drop pH, shock at two to three times the normal dose after dark. Most pools clear in 24 to 72 hours.',
+    featured: true,
+  },
+  {
+    slug: 'cloudy-water',
+    name: 'Cloudy pool water',
+    answer: 'I can see haze, not algae',
+    blurb:
+      'Five causes that look identical and need opposite treatments. Diagnose before you dose anything.',
+  },
+  {
+    slug: 'algae-types',
+    name: 'Green, yellow and black algae',
+    answer: 'What kind of algae is this?',
+    blurb:
+      'Identify it from colour, location and how it brushes — the three types need very different approaches.',
+  },
+  {
+    slug: 'losing-water',
+    name: 'Pool losing water',
+    answer: 'Is this evaporation or a leak?',
+    blurb:
+      'The bucket test settles it in 24 hours, and where the level stops tells you roughly where to look.',
+  },
+  {
+    slug: 'water-chemistry-basics',
+    name: 'Water chemistry basics',
+    answer: 'What do these readings mean?',
+    blurb:
+      'The six numbers that matter, their ranges, and the order to fix them in. The order is the part people get wrong.',
+  },
+  {
+    slug: 'opening-and-closing',
+    name: 'Opening and closing a pool',
+    answer: 'When and how do I open or close?',
+    blurb:
+      'Seasonal checklists and the temperature triggers. Closing well is what makes opening easy.',
+  },
+];
+---
+
+<Layout
+  title="Pool Care Guides: Green Water, Algae and Chemistry"
+  description="Practical guides for the problems pool owners actually hit — green water, cloudy water, algae, leaks and water chemistry."
+>
+  <Fragment slot="head">
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(breadcrumb(trail))}
+    />
+  </Fragment>
+
+  <section class="border-b border-navy-100 bg-white py-10">
+    <div class="container-page">
+      <Breadcrumb trail={trail} class="mb-5" />
+      <h1 class="max-w-3xl text-3xl sm:text-4xl">Pool care guides</h1>
+      <p class="mt-4 max-w-3xl text-lg leading-relaxed text-navy-600">
+        Written for the moment you are standing next to the pool with a problem.
+        Each guide leads with the fix, then explains why it happened — and every
+        dose is worked out against your actual volume rather than a generic
+        10,000 gallons.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-navy-50 py-12">
+    <div class="container-page">
+      <div class="grid gap-5 md:grid-cols-2">
+        {
+          guides.map((guide) => (
+            <a
+              href={`/pool-care/${guide.slug}`}
+              class:list={[
+                'block rounded-2xl bg-white p-6 shadow-sm transition-shadow hover:shadow-lg',
+                guide.featured && 'md:col-span-2 ring-2 ring-blue-500',
+              ]}
+            >
+              <p class="font-display text-sm font-semibold text-blue-600">
+                {guide.answer}
+              </p>
+              <h2 class="mt-2 text-xl">{guide.name}</h2>
+              <p class="mt-2 leading-relaxed text-navy-500">{guide.blurb}</p>
+              <span class="mt-4 inline-block font-display text-sm font-semibold text-navy-900">
+                Read the guide →
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBlock placement="careGuide" />
+</Layout>

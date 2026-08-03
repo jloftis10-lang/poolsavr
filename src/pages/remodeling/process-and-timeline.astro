@@ -1,0 +1,224 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import RelatedGuides from '../../components/RelatedGuides.astro';
+
+const steps = [
+  {
+    name: 'Day 1 — Drain',
+    text: 'The pool is pumped out, usually to the sewer clean-out rather than the street. In areas with a high water table this is done carefully and quickly, because an empty shell in saturated ground can lift.',
+  },
+  {
+    name: 'Days 1–3 — Chip out the old surface',
+    text: 'The loudest, dirtiest stage. The old finish is removed with pneumatic chippers and hauled out by hand or conveyor. This is also when hidden problems become visible, so expect a call if anything unexpected appears.',
+  },
+  {
+    name: 'Days 3–5 — Tile, coping and repairs',
+    text: 'If tile or coping are part of the job, they happen now while the pool is empty. Any structural repairs are made and given time to cure before the new finish goes on.',
+  },
+  {
+    name: 'Days 5–7 — Prep and apply the finish',
+    text: 'The shell is cleaned, bonded and the new surface applied — a single continuous session with a full crew, because plaster and pebble set fast and cold joints show permanently.',
+  },
+  {
+    name: 'Day 7 — Acid wash or exposure',
+    text: 'Plaster gets an acid wash; pebble gets washed to expose the aggregate. Timing here is judgement, not schedule: too early and stone comes loose, too late and it stays buried.',
+  },
+  {
+    name: 'Days 7–8 — Refill immediately',
+    text: 'The hose goes in as soon as the surface is ready and does not stop until the pool is full. A partial fill leaves a permanent ring where the finish cured at different rates.',
+  },
+  {
+    name: 'Days 8–22 — Start-up and curing',
+    text: 'Daily brushing for one to two weeks, careful chemistry, and no automatic cleaner. New plaster cures for around 28 days and is vulnerable throughout — the start-up period does more to determine its lifespan than anything after it.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'How long does pool resurfacing take?',
+    a: 'Five to ten days from drain to refill for a straightforward resurfacing, plus another two weeks of curing and careful chemistry before normal use. Adding tile, coping or decking extends the empty period.',
+  },
+  {
+    q: 'How long does a full pool remodel take?',
+    a: 'Three to six weeks for a full remodel including decking. Structural work with permits can run several months, and permitting is usually the slowest part rather than the construction itself.',
+  },
+  {
+    q: 'Can I use the pool during a remodel?',
+    a: 'No. It is empty for the duration, and the equipment is typically off. Plan around that — a July remodel means losing the month you most want the pool.',
+  },
+  {
+    q: 'What happens if they find damage after draining?',
+    a: 'You get a call and a change order. This is why a quote should state explicitly what happens if structural issues appear. A quote silent on that point is not really a fixed price.',
+  },
+  {
+    q: 'Why can I not run my automatic cleaner after resurfacing?',
+    a: 'New plaster is soft for weeks. A wheeled or suction cleaner dragging across it leaves tracks and wears the finish before it has hardened. Brush by hand for the first two to four weeks — it is tedious and it protects a five-figure investment.',
+  },
+  {
+    q: 'When is the best time of year to resurface?',
+    a: 'Autumn and winter in warm climates, since crews discount in the off-season and you lose nothing by having the pool down. In cold climates, spring or autumn — plaster should not be applied in freezing conditions.',
+  },
+];
+
+const sources = [
+  {
+    title: 'How Much Does a Pool Remodel Cost?',
+    publisher: 'Angi',
+    url: 'https://www.angi.com/articles/pool-remodel-cost.htm',
+    accessed: 'August 2026',
+  },
+];
+---
+
+<ArticleLayout
+  title="Pool Remodel Process and Timeline, Week by Week"
+  description="What actually happens once your pool is drained, how long each stage takes, and why the two weeks after refilling matter most."
+  h1="The Pool Remodel Process"
+  fastAnswer="A straightforward resurfacing takes five to ten days from drain to refill, plus two weeks of curing. A full remodel with decking runs three to six weeks. The start-up period after refilling decides how long the finish lasts."
+  path="/remodeling/process-and-timeline/"
+  breadcrumbName="Process & Timeline"
+  hub={{ name: 'Remodeling', path: '/remodeling/' }}
+  publishDate={new Date('2026-08-03')}
+  faqs={faqs}
+  sources={sources}
+  steps={steps}
+  stepsHeading="What happens, day by day"
+>
+  <div>
+    <h2 class="text-2xl">Timeline by scope</h2>
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Scope
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Pool empty
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              Total to normal use
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            [
+              ['Resurfacing only', '5–10 days', '3–4 weeks'],
+              ['Resurfacing + tile and coping', '7–14 days', '4–5 weeks'],
+              ['Full remodel with decking', '3–6 weeks', '6–8 weeks'],
+              ['Structural remodel', '2–4 months', '3–5 months'],
+            ].map(([scope, empty, total]) => (
+              <tr class="border-b border-navy-100">
+                <td class="py-3 pr-4 font-medium text-navy-900">{scope}</td>
+                <td class="py-3 pr-4 text-navy-500">{empty}</td>
+                <td class="py-3 font-display font-semibold text-blue-600">{total}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      The gap between "pool empty" and "normal use" is the curing period, and it
+      is the part people forget when planning around a holiday.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">The start-up period matters more than you think</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      A new finish cures for around 28 days, and what happens in that window has
+      a larger effect on its lifespan than anything you do in the following
+      decade.
+    </p>
+    <div class="mt-4 space-y-4 leading-relaxed text-navy-600">
+      <p>
+        <strong class="text-navy-900">Brush daily, by hand.</strong> Curing
+        plaster releases dust that must be brushed into suspension so the filter
+        removes it. Skipping this leaves a rough surface permanently.
+      </p>
+      <p>
+        <strong class="text-navy-900">Keep pH under control.</strong> Fresh
+        plaster pushes pH up sharply as it cures. Left alone, the resulting scale
+        bonds to a brand-new surface.
+      </p>
+      <p>
+        <strong class="text-navy-900">No automatic cleaner.</strong> Wheels and
+        suction heads mark soft plaster. Two to four weeks of manual brushing is
+        the price of a finish that lasts.
+      </p>
+      <p>
+        <strong class="text-navy-900">Get the volume right immediately.</strong>{' '}
+        Start-up chemistry is dosed per gallon like everything else, and this is
+        the worst possible moment to be guessing.
+      </p>
+    </div>
+    <a href="/calculators/pool-volume" class="btn-outline mt-6">
+      Calculate your volume before start-up
+    </a>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">What can delay the schedule</h2>
+    <ul class="mt-5 space-y-3">
+      {
+        [
+          'Structural damage found after chip-out, which is the most common cause and the reason quotes should address it in advance.',
+          'Weather. Plaster cannot be applied in rain or freezing conditions, and a wet week simply stops work.',
+          'Permits, on anything structural. Frequently the longest single item, and entirely outside the contractor’s control.',
+          'Material lead times on specific tile or coping, which can add weeks if a line is discontinued.',
+          'Crew scheduling in peak season, when everyone wants their pool done before summer.',
+        ].map((item) => (
+          <li class="flex items-start gap-3">
+            <svg
+              class="mt-0.5 h-5 w-5 shrink-0 text-blue-500"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="text-navy-600">{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">How to make it go smoothly</h2>
+    <ul class="mt-5 space-y-3">
+      {
+        [
+          'Book off-season. Cheaper, faster to schedule, and you lose no swimming time.',
+          'Clear access before the crew arrives. They are moving tons of material by hand, and a blocked side gate costs hours.',
+          'Agree in writing what happens if damage is found, including how it will be priced.',
+          'Bundle everything that needs the pool empty into one visit.',
+          'Plan to be around for start-up, or arrange for someone to handle the daily brushing.',
+        ].map((item) => (
+          <li class="flex items-start gap-3">
+            <svg
+              class="mt-0.5 h-5 w-5 shrink-0 text-blue-500"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="text-navy-600">{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <RelatedGuides
+    slot="related"
+    exclude="remodeling/process-and-timeline"
+    pillar="remodeling"
+    heading="Related guides"
+  />
+</ArticleLayout>

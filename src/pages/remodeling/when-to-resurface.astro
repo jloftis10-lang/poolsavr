@@ -1,0 +1,224 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import RelatedGuides from '../../components/RelatedGuides.astro';
+
+const steps = [
+  {
+    name: 'Run your hand along the wall below the waterline',
+    text: 'A sound finish feels smooth to slightly textured. If it catches skin or feels like coarse sandpaper, the surface has eroded and the aggregate beneath is exposed.',
+  },
+  {
+    name: 'Look for the grey underneath',
+    text: 'White plaster wearing through to the darker substrate is unambiguous. Once you can see through the finish in patches, it is at the end of its life rather than merely tired.',
+  },
+  {
+    name: 'Check whether stains brush out',
+    text: 'Surface staining that responds to brushing or a stain treatment is cosmetic. Staining that has soaked into a porous finish and will not shift means the surface has lost its seal.',
+  },
+  {
+    name: 'Note how the chemistry has been behaving',
+    text: 'A deteriorating surface is porous and rough, which shelters algae and consumes chlorine. Chemistry that has become steadily harder to hold, with no other explanation, is often the finish.',
+  },
+  {
+    name: 'Count the years',
+    text: 'Plaster lasts 7 to 12 years, quartz 10 to 15, pebble 15 to 25. Age alone is not a reason, but age plus two or more of the symptoms above usually is.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'How do I know if my pool needs resurfacing?',
+    a: 'The reliable signals are a surface rough enough to graze skin, visible aggregate or substrate showing through, staining that will not brush out, chronic chemistry problems with no other cause, and hairline crazing across the finish. Any two of these on a finish past its expected life means it is time.',
+  },
+  {
+    q: 'How long does pool plaster last?',
+    a: 'Seven to twelve years for standard white plaster, ten to fifteen for quartz, and fifteen to twenty-five for pebble. Water chemistry is the deciding factor within those ranges — sustained low pH will take years off any of them.',
+  },
+  {
+    q: 'Can I wait another season?',
+    a: 'Usually yes, if the problem is only cosmetic. What you should not defer is a finish that has worn through to the substrate, because water then reaches the shell itself and a resurfacing job can turn into a structural repair.',
+  },
+  {
+    q: 'Is rough plaster dangerous?',
+    a: 'It grazes feet and swimsuits, which is unpleasant rather than dangerous. The practical problem is that a rough, porous surface harbours algae and makes chemistry harder to hold — so it tends to cost you in chemicals long before you replace it.',
+  },
+  {
+    q: 'What is the difference between crazing and cracking?',
+    a: 'Crazing is a fine network of shallow surface lines in the finish itself — cosmetic, and normal as plaster ages. Structural cracks are wider, often run in a single direction, and may leak. Crazing means consider resurfacing; a structural crack means get it assessed before doing anything cosmetic.',
+  },
+  {
+    q: 'Does resurfacing fix a leaking pool?',
+    a: 'Only if the leak is through the finish itself, which is uncommon. Most leaks are at fittings or in plumbing, and a new surface will not touch them. Find and fix the leak first, then resurface — otherwise you pay twice.',
+  },
+];
+
+const sources = [
+  {
+    title: 'How Much Does Pool Resurfacing Cost?',
+    publisher: 'HomeGuide',
+    url: 'https://homeguide.com/costs/pool-resurfacing-cost',
+    accessed: 'August 2026',
+  },
+];
+---
+
+<ArticleLayout
+  title="When to Resurface a Pool: Signs and Timing"
+  description="The symptoms that mean your pool finish is done — rough texture, exposed aggregate, chronic chemistry problems — and the ones that don't."
+  h1="When to Resurface a Pool"
+  fastAnswer="Resurface when the finish feels rough enough to graze skin, when substrate shows through, or when chemistry has become chronically hard to hold. Age alone is not a reason — age plus two or more symptoms is."
+  path="/remodeling/when-to-resurface/"
+  breadcrumbName="When to Resurface"
+  hub={{ name: 'Remodeling', path: '/remodeling/' }}
+  publishDate={new Date('2026-08-03')}
+  faqs={faqs}
+  sources={sources}
+  steps={steps}
+  stepsHeading="Checking your surface, step by step"
+>
+  <div>
+    <h2 class="text-2xl">Symptoms that mean yes</h2>
+    <div class="mt-6 space-y-4">
+      {
+        [
+          {
+            title: 'The surface grazes skin',
+            body: 'The most reliable single indicator. A finish that scrapes feet and swimsuits has lost its smooth layer and is now exposed aggregate. It will only get rougher.',
+          },
+          {
+            title: 'You can see the substrate',
+            body: 'Grey or dark patches showing through white plaster mean the finish is worn through. Water is now in contact with what lies beneath, and that is worth acting on rather than deferring.',
+          },
+          {
+            title: 'Staining will not brush out',
+            body: 'A sound finish resists staining. Once it becomes porous, stains soak in and no amount of treatment lifts them.',
+          },
+          {
+            title: 'Chemistry has become a battle',
+            body: 'A rough, porous surface gives algae somewhere to anchor and consumes chlorine faster. If your pool has become steadily harder to keep balanced with no other explanation, the surface is a likely culprit.',
+          },
+          {
+            title: 'Crazing across large areas',
+            body: 'Fine networks of surface lines are normal in isolation and expected as plaster ages. Widespread crazing on an older finish is a sign it is nearing the end.',
+          },
+        ].map((item) => (
+          <div class="rounded-2xl border border-navy-100 p-5">
+            <h3 class="text-base">{item.title}</h3>
+            <p class="mt-2 leading-relaxed text-navy-500">{item.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Symptoms that do not mean yes</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Being honest about this matters, because resurfacing is a five-figure
+      decision and several common complaints have far cheaper fixes.
+    </p>
+    <div class="mt-6 space-y-4">
+      {
+        [
+          {
+            title: 'Mottling and colour variation',
+            body: 'Uneven colour in coloured plaster is a curing characteristic, not a defect or a failure. It bothers people, but it is not a reason to resurface.',
+          },
+          {
+            title: 'Scale at the waterline',
+            body: 'A calcium band is a chemistry issue. It can usually be removed with a bead blast or a tile cleaner for a fraction of a resurfacing.',
+          },
+          {
+            title: 'Isolated stains',
+            body: 'Metal stains from iron or copper respond to a sequestrant and an ascorbic acid treatment. Try that before assuming the surface is finished.',
+          },
+          {
+            title: 'A single hairline crack',
+            body: 'Worth having assessed, but one crack is a repair rather than a resurfacing. If it is structural, resurfacing over it will not fix it anyway.',
+          },
+        ].map((item) => (
+          <div class="rounded-2xl border border-navy-100 bg-navy-50 p-5">
+            <h3 class="text-base">{item.title}</h3>
+            <p class="mt-2 leading-relaxed text-navy-500">{item.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Expected lifespan by finish</h2>
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Finish
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Expected life
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              What shortens it
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            [
+              ['White plaster', '7–12 years', 'Low pH, low calcium, aggressive water'],
+              ['Quartz', '10–15 years', 'The same, but more slowly'],
+              ['Pebble', '15–25 years', 'Very little; mostly chemistry neglect'],
+            ].map(([finish, life, shortens]) => (
+              <tr class="border-b border-navy-100">
+                <td class="py-3 pr-4 font-medium text-navy-900">{finish}</td>
+                <td class="py-3 pr-4 font-display font-semibold text-blue-600">{life}</td>
+                <td class="py-3 text-sm text-navy-500">{shortens}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Chemistry is what decides where in each range you land. Sustained low pH
+      etches any finish, and water low in calcium will pull calcium out of the
+      plaster itself. Both are free to avoid and expensive to ignore.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">What it will cost</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Resurfacing runs $6,000 to $15,000 for most pools, driven by interior
+      square footage and the finish you choose. A 16 by 32 foot pool has roughly
+      950 square feet of interior surface — floor plus walls, not the water
+      surface people usually picture.
+    </p>
+    <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+      <a href="/cost/pool-resurfacing" class="btn-primary">Full resurfacing cost breakdown</a>
+      <a href="/calculators/surface-area" class="btn-outline">Calculate my square footage</a>
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">When to call a professional</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Get a structural assessment before committing to any cosmetic work if you
+      see cracks wider than a hairline, if the pool is losing water, or if
+      sections of finish sound hollow when tapped. Resurfacing over a structural
+      problem buries it — and you will pay to chip the new finish off again when
+      it resurfaces a year later.
+    </p>
+    <a href="/pool-care/losing-water" class="btn-outline mt-5">
+      Check whether you have a leak first
+    </a>
+  </div>
+
+  <RelatedGuides
+    slot="related"
+    exclude="remodeling/when-to-resurface"
+    pillar="remodeling"
+    heading="Related guides"
+  />
+</ArticleLayout>

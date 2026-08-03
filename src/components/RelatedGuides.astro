@@ -1,0 +1,100 @@
+---
+interface Props {
+  exclude?: string;
+  pillar?: 'care' | 'remodeling' | 'both';
+  heading?: string;
+}
+
+const { exclude, pillar = 'both', heading = 'Related problems' } = Astro.props;
+
+const ALL = [
+  {
+    slug: 'pool-care/green-pool',
+    pillar: 'care',
+    name: 'How to clear a green pool',
+    blurb: 'Step-by-step recovery, with the shock dose worked out for your volume.',
+  },
+  {
+    slug: 'pool-care/cloudy-water',
+    pillar: 'care',
+    name: 'Why your pool is cloudy',
+    blurb: 'The five causes, and how to tell which one you have before dosing anything.',
+  },
+  {
+    slug: 'pool-care/algae-types',
+    pillar: 'care',
+    name: 'Green, yellow and black algae',
+    blurb: 'Identifying which type you have, because the treatment differs sharply.',
+  },
+  {
+    slug: 'pool-care/losing-water',
+    pillar: 'care',
+    name: 'Pool losing water',
+    blurb: 'The bucket test, and how to tell evaporation from a genuine leak.',
+  },
+  {
+    slug: 'pool-care/water-chemistry-basics',
+    pillar: 'care',
+    name: 'Pool water chemistry basics',
+    blurb: 'What each reading means and the order to fix them in.',
+  },
+  {
+    slug: 'pool-care/opening-and-closing',
+    pillar: 'care',
+    name: 'Opening and closing a pool',
+    blurb: 'Seasonal checklists, and why closing well saves the spring.',
+  },
+  {
+    slug: 'remodeling/when-to-resurface',
+    pillar: 'remodeling',
+    name: 'When to resurface a pool',
+    blurb: 'The symptoms that mean your finish is done, and the ones that do not.',
+  },
+  {
+    slug: 'remodeling/finish-types',
+    pillar: 'remodeling',
+    name: 'Pool finish types compared',
+    blurb: 'Plaster, quartz, pebble and tile on cost, lifespan and feel.',
+  },
+  {
+    slug: 'remodeling/plaster-vs-pebble',
+    pillar: 'remodeling',
+    name: 'Plaster vs pebble',
+    blurb: 'A straight comparison where each option genuinely wins somewhere.',
+  },
+  {
+    slug: 'remodeling/process-and-timeline',
+    pillar: 'remodeling',
+    name: 'The remodel process, week by week',
+    blurb: 'What actually happens once the pool is drained, and how long each stage takes.',
+  },
+  {
+    slug: 'remodeling/questions-to-ask-a-contractor',
+    pillar: 'remodeling',
+    name: 'Questions to ask a pool contractor',
+    blurb: 'The checklist that separates a real quote from a number on a business card.',
+  },
+];
+
+const items = ALL.filter(
+  (item) =>
+    item.slug !== exclude && (pillar === 'both' || item.pillar === pillar),
+).slice(0, 4);
+---
+
+<div>
+  <h2 class="text-2xl">{heading}</h2>
+  <div class="mt-6 grid gap-4 sm:grid-cols-2">
+    {
+      items.map((item) => (
+        <a
+          href={`/${item.slug}`}
+          class="block rounded-2xl border border-navy-100 p-5 transition-shadow hover:shadow-md"
+        >
+          <p class="font-display font-semibold text-navy-900">{item.name}</p>
+          <p class="mt-1 text-sm leading-relaxed text-navy-500">{item.blurb}</p>
+        </a>
+      ))
+    }
+  </div>
+</div>

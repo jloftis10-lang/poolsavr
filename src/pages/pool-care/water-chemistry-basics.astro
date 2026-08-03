@@ -1,0 +1,224 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import RelatedGuides from '../../components/RelatedGuides.astro';
+
+const steps = [
+  {
+    name: 'Know your volume first',
+    text: 'Every dose on every product label is per 10,000 gallons. If your volume is wrong, every adjustment you make is wrong by the same percentage, and no amount of careful testing corrects for it.',
+  },
+  {
+    name: 'Fix total alkalinity',
+    text: 'Alkalinity buffers pH. Get it into the 60 to 180 ppm range first, because trying to hold pH steady while alkalinity is wrong is a losing battle. Baking soda raises it; muriatic acid lowers it.',
+  },
+  {
+    name: 'Then adjust pH',
+    text: 'Target 7.2 to 7.6. With alkalinity in range, pH becomes much easier to move and much more inclined to stay put.',
+  },
+  {
+    name: 'Check cyanuric acid',
+    text: 'Aim for 30 to 50 ppm. Too little and sunlight destroys chlorine within hours; too much and chlorine becomes sluggish at any level. The only way down is replacing water.',
+  },
+  {
+    name: 'Set free chlorine',
+    text: 'The CDC Model Aquatic Health Code sets a minimum of 1 ppm without stabiliser and 2 ppm with it, capped at 10 ppm while swimming. Most residential pools sit comfortably at 2 to 4 ppm.',
+  },
+  {
+    name: 'Finish with calcium hardness',
+    text: 'Aim for 200 to 400 ppm. Too low and the water pulls calcium out of your plaster; too high and it deposits scale on tile and inside the heater.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'What order should I balance pool chemistry in?',
+    a: 'Alkalinity, then pH, then cyanuric acid, then chlorine, then calcium hardness. Alkalinity comes first because it buffers pH — adjusting pH while alkalinity is out of range means it will simply drift back.',
+  },
+  {
+    q: 'What are the ideal pool chemistry levels?',
+    a: 'Free chlorine 2 to 4 ppm, pH 7.2 to 7.6, total alkalinity 60 to 180 ppm, cyanuric acid 30 to 50 ppm, and calcium hardness 200 to 400 ppm. The CDC Model Aquatic Health Code sets the chlorine minimums and the pH range.',
+  },
+  {
+    q: 'How often should I test my pool water?',
+    a: 'Free chlorine and pH twice a week in season, and after heavy rain or heavy use. Alkalinity weekly. Cyanuric acid and calcium hardness monthly — they change slowly, but people go years without checking them and then wonder why chlorine stopped working.',
+  },
+  {
+    q: 'Why does my pH keep rising?',
+    a: 'High alkalinity is the usual cause, along with aeration from water features and fresh plaster in its first year. Fix alkalinity first — chasing pH while alkalinity sits at 200 ppm means adding acid every week forever.',
+  },
+  {
+    q: 'What does cyanuric acid actually do?',
+    a: 'It shields chlorine from ultraviolet light. Without it, sunlight destroys most of your free chlorine within a few hours. Above roughly 100 ppm, though, it binds chlorine so tightly that the pool can read in range and still grow algae.',
+  },
+  {
+    q: 'Do test strips work?',
+    a: 'They are fine for routine free chlorine and pH checks. For anything you are about to spend money on — cyanuric acid, calcium hardness, or diagnosing a stubborn problem — a drop-based kit or a pool shop test is worth the extra effort.',
+  },
+];
+
+const sources = [
+  {
+    title: '2023 Model Aquatic Health Code, 4th Edition — water quality',
+    publisher: 'Centers for Disease Control and Prevention',
+    url: 'https://www.cdc.gov/model-aquatic-health-code/media/pdfs/2023-MAHC-508.pdf',
+    accessed: 'August 2026',
+  },
+  {
+    title: 'Home Pool and Hot Tub Water Treatment and Testing',
+    publisher: 'Centers for Disease Control and Prevention',
+    url: 'https://www.cdc.gov/healthy-swimming/about/home-pool-and-hot-tub-water-treatment-and-testing.html',
+    accessed: 'August 2026',
+  },
+];
+---
+
+<ArticleLayout
+  title="Pool Water Chemistry Basics: Levels and Order to Fix"
+  description="The six readings that matter, their target ranges, and the order to adjust them in. Fixing pH before alkalinity is why yours keeps drifting."
+  h1="Pool Water Chemistry Basics"
+  fastAnswer="Six readings matter: chlorine, pH, alkalinity, cyanuric acid, calcium hardness and volume. Adjust them in order — alkalinity before pH, because alkalinity is what holds pH steady. Getting that order wrong is why chemistry feels like a losing battle."
+  path="/pool-care/water-chemistry-basics/"
+  breadcrumbName="Water Chemistry Basics"
+  hub={{ name: 'Pool Care', path: '/pool-care/' }}
+  publishDate={new Date('2026-08-03')}
+  faqs={faqs}
+  sources={sources}
+  steps={steps}
+  stepsHeading="The order to fix things in"
+  disclaimer="chemistry"
+  calculatorId="pool-volume"
+  calculatorHeading="Start with your volume"
+  calculatorIntro="Every dose below is specified per 10,000 gallons, so this is the number the rest of pool chemistry is built on. Get it right once and every future adjustment lands where you meant it to."
+>
+  <div>
+    <h2 class="text-2xl">The six readings</h2>
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Reading
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Target
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              What goes wrong
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            [
+              ['Free chlorine', '2–4 ppm', 'Too low: algae and bacteria. Too high: irritation.'],
+              ['pH', '7.2–7.6', 'Low etches plaster. High clouds water and blunts chlorine.'],
+              ['Total alkalinity', '60–180 ppm', 'Low: pH swings wildly. High: pH climbs constantly.'],
+              ['Cyanuric acid', '30–50 ppm', 'Low: chlorine burns off in sun. High: chlorine goes sluggish.'],
+              ['Calcium hardness', '200–400 ppm', 'Low: water attacks plaster. High: scale on tile and heater.'],
+              ['Volume', 'Measured, not guessed', 'Wrong volume makes every other adjustment wrong.'],
+            ].map(([reading, target, problem]) => (
+              <tr class="border-b border-navy-100">
+                <td class="py-3 pr-4 font-medium text-navy-900">{reading}</td>
+                <td class="py-3 pr-4 font-display font-semibold text-blue-600">{target}</td>
+                <td class="py-3 text-sm text-navy-500">{problem}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Why the order matters so much</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Most pool chemistry frustration comes from adjusting things in the wrong
+      sequence and concluding the pool is difficult.
+    </p>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Alkalinity is the water's resistance to pH change. If it sits at 220 ppm,
+      you can add acid every weekend and pH will climb straight back, because the
+      buffer is pulling it there. Bring alkalinity down to 100 ppm first and pH
+      suddenly becomes cooperative.
+    </p>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      The same logic applies to chlorine and cyanuric acid. A pool reading 3 ppm
+      free chlorine with cyanuric acid at 120 ppm is effectively under-sanitised,
+      and no amount of extra chlorine fixes it — only diluting the stabiliser
+      does.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">The relationships worth knowing</h2>
+    <div class="mt-6 space-y-4">
+      {
+        [
+          {
+            title: 'Alkalinity governs pH',
+            body: 'Fix alkalinity and pH becomes stable. Chase pH alone and you will be adding acid indefinitely.',
+          },
+          {
+            title: 'Cyanuric acid governs chlorine effectiveness',
+            body: 'Roughly, the higher your stabiliser, the higher the free chlorine you need for the same sanitising power. Which is why 100+ ppm stabiliser is a genuine problem rather than a curiosity.',
+          },
+          {
+            title: 'pH governs chlorine effectiveness too',
+            body: 'Chlorine works markedly better at 7.2 than at 7.8. This is why every shock procedure says to lower pH first — it is free effectiveness.',
+          },
+          {
+            title: 'Calcium and pH together govern scaling',
+            body: 'High calcium alone is manageable. High calcium with high pH and high alkalinity deposits scale on everything, and inside a heater that is an expensive failure.',
+          },
+        ].map((item) => (
+          <div class="rounded-2xl border border-navy-100 p-5">
+            <h3 class="text-base">{item.title}</h3>
+            <p class="mt-2 leading-relaxed text-navy-500">{item.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">A testing routine that works</h2>
+    <ul class="mt-5 space-y-3">
+      {
+        [
+          'Twice a week in season: free chlorine and pH. These move fastest and cause the most trouble.',
+          'Weekly: total alkalinity, so pH stays predictable.',
+          'Monthly: cyanuric acid and calcium hardness. Slow movers, but ignoring them for years is how pools become unfixable.',
+          'After heavy rain, storms or a party: test everything, and shock if combined chlorine has risen.',
+          'Once, properly: measure your pool volume. It never changes, and every dose depends on it.',
+        ].map((item) => (
+          <li class="flex items-start gap-3">
+            <svg
+              class="mt-0.5 h-5 w-5 shrink-0 text-blue-500"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="text-navy-600">{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">When to call a professional</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Take a water sample to a pool shop when readings contradict each other,
+      when chlorine will not hold despite everything reading correctly, or when
+      you suspect metals in the water — staining that is not algae usually means
+      iron or copper, which needs a sequestrant rather than more chlorine. A
+      full panel test costs little and settles arguments that weeks of guessing
+      will not.
+    </p>
+  </div>
+
+  <RelatedGuides slot="related" exclude="pool-care/water-chemistry-basics" pillar="care" />
+</ArticleLayout>

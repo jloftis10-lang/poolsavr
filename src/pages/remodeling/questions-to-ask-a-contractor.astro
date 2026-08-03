@@ -1,0 +1,233 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import RelatedGuides from '../../components/RelatedGuides.astro';
+
+/**
+ * Structured so a contractor directory can slot into the "Finding contractors"
+ * section later without rewriting the page. Until that exists, the section is
+ * honest about not recommending anyone.
+ */
+
+const faqs = [
+  {
+    q: 'What should I ask a pool contractor before hiring?',
+    a: 'Ask what square footage the quote is priced from, what happens if structural damage is found after draining, who does the work, what the warranty covers, and for references from jobs finished three or more years ago. The square footage question alone tells you whether the quote is real.',
+  },
+  {
+    q: 'How many quotes should I get for pool resurfacing?',
+    a: 'Three. Crucially, make sure each one states the square footage it used — bids priced from different assumed areas are not comparable, and this is where the biggest apparent price differences usually come from.',
+  },
+  {
+    q: 'How do I know if a pool quote is fair?',
+    a: 'Check the square footage it is based on, then divide the price by it. That gives a per-square-foot figure you can compare against published ranges: $4 to $8 for plaster, $5 to $10 for quartz, $10 to $15 for pebble.',
+  },
+  {
+    q: 'Should I pay a deposit for pool work?',
+    a: 'A deposit is normal. A large up-front payment before any work begins is not. Many states cap what contractors can take as a deposit, and a schedule tied to completed milestones protects both sides.',
+  },
+  {
+    q: 'What licence should a pool contractor have?',
+    a: 'Requirements vary by state, and many have a specific pool or swimming pool contractor classification separate from general contracting. Verify the licence number with your state board rather than accepting a number printed on a card.',
+  },
+  {
+    q: 'What are the red flags with a pool contractor?',
+    a: 'A quote with no square footage on it, pressure to decide immediately, a large cash deposit up front, no written contract, no proof of insurance, and reluctance to give references from jobs more than a year old.',
+  },
+];
+
+const sources = [
+  {
+    title: 'Hiring a Contractor — consumer guidance',
+    publisher: 'Federal Trade Commission',
+    url: 'https://consumer.ftc.gov/articles/hiring-contractor',
+    accessed: 'August 2026',
+  },
+];
+---
+
+<ArticleLayout
+  title="Questions to Ask a Pool Contractor Before Hiring"
+  description="The checklist that separates a real quote from a number on a card — starting with the one question most owners never think to ask."
+  h1="Questions to Ask a Pool Contractor"
+  fastAnswer="Start with one question: what square footage is this quote priced from? A contractor who cannot answer has not measured your pool, and their number is a guess you will pay for later."
+  path="/remodeling/questions-to-ask-a-contractor/"
+  breadcrumbName="Questions to Ask"
+  hub={{ name: 'Remodeling', path: '/remodeling/' }}
+  publishDate={new Date('2026-08-03')}
+  faqs={faqs}
+  sources={sources}
+>
+  <div>
+    <h2 class="text-2xl">The question that matters most</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      "What square footage is this priced from?"
+    </p>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Resurfacing is sold by the square foot of interior surface. If a quote does
+      not state the area it used, you cannot compare it to anything, and you have
+      no way to tell whether the price is reasonable.
+    </p>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      It also exposes a common problem: three bids that look wildly different
+      often turn out to be three different assumptions about the size of the same
+      pool. Once every quote states its area, the comparison becomes trivial —
+      divide price by square footage and compare the rate.
+    </p>
+    <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+      <a href="/calculators/surface-area" class="btn-primary">Work out your square footage</a>
+      <a href="/cost/pool-resurfacing" class="btn-outline">Compare against published rates</a>
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Before they quote</h2>
+    <div class="mt-6 space-y-4">
+      {
+        [
+          {
+            q: 'Are you licensed for pool work specifically, and can I have the number?',
+            why: 'Many states have a distinct pool contractor classification. Verify the number with the state board rather than trusting a card.',
+          },
+          {
+            q: 'Can I see current proof of liability insurance and workers’ compensation?',
+            why: 'If an uninsured worker is injured on your property, that can become your problem. Ask for the certificate, not a verbal assurance.',
+          },
+          {
+            q: 'Do you do the work yourselves or subcontract it?',
+            why: 'Neither answer is wrong, but you should know who will actually be at your house and who carries the warranty.',
+          },
+          {
+            q: 'How long have you been resurfacing pools in this area?',
+            why: 'Local experience matters — soil, water chemistry and permitting all vary regionally.',
+          },
+        ].map((item) => (
+          <div class="rounded-2xl border border-navy-100 p-5">
+            <h3 class="text-base">{item.q}</h3>
+            <p class="mt-2 leading-relaxed text-navy-500">{item.why}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">About the quote itself</h2>
+    <div class="mt-6 space-y-4">
+      {
+        [
+          {
+            q: 'What square footage and perimeter is this based on?',
+            why: 'The single most useful question on this page. Without it, no two quotes are comparable.',
+          },
+          {
+            q: 'Is chip-out of the existing surface included?',
+            why: 'The most common difference between a cheap quote and a proper one. New finish applied over old delaminates and fails early.',
+          },
+          {
+            q: 'What happens if you find structural damage after draining?',
+            why: 'Get the answer in writing, including how extra work will be priced. A quote silent on this is not a fixed price.',
+          },
+          {
+            q: 'What exactly does the warranty cover, and for how long?',
+            why: 'Ask specifically whether it covers the material, the labour, or both — and what voids it. Chemistry-related exclusions are common and reasonable, but you should know they exist.',
+          },
+          {
+            q: 'Is start-up included?',
+            why: 'The first two weeks decide how long a finish lasts. Some contractors include start-up service; others hand you a brush and a leaflet.',
+          },
+          {
+            q: 'What is the payment schedule?',
+            why: 'Payments tied to completed milestones protect both sides. A large deposit before any work starts does not.',
+          },
+        ].map((item) => (
+          <div class="rounded-2xl border border-navy-100 p-5">
+            <h3 class="text-base">{item.q}</h3>
+            <p class="mt-2 leading-relaxed text-navy-500">{item.why}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">About the work</h2>
+    <div class="mt-6 space-y-4">
+      {
+        [
+          {
+            q: 'When can you start, and how long will the pool be empty?',
+            why: 'Get both dates. "We can start next week" means little if the pool then sits drained for a month.',
+          },
+          {
+            q: 'Where does the drained water go?',
+            why: 'It should go to a sewer clean-out, not into the street or a neighbour’s yard. Some areas fine you for the latter.',
+          },
+          {
+            q: 'Who is responsible if the shell lifts during draining?',
+            why: 'A real risk where the water table is high. It should be their responsibility, and a competent contractor will have a plan for it.',
+          },
+          {
+            q: 'Can I see three references from jobs finished at least three years ago?',
+            why: 'Any finish looks good in week one. Three-year-old work tells you whether it lasts.',
+          },
+        ].map((item) => (
+          <div class="rounded-2xl border border-navy-100 p-5">
+            <h3 class="text-base">{item.q}</h3>
+            <p class="mt-2 leading-relaxed text-navy-500">{item.why}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Red flags</h2>
+    <ul class="mt-5 space-y-3">
+      {
+        [
+          'A quote with no square footage on it.',
+          'Pressure to sign today, or a discount that expires immediately.',
+          'A large cash deposit before any work begins.',
+          'No written contract, or one that leaves scope vague.',
+          'Reluctance to provide insurance certificates or older references.',
+          'A price far below the other bids, which usually means chip-out has been left out.',
+        ].map((item) => (
+          <li class="flex items-start gap-3">
+            <svg
+              class="mt-0.5 h-5 w-5 shrink-0 text-red-500"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            <span class="text-navy-600">{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Finding contractors</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      We do not recommend or rank contractors, and we would rather say so plainly
+      than publish a list we cannot stand behind. For now the reliable routes are
+      your state licensing board's public search, neighbours with pools of a
+      similar age, and the manufacturer of the finish you want — most publish
+      lists of installers certified to apply their product.
+    </p>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Whichever route you take, bring your square footage to the first
+      conversation. It changes the tone of every quote that follows.
+    </p>
+  </div>
+
+  <RelatedGuides
+    slot="related"
+    exclude="remodeling/questions-to-ask-a-contractor"
+    pillar="remodeling"
+    heading="Related guides"
+  />
+</ArticleLayout>

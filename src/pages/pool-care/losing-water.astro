@@ -1,0 +1,228 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import RelatedGuides from '../../components/RelatedGuides.astro';
+
+const steps = [
+  {
+    name: 'Fill a bucket and mark both levels',
+    text: 'Put a weighted bucket on the second step so it sits partly submerged. Fill it with pool water to roughly three-quarters. Mark the water level inside the bucket and the pool level outside it.',
+  },
+  {
+    name: 'Turn off the autofill',
+    text: 'An autofill will quietly top the pool up and hide the entire problem. Switch it off for the duration of the test, and note that this alone reveals some leaks people have had for years.',
+  },
+  {
+    name: 'Wait 24 hours with normal use',
+    text: 'Leave the pump running on its usual schedule. Do not swim, and skip the test if heavy rain is forecast — both distort the result.',
+  },
+  {
+    name: 'Compare the two drops',
+    text: 'Both levels dropping equally means evaporation, and your pool is fine. The pool dropping noticeably more than the bucket means you are losing water somewhere.',
+  },
+  {
+    name: 'Repeat with the pump off',
+    text: 'If the test showed a leak, run it again for 24 hours with the pump off. Losing more with the pump running points to the pressure side — returns and plumbing. Losing the same either way points to the shell, or to the suction side.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'How much water loss is normal for a pool?',
+    a: 'A quarter to half an inch a day from evaporation is normal, rising to as much as an inch in hot, dry, windy conditions. Losing more than about two inches a day, or any loss that a bucket test does not match, suggests a leak.',
+  },
+  {
+    q: 'What is the bucket test?',
+    a: 'A bucket of pool water sits partly submerged on a step, so both bodies of water face the same weather. After 24 hours, evaporation affects both equally. If the pool level has dropped further than the bucket level, the difference is a leak.',
+  },
+  {
+    q: 'Where do pools usually leak?',
+    a: 'Most often the skimmer throat where it meets the shell, the light niche and its conduit, return fittings, and underground plumbing. Cracks in the shell itself are less common than people fear, and usually visible.',
+  },
+  {
+    q: 'Does a pool leak get worse over time?',
+    a: 'Usually yes. Water moving through a small void erodes soil around the pipe or behind the shell, which enlarges the path and can undermine decking. A slow leak is much cheaper to fix than the settlement it eventually causes.',
+  },
+  {
+    q: 'How much does pool leak detection cost?',
+    a: 'A professional leak detection typically runs $300 to $600, using pressure testing and listening equipment. Repairs vary enormously — a return fitting might be a few hundred dollars, while excavating a broken main drain line runs into thousands.',
+  },
+  {
+    q: 'Can a leaking pool cause structural damage?',
+    a: 'It can. Water escaping under a deck washes out the base material, which causes slabs to crack and settle. Around the shell, saturated soil can shift a pool. This is the reason a leak is worth chasing rather than topping up indefinitely.',
+  },
+];
+
+const sources = [
+  {
+    title: 'Swimming Pool Water Conservation and Evaporation',
+    publisher: 'U.S. Department of Energy',
+    url: 'https://www.energy.gov/energysaver/swimming-pool-covers',
+    accessed: 'August 2026',
+  },
+];
+---
+
+<ArticleLayout
+  title="Pool Losing Water? The Bucket Test and What's Next"
+  description="Losing more than half an inch a day? The bucket test tells you in 24 hours whether it's evaporation or a genuine leak, and where to look."
+  h1="Why Your Pool Is Losing Water"
+  fastAnswer="A quarter to half an inch a day is normal evaporation. Anything more deserves the bucket test, which separates evaporation from a leak in 24 hours using nothing but a bucket and a marker."
+  path="/pool-care/losing-water/"
+  breadcrumbName="Losing Water"
+  hub={{ name: 'Pool Care', path: '/pool-care/' }}
+  publishDate={new Date('2026-08-03')}
+  faqs={faqs}
+  sources={sources}
+  steps={steps}
+  stepsHeading="The bucket test, step by step"
+>
+  <div>
+    <h2 class="text-2xl">How much loss is normal</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Evaporation varies enormously with weather, and people routinely mistake a
+      hot dry week for a leak.
+    </p>
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b-2 border-navy-200">
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Conditions
+            </th>
+            <th class="py-3 pr-4 font-display text-sm uppercase tracking-wider text-navy-500">
+              Typical daily loss
+            </th>
+            <th class="py-3 font-display text-sm uppercase tracking-wider text-navy-500">
+              Verdict
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            [
+              ['Mild, humid, sheltered', '¼ inch or less', 'Normal'],
+              ['Warm and sunny', '¼–½ inch', 'Normal'],
+              ['Hot, dry, windy', '½–1 inch', 'Normal in a heatwave'],
+              ['Any conditions', 'Over 2 inches', 'Test for a leak'],
+            ].map(([conditions, loss, verdict]) => (
+              <tr class="border-b border-navy-100">
+                <td class="py-3 pr-4 font-medium text-navy-900">{conditions}</td>
+                <td class="py-3 pr-4 text-navy-500">{loss}</td>
+                <td class="py-3 font-display font-semibold text-blue-600">{verdict}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Wind matters more than temperature. A breezy 75°F day evaporates more than a
+      still 90°F one, which is why loss can jump without the weather feeling
+      hotter. A cover eliminates most of it.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Where pools actually leak</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      If the bucket test says leak, the level it stops at tells you a great deal
+      before anyone brings out equipment.
+    </p>
+    <div class="mt-6 space-y-4">
+      {
+        [
+          {
+            title: 'It stops at the skimmer mouth',
+            body: 'The most common leak of all. The skimmer is a plastic box mortared into a concrete shell, and the joint between the two cracks with ground movement. Often repairable with pool putty for well under a hundred dollars.',
+          },
+          {
+            title: 'It stops at a return fitting or the light',
+            body: 'Points to that fitting or, for the light, the conduit running behind it. Light niches are a frequent culprit and are usually straightforward to seal.',
+          },
+          {
+            title: 'It stops at the tile line',
+            body: 'Suggests the leak is at or just below the waterline — often failing grout or a crack in the beam. Visible, and usually fixable without excavation.',
+          },
+          {
+            title: 'It keeps going below all the fittings',
+            body: 'Points to the main drain, the floor, or underground plumbing. This is the expensive category and the one that warrants professional detection before anyone digs.',
+          },
+          {
+            title: 'It only loses water when the pump runs',
+            body: 'Pressure-side plumbing. Loss only with the pump off suggests the suction side. This single observation saves detection time and therefore money.',
+          },
+        ].map((item) => (
+          <div class="rounded-2xl border border-navy-100 p-5">
+            <h3 class="text-base">{item.title}</h3>
+            <p class="mt-2 leading-relaxed text-navy-500">{item.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Why a leak costs more than the water</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      The water itself is cheap. Three other costs are not.
+    </p>
+    <div class="mt-4 space-y-4 leading-relaxed text-navy-600">
+      <p>
+        <strong class="text-navy-900">Chemicals leave with it.</strong> Every
+        gallon that escapes takes its chlorine, stabiliser and salt along. A pool
+        that will not hold chlorine and keeps needing salt is sometimes not a
+        chemistry problem at all.
+      </p>
+      <p>
+        <strong class="text-navy-900">Heat leaves with it.</strong> On a heated
+        pool, replacing warm water with cold mains water is a continuous and
+        surprisingly large energy bill.
+      </p>
+      <p>
+        <strong class="text-navy-900">Soil erodes.</strong> This is the one that
+        turns a cheap repair into an expensive one. Water tracking through the
+        ground carries fines with it, leaving voids that let decking crack and
+        settle — and in bad cases move the pool itself.
+      </p>
+    </div>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      That last point is why a persistent leak belongs in the remodeling
+      conversation rather than the maintenance one. Structural movement is
+      exactly what turns a resurfacing job into a rebuild.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">When to call a professional</h2>
+    <ul class="mt-5 space-y-3">
+      {
+        [
+          'The bucket test confirms a leak and the level drops below all visible fittings.',
+          'You see wet ground, sinking pavers, or unexplained lush grass near the equipment pad or plumbing runs.',
+          'Loss changes noticeably with the pump running, which points to plumbing rather than the shell.',
+          'The pool has visible structural cracking rather than surface crazing.',
+          'You have patched the obvious spots and the loss continues.',
+        ].map((item) => (
+          <li class="flex items-start gap-3">
+            <svg
+              class="mt-0.5 h-5 w-5 shrink-0 text-blue-500"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="text-navy-600">{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-5 leading-relaxed text-navy-600">
+      Detection typically runs $300 to $600 and is worth paying for before
+      excavation. Digging in the wrong place costs far more than the diagnosis.
+    </p>
+  </div>
+
+  <RelatedGuides slot="related" exclude="pool-care/losing-water" pillar="care" />
+</ArticleLayout>
