@@ -1,0 +1,55 @@
+---
+interface Props {
+  /** Slugs to exclude — normally the current page. */
+  exclude?: string;
+}
+
+const { exclude } = Astro.props;
+
+const ALL = [
+  {
+    slug: 'pool-volume',
+    name: 'Pool volume calculator',
+    blurb: 'Gallons, surface area, and perimeter from your dimensions.',
+    /** Carries the live gallons figure across when linked from a chemistry page. */
+    chain: true,
+  },
+  {
+    slug: 'surface-area',
+    name: 'Pool surface area calculator',
+    blurb: 'Square footage and perimeter — what resurfacing and covers are priced from.',
+  },
+  {
+    slug: 'chlorine-dosage',
+    name: 'Chlorine dosage calculator',
+    blurb: 'How much chlorine to add, by product type, to hit your target ppm.',
+    chain: true,
+  },
+  {
+    slug: 'pool-shock',
+    name: 'Pool shock calculator',
+    blurb: 'Breakpoint shock dose from your free and total chlorine readings.',
+    chain: true,
+  },
+];
+
+const items = ALL.filter((item) => item.slug !== exclude);
+---
+
+<div>
+  <h2 class="text-2xl">Related calculators</h2>
+  <div class="mt-6 grid gap-4 sm:grid-cols-2">
+    {
+      items.map((item) => (
+        <a
+          href={`/calculators/${item.slug}`}
+          data-chain={item.chain ? 'gallons' : undefined}
+          class="block rounded-2xl border border-navy-100 p-5 transition-shadow hover:shadow-md"
+        >
+          <p class="font-display font-semibold text-navy-900">{item.name}</p>
+          <p class="mt-1 text-sm leading-relaxed text-navy-500">{item.blurb}</p>
+        </a>
+      ))
+    }
+  </div>
+</div>

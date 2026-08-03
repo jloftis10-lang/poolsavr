@@ -1,0 +1,151 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+import CtaInline from '../../components/CtaInline.astro';
+import RelatedCalculators from '../../components/RelatedCalculators.astro';
+
+const faqs = [
+  {
+    q: 'How do I calculate the surface area of my pool?',
+    a: 'For a rectangular pool, multiply length by width. A 16 by 32 foot pool has 512 square feet of surface. Round pools use 3.14 times the radius squared, oval pools use 3.14 times half the length times half the width, and freeform pools use length times width times 0.85.',
+  },
+  {
+    q: 'Is pool surface area the same as square footage?',
+    a: 'Yes — surface area is the square footage of the water when viewed from above. It does not include the walls or floor, which is why a resurfacing quote covering the interior shell will reference a larger interior area than this figure.',
+  },
+  {
+    q: 'What is surface area used for?',
+    a: 'Solar cover and safety cover sizing, heater selection, evaporation estimates, and as the starting point for resurfacing and tiling quotes. Contractors price interior finishes from area and price coping and waterline tile from perimeter.',
+  },
+  {
+    q: 'How do I find the perimeter of my pool?',
+    a: 'A rectangle is twice the length plus twice the width. A circle is 3.14 times the diameter. Ovals need an ellipse approximation, which the calculator above handles. Perimeter is what waterline tile and coping are priced by the foot from.',
+  },
+  {
+    q: 'Does surface area include the steps?',
+    a: 'This calculator measures the main body of water at the waterline. A large tanning ledge or a wide set of entry steps adds surface area that a simple length-by-width figure misses, so measure those separately and add them if they are substantial.',
+  },
+];
+
+const sources = [
+  {
+    title: 'SI Units — Volume and Area',
+    publisher: 'NIST / U.S. Department of Commerce',
+    url: 'https://www.nist.gov/pml/owm/metric-si/si-units-volume',
+    accessed: 'August 2026',
+  },
+];
+---
+
+<CalculatorLayout
+  calculatorId="surface-area"
+  breadcrumbName="Pool Surface Area Calculator"
+  path="/calculators/surface-area/"
+  title="Pool Surface Area Calculator: Square Feet & Perimeter"
+  description="Find your pool's surface area in square feet and its perimeter in feet. Works for rectangle, oval, round, kidney and freeform pools."
+  h1="Pool Surface Area Calculator"
+  answer="Pool surface area is the square footage of the water seen from above. For a rectangular pool it is simply length times width — a 16 by 32 foot pool covers 512 square feet. Round, oval, and freeform shapes each use their own formula, all handled below."
+  publishDate={new Date('2026-08-03')}
+  faqs={faqs}
+  sources={sources}
+>
+  <div>
+    <h2 class="text-2xl">Why surface area matters more than people expect</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Volume gets all the attention because chemicals are dosed by gallon. But
+      when money is involved, surface area and perimeter are usually the numbers
+      doing the work.
+    </p>
+    <div class="mt-6 space-y-4 leading-relaxed text-navy-600">
+      <p>
+        <strong class="text-navy-900">Resurfacing is priced by area.</strong>{' '}
+        Plaster, pebble, and quartz finishes are quoted per square foot of
+        interior surface. Your waterline area is the starting point a contractor
+        works from.
+      </p>
+      <p>
+        <strong class="text-navy-900">Tile and coping are priced by perimeter.</strong>{' '}
+        Waterline tile runs the edge, so it is sold by the linear foot. Two pools
+        with identical square footage can differ substantially in perimeter — a
+        long narrow lap pool has far more edge than a square one of the same area.
+      </p>
+      <p>
+        <strong class="text-navy-900">Heat loss scales with area.</strong>{' '}
+        Most of a pool's heat escapes from the surface, which is why covers work
+        so well and why heater sizing considers area alongside volume.
+      </p>
+      <p>
+        <strong class="text-navy-900">Covers are sized from it.</strong>{' '}
+        Solar covers are cut to the water's shape; safety covers are measured to
+        the deck beyond it.
+      </p>
+    </div>
+  </div>
+
+  <CtaInline placement="costPage" />
+
+  <div>
+    <h2 class="text-2xl">The formulas</h2>
+    <div class="mt-5 space-y-4">
+      {
+        [
+          {
+            shape: 'Rectangular pools',
+            formula: 'Length × Width',
+            note: 'Exact, with no shape factor. Perimeter is 2 × (length + width).',
+          },
+          {
+            shape: 'Round pools',
+            formula: '3.14 × (Diameter ÷ 2)²',
+            note: 'Perimeter is simply 3.14 × diameter.',
+          },
+          {
+            shape: 'Oval pools',
+            formula: '3.14 × (Length ÷ 2) × (Width ÷ 2)',
+            note: 'Perimeter uses an ellipse approximation, since ellipses have no simple exact formula.',
+          },
+          {
+            shape: 'Kidney and freeform pools',
+            formula: 'Length × Width × 0.85',
+            note: 'The 0.85 factor accounts for the curves that stop the pool filling its bounding rectangle. Expect roughly 5% error.',
+          },
+        ].map((item) => (
+          <div class="rounded-2xl border border-navy-100 bg-navy-50 p-5">
+            <h3 class="text-base">{item.shape}</h3>
+            <p class="mt-2 font-display font-semibold text-blue-600">{item.formula}</p>
+            <p class="mt-2 text-sm text-navy-500">{item.note}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">Measuring accurately</h2>
+    <ol class="mt-5 space-y-4">
+      {
+        [
+          'Measure at the waterline, not across the deck or coping. Coping can add several inches on every side.',
+          'Take length at the longest point and width at the widest point.',
+          'For a freeform pool, measure the bounding box — the longest and widest points overall — and let the shape factor do the rest.',
+          'Measure a large tanning ledge separately and add its area if it is a significant part of the pool.',
+        ].map((step, index) => (
+          <li class="flex gap-4">
+            <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-500 font-display text-sm font-bold text-white">
+              {index + 1}
+            </span>
+            <span class="pt-0.5 leading-relaxed text-navy-600">{step}</span>
+          </li>
+        ))
+      }
+    </ol>
+    <p class="mt-5 leading-relaxed text-navy-600">
+      One caveat worth stating plainly: the interior surface a resurfacing crew
+      actually coats includes the walls and floor, which is a larger number than
+      the water's surface area. This calculator gives you the top-down figure —
+      the one used for covers, heat loss, and as the basis of a quote — not the
+      full interior shell.
+    </p>
+  </div>
+
+  <RelatedCalculators slot="related" exclude="surface-area" />
+</CalculatorLayout>

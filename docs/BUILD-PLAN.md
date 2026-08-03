@@ -145,18 +145,25 @@ hub crumb back in Phase 2B once the hub is real — linking or pointing schema a
 
 ---
 
-## Phase 2B — The calculator suite
+## Phase 2B — The calculator suite  🔄 in progress
 
-Eight calculators on the Phase 2A component, plus `/calculators/` as hub.
+Four of nine live: `/calculators/` hub, `pool-volume`, `surface-area`,
+`chlorine-dosage`, `pool-shock`. All four run off `CalculatorLayout`, so the
+remaining five are article-writing rather than engineering.
+
+`src/lib/chemistry.ts` is done and covers every remaining chemistry page —
+salt, muriatic acid and baking soda need only their field config and prose.
+Constants are derived from stoichiometry and pinned by `npm test` (17 tests)
+against published dosing tables.
 
 | Page | Depends on | Notes |
 | --- | --- | --- |
-| `surface-area/` | pool-math | Already computed; mostly a new article + framing |
-| `chlorine-dosage/` | new `chemistry.ts` | Dose by product: liquid, cal-hypo, dichlor, trichlor |
-| `pool-shock/` | chemistry.ts | By severity; cross-link green-pool both ways |
-| `salt-level/` | chemistry.ts | Current vs target ppm |
-| `muriatic-acid/` | chemistry.ts | pH and alkalinity down |
-| `baking-soda-alkalinity/` | chemistry.ts | Alkalinity up |
+| ~~`surface-area/`~~ | pool-math | **Done** |
+| ~~`chlorine-dosage/`~~ | chemistry.ts | **Done** — liquid, cal-hypo, dichlor, trichlor |
+| ~~`pool-shock/`~~ | chemistry.ts | **Done** — breakpoint from free/total readings |
+| `salt-level/` | chemistry.ts | `saltNeeded()` + `dilutionToLowerSalt()` ready |
+| `muriatic-acid/` | chemistry.ts | `acidForAlkalinity()` ready |
+| `baking-soda-alkalinity/` | chemistry.ts | `bakingSodaForAlkalinity()` ready |
 | `heater-size/` | new `equipment.ts` | BTU by volume, surface area, temp rise |
 | `pump-size/` | equipment.ts | Turnover rate and flow |
 

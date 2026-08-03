@@ -22,7 +22,7 @@ const editorialBase = z.object({
       z.object({
         title: z.string(),
         publisher: z.string(),
-        url: z.string().url(),
+        url: z.url(),
         accessed: z.string().optional(),
       }),
     )

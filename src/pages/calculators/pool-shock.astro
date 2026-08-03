@@ -1,0 +1,180 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+import CtaInline from '../../components/CtaInline.astro';
+import RelatedCalculators from '../../components/RelatedCalculators.astro';
+
+const faqs = [
+  {
+    q: 'How much shock do I need for my pool?',
+    a: 'Shocking to breakpoint means raising free chlorine to roughly ten times your combined chlorine reading. For a 20,000 gallon pool with 0.5 ppm combined and 1 ppm free, that means raising chlorine by about 4 ppm — around 15 oz of 73% cal-hypo.',
+  },
+  {
+    q: 'What is breakpoint chlorination?',
+    a: 'Chloramines form when chlorine combines with sweat, urine, and other organics. Adding a little chlorine makes more chloramines; adding enough destroys them entirely. The CDC puts that threshold at about ten times the combined chlorine reading. Stopping short makes the smell worse, not better.',
+  },
+  {
+    q: 'Why does my pool smell like chlorine after shocking?',
+    a: 'That smell is chloramines, not chlorine — it means you have too little free chlorine, not too much. A properly shocked pool smells of almost nothing. If the smell persists a day later, the shock dose was short of breakpoint.',
+  },
+  {
+    q: 'How long after shocking can I swim?',
+    a: 'Wait until free chlorine falls back below 4 ppm, which usually takes 8 to 24 hours depending on sunlight and how far above normal you went. Test rather than guessing, and keep the pump running the whole time.',
+  },
+  {
+    q: 'Should I shock at night?',
+    a: 'Yes. Sunlight destroys unstabilised chlorine quickly, so shocking after sunset gives the dose all night to work. Run the pump continuously while it does.',
+  },
+  {
+    q: 'Can I shock with liquid chlorine?',
+    a: 'Yes, and for many pools it is the better choice. Liquid adds no calcium and no stabiliser, so it will not push those levels up. It simply takes more volume than granular cal-hypo for the same ppm.',
+  },
+];
+
+const sources = [
+  {
+    title: '2023 Model Aquatic Health Code, 4th Edition — breakpoint chlorination',
+    publisher: 'Centers for Disease Control and Prevention',
+    url: 'https://www.cdc.gov/model-aquatic-health-code/media/pdfs/2023-MAHC-508.pdf',
+    accessed: 'August 2026',
+  },
+  {
+    title: 'Chloramines and Pool Operation',
+    publisher: 'Centers for Disease Control and Prevention',
+    url: 'https://www.cdc.gov/healthy-swimming/toolkit/chloramines-and-pool-operation.html',
+    accessed: 'August 2026',
+  },
+];
+---
+
+<CalculatorLayout
+  calculatorId="pool-shock"
+  breadcrumbName="Pool Shock Calculator"
+  path="/calculators/pool-shock/"
+  title="Pool Shock Calculator: How Much Shock Do I Need?"
+  description="Calculate the breakpoint shock dose for your pool from free and total chlorine readings. Works for liquid chlorine, cal-hypo and dichlor."
+  h1="Pool Shock Calculator"
+  answer="Shocking to breakpoint means raising free chlorine to about ten times your combined chlorine reading. Combined chlorine is total chlorine minus free chlorine. Enter both readings and your pool volume below and the calculator works out the dose for your chosen product."
+  publishDate={new Date('2026-08-03')}
+  faqs={faqs}
+  sources={sources}
+  disclaimer="chemistry"
+>
+  <div>
+    <h2 class="text-2xl">Why shocking works the way it does</h2>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      When chlorine meets sweat, sunscreen, urine, or leaf debris, it forms
+      chloramines — combined chlorine. Chloramines are weak sanitisers, they
+      irritate eyes, and they are the source of the smell people call a
+      "chlorine smell".
+    </p>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      Here is the counterintuitive part: adding a small amount of chlorine to a
+      pool full of chloramines makes the problem worse. You have to push past a
+      threshold, called breakpoint, where the chloramines are destroyed outright
+      rather than merely rearranged.
+    </p>
+    <p class="mt-4 leading-relaxed text-navy-600">
+      The CDC's Model Aquatic Health Code puts that threshold at roughly ten
+      times the combined chlorine reading. That is the whole basis of the
+      calculation above.
+    </p>
+    <div class="mt-6 rounded-2xl border border-navy-100 bg-navy-50 p-5">
+      <p class="font-display font-semibold text-blue-600">
+        (Combined chlorine × 10) − free chlorine = ppm you need to add
+      </p>
+      <p class="mt-2 text-sm text-navy-500">
+        Combined chlorine is simply total minus free. A pool reading 1 ppm free
+        and 2 ppm total has 1 ppm combined, and needs to reach 10 ppm free.
+      </p>
+    </div>
+  </div>
+
+  <CtaInline placement="careGuide" />
+
+  <div>
+    <h2 class="text-2xl">When to shock</h2>
+    <ul class="mt-5 space-y-3">
+      {
+        [
+          'Combined chlorine reads above about 0.5 ppm.',
+          'The water smells strongly of "chlorine" — that is chloramines, not chlorine.',
+          'After heavy bather load, a party, or anyone getting sick in the water.',
+          'After a storm, or any time debris has washed in.',
+          'The water has turned cloudy or green and chlorine will not hold.',
+          'At opening and closing for the season.',
+        ].map((item) => (
+          <li class="flex items-start gap-3">
+            <svg
+              class="mt-0.5 h-5 w-5 shrink-0 text-blue-500"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="text-navy-600">{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">How to shock properly</h2>
+    <ol class="mt-5 space-y-4">
+      {
+        [
+          'Test free and total chlorine, and confirm your pool volume. Everything below scales with gallons.',
+          'Balance pH to roughly 7.2 to 7.4 first. Chlorine is far more effective at the lower end of the normal range.',
+          'Shock after sunset. Sunlight destroys unstabilised chlorine within hours, and a daytime dose can be gone before it finishes working.',
+          'Pre-dissolve granular shock in a bucket of pool water, then pour it around the perimeter. Never broadcast granules over a vinyl liner.',
+          'Run the pump continuously for at least 8 hours so the dose reaches the whole pool.',
+          'Re-test before swimming, and wait until free chlorine falls below 4 ppm.',
+        ].map((step, index) => (
+          <li class="flex gap-4">
+            <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-500 font-display text-sm font-bold text-white">
+              {index + 1}
+            </span>
+            <span class="pt-0.5 leading-relaxed text-navy-600">{step}</span>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+
+  <div>
+    <h2 class="text-2xl">When shocking does not fix it</h2>
+    <div class="mt-4 space-y-4 leading-relaxed text-navy-600">
+      <p>
+        If you shocked to breakpoint and the water is still cloudy or the
+        chlorine vanished overnight, the usual causes are these.
+      </p>
+      <p>
+        <strong class="text-navy-900">The volume was wrong.</strong> An
+        underestimated pool gets an underdosed shock, which lands below
+        breakpoint and makes chloramines worse rather than better. This is the
+        first thing to rule out.
+      </p>
+      <p>
+        <strong class="text-navy-900">Cyanuric acid is very high.</strong>{' '}
+        Stabiliser slows chlorine down. Above roughly 100 ppm, reaching an
+        effective chlorine level gets difficult, and the fix is replacing water
+        rather than adding more chemical.
+      </p>
+      <p>
+        <strong class="text-navy-900">There is a live algae bloom.</strong>{' '}
+        Algae creates an ongoing chlorine demand, so a single shock gets consumed
+        before it can finish. That needs brushing, filtration, and repeated
+        dosing held at a high level over several days.
+      </p>
+      <p>
+        <strong class="text-navy-900">The filter is not keeping up.</strong>{' '}
+        Shock kills algae but does not remove it. Dead algae has to be filtered
+        out, which means a clean filter and long run times.
+      </p>
+    </div>
+  </div>
+
+  <RelatedCalculators slot="related" exclude="pool-shock" />
+</CalculatorLayout>

@@ -16,6 +16,7 @@ const POUNDS_PER_GALLON = 8.34;
 export const poolVolume: CalculatorDef = {
   id: 'pool-volume',
   inputTitle: 'Your pool',
+  resultLabel: 'Pool volume',
   fields: [
     {
       type: 'choice',

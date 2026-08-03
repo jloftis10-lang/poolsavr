@@ -1,3 +1,6 @@
+import { chlorineDosage } from './chlorine-dosage';
+import { poolShock } from './pool-shock';
+import { poolSurfaceArea } from './surface-area';
 import { poolVolume } from './pool-volume';
 import type { CalculatorDef } from './types';
 
@@ -8,6 +11,9 @@ import type { CalculatorDef } from './types';
  */
 export const CALCULATORS: Record<string, CalculatorDef> = {
   [poolVolume.id]: poolVolume,
+  [poolSurfaceArea.id]: poolSurfaceArea,
+  [chlorineDosage.id]: chlorineDosage,
+  [poolShock.id]: poolShock,
 };
 
 export const getCalculator = (id: string): CalculatorDef => {

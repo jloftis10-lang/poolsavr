@@ -8,7 +8,8 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test": "tsx --test test/*.test.ts"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -17,5 +18,8 @@
     "astro": "^7.1.6",
     "tailwindcss": "^4.0.0",
     "typescript": "^5.7.2"
+  },
+  "devDependencies": {
+    "tsx": "^4.23.5"
   }
 }

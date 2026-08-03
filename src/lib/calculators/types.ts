@@ -59,6 +59,8 @@ export interface CalculatorDef {
   id: string;
   /** Heading above the input panel. */
   inputTitle: string;
+  /** Label above the headline figure in the results panel. */
+  resultLabel: string;
   fields: Field[];
   compute: (values: Values) => CalculatorResult;
   /** Query params this calculator will read on load, e.g. ['gallons']. */
